@@ -23,12 +23,18 @@ My past formation (never really ended):
 At uni I learned about Computer Science and programming; at first, I was too much into Maths to dedicate myself extensively to those topics, but with time my interests grew. Most of my knowledge in this field is self-taught. The basics were laid down by some uni courses.
 
 I now work as a software developer for a startup in northern Italy.
-Some tasks I deal with:
+
+Some tasks I daily deal with:
 - backend and algorithm development (mainly in Java);
 - CI/CD - DevOps - DevSecOps (just learning about it now);
 - scripting (Bash, PowerShell, Python);
 - Linux (basic) configuration & management (both servers and clients): OS's (mainly Debian based), partitioning, network connections configuration, modems & routed access points, daemon configuration, etc. 
 
+Some of my further interests:
+- Linux kernel (more generally, OS's kernels) & practically everything about Linux;
+- security: servers', networks', web apps', mobiles', etc;
+- automation: make developers' life easier;
+- web development (I try to compensate my work's inclination to the backend / DevOps world; this page itself is just an experiment in that direction).
 
 ## Welcome to GitHub Pages
 
