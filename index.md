@@ -1,4 +1,4 @@
-## A funny picture of me
+## Pictures
 
 A funny picture of me :grin:
 
