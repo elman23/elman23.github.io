@@ -1,3 +1,8 @@
+## A funny picture of me
+
+![A funny picture of me](/images/my_pic.jpg)
+Nice view: ![The ocean](https://www.hdwallpapers10.com/wp-content/uploads/2017/05/Ocean%20view%20Free%20Download.jpg)
+
 ## Welcome to GitHub Pages
 
 You can use the [editor on GitHub](https://github.com/elman23/elman23.github.io/edit/main/index.md) to maintain and preview the content for your website in Markdown files.
