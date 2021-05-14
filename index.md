@@ -1,8 +1,11 @@
 ## A funny picture of me
 
+A funny picture of me :grin:
+
 ![A funny picture of me](images/my_pic.jpg)
 
-Nice view: ![The ocean](https://www.hdwallpapers10.com/wp-content/uploads/2017/05/Ocean%20view%20Free%20Download.jpg)
+A nice view
+![The ocean](https://www.hdwallpapers10.com/wp-content/uploads/2017/05/Ocean%20view%20Free%20Download.jpg)
 
 ## Welcome to GitHub Pages
 
