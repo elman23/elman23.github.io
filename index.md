@@ -1,11 +1,5 @@
 ## Who am I?
 
-A funny picture of me:
-
-<img src="images/my_pic.jpg" alt="A funny picture of me (not quite)" width="200">
-
-## Info 
-
 My name is E. 
 
 I have a deep interest in Mathematics and Physics; currently, I am trying to get as much as possible into Quantum Field Theory (time allowing).
