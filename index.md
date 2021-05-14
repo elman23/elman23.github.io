@@ -42,4 +42,4 @@ See [GitHub pages default](github-pages.md).
 
 ## Experimental pages
 
-See [this page](github-pages.md).
+See [this page](experimental.md).
