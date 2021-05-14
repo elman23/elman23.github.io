@@ -2,11 +2,16 @@
 
 A funny picture of me
 
-<img src="images/my_pic.jpg" width="75">
+<img src="images/my_pic.jpg" alt="A funny picture of me (not quite)" width="200">
 
-A nice view
-
-![The ocean](https://www.hdwallpapers10.com/wp-content/uploads/2017/05/Ocean%20view%20Free%20Download.jpg)
+To add images: either 
+```
+![Alt](url)
+```
+or
+```
+<img src="url" alt="alt" width="200">
+```
 
 ## Welcome to GitHub Pages
 
@@ -45,3 +50,9 @@ Your Pages site will use the layout and styles from the Jekyll theme you have se
 ### Support or Contact
 
 Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+
+## A nice view
+
+A nice view
+
+![The ocean](https://www.hdwallpapers10.com/wp-content/uploads/2017/05/Ocean%20view%20Free%20Download.jpg)
