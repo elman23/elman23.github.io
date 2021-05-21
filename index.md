@@ -2,7 +2,7 @@
 
 My name is E.
 
-I have a deep interest in Mathematics and Physics and Computer Science.
+I have deep interests in Mathematics, Physics and Computer Science.
 More generally, I can say: _Homo sum, humani nihil a me alienum puto_ (Publius Terentius Afer).
 
 I can define myself as a computer nerd: my interests mainly direct me in this area right now.
