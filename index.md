@@ -37,3 +37,7 @@ See [GitHub pages default](github-pages.md).
 ## Experimental pages
 
 See [this page](experimental.md).
+
+## For those who like formulas
+
+A page on [Schroedinger's equation](schroedinger.md).
