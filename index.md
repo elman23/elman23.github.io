@@ -41,7 +41,3 @@ See [GitHub pages default](github-pages.md).
 ## Experimental pages
 
 See [this page](experimental.md).
-
-## WriteUps
-
-- [TryHackMe Vulnversity](vulnversity.md)
