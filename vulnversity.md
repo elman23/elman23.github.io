@@ -2,11 +2,13 @@
 
 Writeup of the first TyHackMe room I completed.
 
-The room is guided, so it's quite easy to complete it. It teaches a lot...
+The room is guided, so it's quite easy to complete it. It teaches a lot to newbies. 
+
+In this writeup, I just follow the instructions given by TryHackMe. 
 
 ## Enumeration
 
-Enumeration with NMap:
+We enumerate the target machine, whose IP is `<MACHINE_IP>`, with `nmap`:
 
 ```sh
 nmap -sV <MACHINE_IP>
@@ -14,19 +16,21 @@ nmap -sV <MACHINE_IP>
 
 There is a web server running on port `3333`.
 
-Enumerate directories with GoBuster:
+We can then enumerate the paths on the webserver with `gobuster`:
 
 ```sh
 gobuster dir -u http://<MACHINE_IP>:3333 -w /usr/share/wordlists/dirb/small.txt
 ```
 
-We discover that there is an `/internal/` directory and we visit it. It accepts uploads!
+We discover that there is an `/internal/` path and we visit it. It accepts uploads!
 
 To identify which extensions are not blocked, we're going to fuzz the upload form. One possibility is to use BurpSuite, but `ffuf` is also available.
 
+We shall try with PHP-like extensions as `.php`, `.php3` or `.php4` or even `.phtml`.
+
 [MORE ON THIS!]
 
-We discover that the extension `.phtml` is not blocked in the upload page. Therefore, we get a classic [PHP reverse shell](https://github.com/pentestmonkey/php-reverse-shell/blob/master/php-reverse-shell.php):
+We discover that the extension `.phtml` is not blocked in the upload page. Therefore, we get this classic [PHP reverse shell](https://github.com/pentestmonkey/php-reverse-shell/blob/master/php-reverse-shell.php):
 
 ```php
 <?php
