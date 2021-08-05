@@ -1,6 +1,6 @@
 # Vulnversity
 
-Writeup of the first TyHackMe room I completed.
+Writeup of the first [TyHackMe room](https://tryhackme.com/room/vulnversity) I completed.
 
 The room is guided, so it's quite easy to complete it. It teaches a lot to newbies.
 
