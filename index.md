@@ -1,4 +1,4 @@
-# Página de los cursos de Matemática y Inglés
+# Página de los cursos del IESSP Don Bosco Chacas
 
 ## Chacas, 2023
 
