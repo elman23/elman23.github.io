@@ -1,5 +1,5 @@
-# elman23.github.io
+# ElMan23 GitHub Pages
 
-My GitHub Pages website.
+ElMan23 GitHub Pages website.
 
 Following [this GitHub Pages guide](https://guides.github.com/features/pages/).
