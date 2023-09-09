@@ -1,29 +1,38 @@
 # ElMan23 GitHub Pages
 
-Hi! 
+Hi!
 
 My name is ElMan23.
 
 I currently look for a job in the field of Computer Science.
 
 My interests:
-- Backend and algorithm development.
+
+- Backend, API and algorithm development.
 - DevOps, DevSecOps, GitOps.
 - Scripting and system administration.
 - Digging down in the kernels (still a newbie).
-- Cybersecurity, penetration testing, read & blue teaming.
+- Cybersecurity and penetration testing.
 
 The technologies that I know:
+
 - Java, Spring Boot.
-- JavaScript, NodeJS, a little bit of Angular and React.
-- Python, a little bit of Django and FastAPI.
+- JavaScript, NodeJS.
+- A little bit of Angular (mainly for frontend mantainment).
+- Python.
 - PowerShell and Bash.
-- Docker, Docker Compose, Docker Swarm, a little bit of Kubernetes.
+- Docker, Docker Compose, Docker Swarm.
 - GitHub, GitLab.
 - PostgreSQL, MySQL, MongoDB, InfluxDB.
 
 What I am currently studying:
+
 - Go Programming Language.
 - Kubernetes.
-- Python for backend and web development.
-- A little bit of Data Science.
+- Python for API development: Django and FastAPI.
+- React for frontend development.
+
+What interests me:
+
+- AI.
+- Data Science.
