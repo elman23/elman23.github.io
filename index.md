@@ -13,6 +13,8 @@ My interests:
 - Scripting and system administration.
 - Digging down in the kernels (still a newbie).
 - Cybersecurity and penetration testing.
+- AI.
+- Data Science.
 
 The technologies that I know:
 
@@ -31,8 +33,3 @@ What I am currently studying:
 - Kubernetes.
 - Python for API development: Django and FastAPI.
 - React for frontend development.
-
-What interests me:
-
-- AI.
-- Data Science.
