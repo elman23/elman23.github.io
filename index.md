@@ -33,3 +33,7 @@ What I am currently studying:
 - Kubernetes.
 - Python for API development: Django and FastAPI.
 - React for frontend development.
+
+Portfolio:
+
+- [Spring Boot REST API](https://github.com/elman23/book-rest-api/tree/main) a very simple project to showcase the implementation practices.
