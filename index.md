@@ -4,7 +4,9 @@ Hi!
 
 My name is ElMan23.
 
-I currently look for a job in the field of Computer Science.
+I currently look for a job as Software Developer / DevOps Engineer.
+
+## Interests
 
 My interests:
 
@@ -15,6 +17,8 @@ My interests:
 - Cybersecurity and penetration testing.
 - AI.
 - Data Science.
+
+## Technologies
 
 The technologies that I know:
 
@@ -27,12 +31,16 @@ The technologies that I know:
 - GitHub, GitLab.
 - PostgreSQL, MySQL, MongoDB, InfluxDB.
 
+## Studying
+
 What I am currently studying:
 
 - Go Programming Language.
 - Kubernetes.
 - Python for API development: Django and FastAPI.
 - React for frontend development.
+
+## Portfolio
 
 Portfolio:
 
