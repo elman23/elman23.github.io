@@ -2,7 +2,7 @@
 
 Hi!
 
-My name is ElMan23.
+My name is E.
 
 I currently look for a job as Software Developer / DevOps Engineer.
 
@@ -44,5 +44,5 @@ What I am currently studying:
 
 Portfolio:
 
-- [Spring Boot REST API](https://github.com/elman23/book-rest-api/tree/main): a very simple project to showcase the implementation practices.
-- [PostApp](https://github.com/elman23/postapp): simple FastAPI project implementing basic post functionality with authentication, users, database persistence.
+- [Book App](https://github.com/elman23/book-rest-api/tree/main): simple Spring Boot REST API to showcase the implementation practices.
+- [Post App](https://github.com/elman23/postapp): simple FastAPI project implementing basic post functionality with authentication, users, database persistence.
