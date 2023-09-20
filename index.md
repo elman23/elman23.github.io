@@ -44,4 +44,5 @@ What I am currently studying:
 
 Portfolio:
 
-- [Spring Boot REST API](https://github.com/elman23/book-rest-api/tree/main) a very simple project to showcase the implementation practices.
+- [Spring Boot REST API](https://github.com/elman23/book-rest-api/tree/main): a very simple project to showcase the implementation practices.
+- [PostApp](https://github.com/elman23/postapp): simple FastAPI project implementing basic post functionality with authentication, users, database persistence.
