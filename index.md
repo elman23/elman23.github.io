@@ -13,14 +13,13 @@ My interests:
 - Backend, API and algorithm development.
 - DevOps, DevSecOps, GitOps.
 - Scripting and system administration.
-- Digging down in the kernels (still a newbie).
-- Cybersecurity and penetration testing.
-- AI.
+- Cybersecurity.
 - Data Science.
+- AI.
 
 ## Technologies
 
-The technologies that I know:
+Technologies I worked with:
 
 - Java, Spring Boot.
 - JavaScript, NodeJS.
@@ -36,9 +35,17 @@ The technologies that I know:
 What I am currently studying:
 
 - Go Programming Language.
+- Python for API development: FastAPI.
+
+## For The Future
+
+Having the chance, I would very much like to learn more about:
+
+- Rust.
 - Kubernetes.
-- Python for API development: Django and FastAPI.
 - React for frontend development.
+- Android app development.
+- Kernels.
 
 ## Portfolio
 
