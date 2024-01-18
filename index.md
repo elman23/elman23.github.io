@@ -70,4 +70,5 @@ Portfolio:
 
 ## WriteUps
 
-- [UnderTheWire Century](UnderTheWire/Century/century.md)
+- [UnderTheWire Century](UnderTheWire/century.md)
+- [UnderTheWire Cyborg](UnderTheWire/cyborg.md)
