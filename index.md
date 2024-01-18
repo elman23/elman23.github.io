@@ -67,3 +67,7 @@ Portfolio:
 - [Book App](https://github.com/elman23/book-rest-api/tree/main): [Spring Boot](https://spring.io/projects/spring-boot/) REST API to showcase the implementation practices: Spring Boot, Spring Security, JPA.
 - [Post App](https://github.com/elman23/postapp): [FastAPI](https://fastapi.tiangolo.com/) project implementing basic "social media-like post" functionality with authentication, users, database support.
 - [Article API](https://github.com/elman23/articleapi): [Gorilla](https://gorilla.github.io/) REST API for articles with authentication and database support.
+
+## WriteUps
+
+- [UnderTheWire Century](UnderTheWire/Century/century.md)
