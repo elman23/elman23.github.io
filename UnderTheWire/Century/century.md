@@ -1,6 +1,6 @@
 # Century
 
-https://underthewire.tech/century-2
+[https://underthewire.tech/century-2](https://underthewire.tech/century-2)
 
 ## Century0
 
@@ -42,6 +42,8 @@ PSRemotingProtocolVersion      2.3
 SerializationVersion           1.1.0.1
 ```
 
+`century2:10.0.14393.5582`
+
 ## Century2
 
 The password for Century3 is the name of the built-in cmdlet that performs the wget like function within PowerShell PLUS the name of the file on the desktop.
@@ -51,7 +53,7 @@ NOTE:
 – The password will be lowercase no matter how it appears on the screen.
 
 ```
-PS C:\users\century2\desktop> ls
+PS C:\users\century2\desktop> Get-ChildItem
 
 
     Directory: C:\users\century2\desktop
@@ -69,6 +71,8 @@ CommandType     Name                                               Version    So
 Alias           wget -> Invoke-WebRequest
 ```
 
+`century3:invoke-webrequest443`
+
 ## Century3
 
 The password for Century4 is the number of files on the desktop.
@@ -84,6 +88,8 @@ Maximum  :
 Minimum  :
 Property :
 ```
+
+`century4:123`
 
 ## Century4
 
@@ -125,6 +131,8 @@ Mode                LastWriteTime         Length Name
 ----                -------------         ------ ----
 -a----        6/23/2022  10:24 PM             24 49125
 ```
+
+`century5:49125`
 
 ## Century5
 
@@ -184,6 +192,8 @@ UsersContainer                     : CN=Users,DC=underthewire,DC=tech
 
 Look for the `Name`.
 
+`century6:underthewire3347`
+
 ## Century6
 
 The password for Century7 is the number of folders on the desktop.
@@ -199,6 +209,8 @@ Maximum  :
 Minimum  :
 Property :
 ```
+
+`century7:197`
 
 ## Century7
 
@@ -240,6 +252,8 @@ PS C:\users\century7> Get-Content C:\Users\century7\Downloads\Readme.txt
 7points
 ```
 
+`century8:7points`
+
 ## Century8
 
 The password for Century9 is the number of unique entries within the file on the desktop.
@@ -266,6 +280,8 @@ Maximum  :
 Minimum  :
 Property :
 ```
+
+`century9:696`
 
 ## Century9
 
@@ -315,6 +331,8 @@ pierid
 PS C:\users\century9\desktop> (gc .\Word_File.txt).split(" ")[160]
 pierid
 ```
+
+`century10:pierid`
 
 ## Century10
 
@@ -583,6 +601,8 @@ At line:1 char:1
     + FullyQualifiedErrorId : DirUnauthorizedAccessError,Microsoft.PowerShell.Commands.GetChildItemCommand
 ```
 
+`century12:secret_sauce`
+
 ## Century12
 
 The password for Century13 is the description of the computer designated as a Domain Controller within this domain PLUS the name of the file on the desktop.
@@ -671,6 +691,8 @@ Lines Words Characters Property
         755
 ```
 
+`century14:755`
+
 ## Century14
 
 The password for Century15 is the number of times the word “polo” appears within the file on the desktop.
@@ -689,6 +711,8 @@ Maximum  :
 Minimum  :
 Property :
 ```
+
+`centry15:153`
 
 ## Century15
 
