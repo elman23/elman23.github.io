@@ -838,12 +838,309 @@ Therefore: `cyborg11:terminated!99`.
 
 The password for cyborg12 is located in the IIS log. The password is not Mozilla or Opera.
 
-**NOTE:**  
+NOTE:
 – The password will be lowercase no matter how it appears on the screen.
 
-**▼ **HINT:\*\*\*\*
-
+▼ HINT:
 A log is just a file, load the content then search what you are looking for or not what you looking for. Sometimes extra noise is a good thing.
+
+---
+
+Generally, IIS log files are stored in this default path:
+`%SystemDrive%\inetpub\logs\LogFiles`
+
+```
+PS C:\inetpub\logs\logfiles\w3svc1> pwd
+
+Path
+----
+C:\inetpub\logs\logfiles\w3svc1
+
+PS C:\inetpub\logs\logfiles\w3svc1> ls
+
+
+    Directory: C:\inetpub\logs\logfiles\w3svc1
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+-a----        8/30/2018   5:52 AM        1099641 u_ex160413.log
+
+PS C:\inetpub\logs\logfiles\w3svc1> Get-Content .\u_ex160413.log | Select-String "password"
+
+2016-04-13 04:14:12 W3SVC1 Century 172.31.45.65 GET / - 80 - 172.31.45.65 HTTP/1.1 LordHelmet/5.0+(CombTheDesert)+Password+is:spaceballs - -
+century.underthewire.tech 200 0 0 925 118 0
+```
+
+`cyborg12:spaceballs`
+
+## Cyborg12
+
+The password for cyborg13 is the first four characters of the base64 encoded full path to the file that started the i_heart_robots service PLUS the name of the file on the desktop.
+
+NOTE:
+– An example of a full path would be ‘c:\some_folder\test.exe’.
+– Be sure to use ‘unicode’ in your encoding.
+– If the encoded base64 is “rwmed2fdreewrt34t” and the file on the desktop is called “_address”, then the password is “rwme_address”.
+– The password will be lowercase no matter how it appears on the screen.
+
+▼ HINT:
+Remember there are two steps to base64 decode.
+
+---
+
+```
+PS C:\users\cyborg12\desktop> Get-ChildItem
+
+
+    Directory: C:\users\cyborg12\desktop
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+-a----        8/30/2018  10:45 AM              0 _heart
+```
+
+```
+PS C:\users\cyborg12\desktop> Get-WmiObject win32_service | ?{$_.Name -like "i_heart_robots"}
+
+
+ExitCode  : 1077
+Name      : i_heart_robots
+ProcessId : 0
+StartMode : Disabled
+State     : Stopped
+Status    : OK
+```
+
+```
+PS C:\users\cyborg12\desktop> Get-WmiObject win32_service | ?{$_.Name -like "i_heart_robots"} | Select-Object *
+
+
+PSComputerName          : UTW
+Name                    : i_heart_robots
+Status                  : OK
+ExitCode                : 1077
+DesktopInteract         : False
+ErrorControl            : Normal
+PathName                : c:\windows\system32\cmd.exe
+ServiceType             : Own Process
+StartMode               : Disabled
+__GENUS                 : 2
+__CLASS                 : Win32_Service
+__SUPERCLASS            : Win32_BaseService
+__DYNASTY               : CIM_ManagedSystemElement
+__RELPATH               : Win32_Service.Name="i_heart_robots"
+__PROPERTY_COUNT        : 26
+__DERIVATION            : {Win32_BaseService, CIM_Service, CIM_LogicalElement, CIM_ManagedSystemElement}
+__SERVER                : UTW
+__NAMESPACE             : root\cimv2
+__PATH                  : \\UTW\root\cimv2:Win32_Service.Name="i_heart_robots"
+AcceptPause             : False
+AcceptStop              : False
+Caption                 : i_heart_robots
+CheckPoint              : 0
+CreationClassName       : Win32_Service
+DelayedAutoStart        : False
+Description             : I be lovin some metal bots!
+DisplayName             : i_heart_robots
+InstallDate             :
+ProcessId               : 0
+ServiceSpecificExitCode : 0
+Started                 : False
+StartName               : LocalSystem
+State                   : Stopped
+SystemCreationClassName : Win32_ComputerSystem
+SystemName              : UTW
+TagId                   : 0
+WaitHint                : 0
+Scope                   : System.Management.ManagementScope
+Path                    : \\UTW\root\cimv2:Win32_Service.Name="i_heart_robots"
+Options                 : System.Management.ObjectGetOptions
+ClassPath               : \\UTW\root\cimv2:Win32_Service
+Properties              : {AcceptPause, AcceptStop, Caption, CheckPoint...}
+SystemProperties        : {__GENUS, __CLASS, __SUPERCLASS, __DYNASTY...}
+Qualifiers              : {dynamic, Locale, provider, UUID}
+Site                    :
+Container               :
+```
+
+```
+PS C:\users\cyborg12\desktop> Get-WmiObject win32_service | ?{$_.Name -like "i_heart_robots"} | Select-Object PathName
+
+PathName
+--------
+c:\windows\system32\cmd.exe
+```
+
+Base64 encode & decode in PowerShell: https://adsecurity.org/?p=478
+
+Encoding:
+```
+$Text = 'This is a secret and should be hidden'
+$Bytes = [System.Text.Encoding]::Unicode.GetBytes($Text)
+$EncodedText =[Convert]::ToBase64String($Bytes)
+$EncodedText
+```
+
+Decoding:
+```
+$EncodedText = "VABoAGkAcwAgAGkAcwAgAGEAIABzAGUAYwByAGUAdAAgAGEAbgBkACAAcwBoAG8AdQBsAGQAIABiAGUAIABoAGkAZABlAG4A"
+$DecodedText = [System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String($EncodedText))
+$DecodedText
+```
+
+Therefore:
+```
+PS C:\users\cyborg12\desktop> Get-WmiObject win32_service | ?{$_.Name -like "i_heart_robots"} | Select-Object PathName
+
+PathName
+--------
+c:\windows\system32\cmd.exe
+
+
+PS C:\users\cyborg12\desktop> $Bytes = [System.Text.Encoding]::Unicode.GetBytes("c:\windows\system32\cmd.exe")
+PS C:\users\cyborg12\desktop> $EncodedText =[Convert]::ToBase64String($Bytes)
+PS C:\users\cyborg12\desktop> $EncodedText
+YwA6AFwAdwBpAG4AZABvAHcAcwBcAHMAeQBzAHQAZQBtADMAMgBcAGMAbQBkAC4AZQB4AGUA
+```
+
+The guess:
+`cyborg13:ywa6_heart`
+
+## Cyborg13
+
+The password cyborg14 is the number of days the refresh interval is set to for DNS aging for the underthewire.tech zone PLUS the name of the file on the desktop.
+
+NOTE:
+– If the days are set to “08:00:00:00” and the file on the desktop is called “_tuesday”, then the password is “8_tuesday”.
+– The password will be lowercase no matter how it appears on the screen.
+
+▼ HINT:
+WMI or cmdlets… choices, choices.
+
+---
+
+```
+PS C:\users\cyborg13\desktop> Get-ChildItem
+
+
+    Directory: C:\users\cyborg13\desktop
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+-a----        8/30/2018  10:45 AM              0 _days
+```
+
+```
+PS C:\users\cyborg13\desktop> Get-DnsServerZoneAging
+
+cmdlet Get-DnsServerZoneAging at command pipeline position 1
+Supply values for the following parameters:
+Name[0]:
+PS C:\users\cyborg13\desktop> Get-DnsServerZoneAging underthewire.tech
+
+
+ZoneName             : underthewire.tech
+AgingEnabled         : True
+AvailForScavengeTime : 9/21/2018 10:00:00 AM
+RefreshInterval      : 22.00:00:00
+NoRefreshInterval    : 7.00:00:00
+ScavengeServers      :
+
+
+PS C:\users\cyborg13\desktop> Get-DnsServerZoneAging underthewire.tech | Select-Object *
+
+
+ScavengeServers       :
+AgingEnabled          : True
+AvailForScavengeTime  : 9/21/2018 10:00:00 AM
+NoRefreshInterval     : 7.00:00:00
+RefreshInterval       : 22.00:00:00
+ZoneName              : underthewire.tech
+PSComputerName        :
+CimClass              : root/Microsoft/Windows/DNS:DnsServerZoneAging
+CimInstanceProperties : {AgingEnabled, AvailForScavengeTime, NoRefreshInterval, RefreshInterval...}
+CimSystemProperties   : Microsoft.Management.Infrastructure.CimSystemProperties
+```
+
+`cyborg14:22_days`
+
+## Cyborg14
+
+The password for cyborg15 is the caption for the DCOM application setting for application ID {59B8AFA0-229E-46D9-B980-DDA2C817EC7E} PLUS the name of the file on the desktop.
+
+NOTE:
+– If the caption is “dcom” and the file on the desktop is called “_address”, then the password is “dcom_address”.
+– The password will be lowercase no matter how it appears on screen.
+
+▼ HINT:
+win32_DCOMApplicationSetting
+
+---
+
+```
+PS C:\users\cyborg14\desktop> Get-ChildItem
+
+
+    Directory: C:\users\cyborg14\desktop
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+-a----        8/30/2018  10:45 AM              0 _objects
+```
+
+```
+PS C:\users\cyborg14\desktop> Get-WmiObject Win32_DCOMApplicationSetting | ?{$_.AppID -like "{59B8AFA0-229E-46D9-B980-DDA2C817EC7E}"}
+
+
+__GENUS                   : 2
+__CLASS                   : Win32_DCOMApplicationSetting
+__SUPERCLASS              : Win32_COMSetting
+__DYNASTY                 : CIM_Setting
+__RELPATH                 : Win32_DCOMApplicationSetting.AppID="{59B8AFA0-229E-46d9-B980-DDA2C817EC7E}"
+__PROPERTY_COUNT          : 12
+__DERIVATION              : {Win32_COMSetting, CIM_Setting}
+__SERVER                  : UTW
+__NAMESPACE               : root\cimv2
+__PATH                    : \\UTW\root\cimv2:Win32_DCOMApplicationSetting.AppID="{59B8AFA0-229E-46d9-B980-DDA2C817EC7E}"
+AppID                     : {59B8AFA0-229E-46d9-B980-DDA2C817EC7E}
+AuthenticationLevel       :
+Caption                   : propshts
+CustomSurrogate           :
+Description               : propshts
+EnableAtStorageActivation : False
+LocalService              :
+RemoteServerName          :
+RunAsUser                 :
+ServiceParameters         :
+SettingID                 :
+UseSurrogate              : False
+PSComputerName            : UTW
+```
+
+```
+PS C:\users\cyborg14\desktop> Get-WmiObject Win32_DCOMApplicationSetting | ?{$_.AppID -like "{59B8AFA0-229E-46D9-B980-DDA2C817EC7E}"} | Select-O
+bject Caption
+
+Caption
+-------
+propshts
+```
+
+`cyborg15:propshts_objects`
+
+## Cyborg15
+
+Congratulations!
+
+You have successfully made it to the end!
+
+Try your luck with other games brought to you by the Under The Wire team.
+
+Thanks for playing!
 
 ## Links
 
