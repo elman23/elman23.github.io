@@ -70,5 +70,11 @@ Portfolio:
 
 ## WriteUps
 
+### OverTheWire
+
+- [OverTheWire Bandit](OverTheWire/bandit.md)
+
+### UnderTheWire
+
 - [UnderTheWire Century](UnderTheWire/century.md)
 - [UnderTheWire Cyborg](UnderTheWire/cyborg.md)
