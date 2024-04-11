@@ -16,7 +16,7 @@ My role gives me the opportunity to get some hands-on experience into different 
 - deployment, containerization, CI/CD, DevOps practices;
 - Linux system management;
 - data analysis;
-- basic machine learing algorithms.
+- machine learing.
 
 ## Interests
 
@@ -36,25 +36,21 @@ Technologies I worked with:
 - Java, Spring Boot, Vaadin;
 - JavaScript, NodeJS;
 - Python, FastAPI;
+- Jupyter Notebooks, Jupyter Lab, notebooks (Kaggle, Colab);
 - A little bit of Angular (mainly for frontend mantainment);
 - PowerShell and Bash;
 - Docker, Docker Compose, Docker Swarm;
 - GitHub, GitLab;
 - PostgreSQL, MySQL, MongoDB, InfluxDB.
 
-## Studying
+## Other Interests
 
-What I am currently studying:
+What I'd like to learn:
 
-- Go Programming Language;
+- Rust programming languange;
+- Go programming language;
 - Python for API development;
-- Python for ML.
-
-## For The Future
-
-Having the chance, I would very much like to learn more about:
-
-- Rust;
+- Python for ML;
 - Kubernetes;
 - React for frontend development;
 - Android app development;
