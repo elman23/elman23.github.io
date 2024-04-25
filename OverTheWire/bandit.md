@@ -238,3 +238,114 @@ VGhlIHBhc3N3b3JkIGlzIDZ6UGV6aUxkUjJSS05kTllGTmI2blZDS3pwaGxYSEJNCg==
 bandit10@bandit:~$ cat data.txt | base64 -d
 The password is 6zPeziLdR2RKNdNYFNb6nVCKzphlXHBM
 ```
+
+## Level 12
+
+### Task
+
+The password for the next level is stored in the file `data.txt`, where all lowercase (`a-z`) and uppercase (`A-Z`) letters have been rotated by 13 positions.
+
+### Solution
+
+```
+bandit11@bandit:~$ ls
+data.txt
+bandit11@bandit:~$ cat data.txt
+Gur cnffjbeq vf WIAOOSFzMjXXBC0KoSKBbJ8puQm5lIEi
+```
+
+[Here](https://stackoverflow.com/questions/5442436/using-rot13-and-tr-command-for-having-an-encrypted-email-address) one finds something about Rot13:
+
+```
+echo 'fooman@example.com' | tr 'A-Za-z' 'N-ZA-Mn-za-m'
+```
+
+and
+
+```
+alias rot13="tr 'A-Za-z' 'N-ZA-Mn-za-m'"
+```
+
+Thus:
+
+```
+bandit11@bandit:~$ alias rot13="tr 'A-Za-z' 'N-ZA-Mn-za-m'"
+bandit11@bandit:~$ cat data.txt | rot13
+The password is JVNBBFSmZwKKOP0XbFXOoW8chDz5yVRv
+```
+
+## Leve 13
+
+### Task
+
+The password for the next level is stored in the file `data.txt`, which is a hexdump of a file that has been repeatedly compressed. For this level it may be useful to create a directory under `/tmp` in which you can work. Use `mkdir` with a hard to guess directory name. Or better, use the command `mktemp -d`. Then copy the datafile using `cp`, and rename it using `mv` (read the manpages!).
+
+### Solution
+
+```
+bandit12@bandit:~$ ls
+data.txt
+bandit12@bandit:~$ mkdir /tmp/mysecrettmpdir
+bandit12@bandit:~$ cd /tmp/mysecrettmpdir
+bandit12@bandit:/tmp/mysecrettmpdir$ xxd -r data.txt > a
+bandit12@bandit:/tmp/mysecrettmpdir$ ls -l
+total 8
+-rw-rw-r-- 1 bandit12 bandit12  606 Apr 25 19:58 a
+-rw-r----- 1 bandit12 bandit12 2582 Apr 25 19:57 data.txt
+bandit12@bandit:/tmp/mysecrettmpdir$ file a
+a: gzip compressed data, was "data2.bin", last modified: Thu Oct  5 06:19:20 2023, max compression, from Unix, original size modulo 2^32 573
+bandit12@bandit:/tmp/mysecrettmpdir$ mv a a.gz
+bandit12@bandit:/tmp/mysecrettmpdir$ gunzip a.gz
+bandit12@bandit:/tmp/mysecrettmpdir$ ls
+a  data.txt
+bandit12@bandit:/tmp/mysecrettmpdir$ file a
+a: bzip2 compressed data, block size = 900k
+bandit12@bandit:/tmp/mysecrettmpdir$ mv a a.bz2
+bandit12@bandit:/tmp/mysecrettmpdir$ bzip2 -d a.bz2
+bandit12@bandit:/tmp/mysecrettmpdir$ ls -l
+total 8
+-rw-rw-r-- 1 bandit12 bandit12  431 Apr 25 19:58 a
+-rw-r----- 1 bandit12 bandit12 2582 Apr 25 19:57 data.txt
+bandit12@bandit:/tmp/mysecrettmpdir$ file a
+a: gzip compressed data, was "data4.bin", last modified: Thu Oct  5 06:19:20 2023, max compression, from Unix, original size modulo 2^32 20480
+bandit12@bandit:/tmp/mysecrettmpdir$ mv a a.gz
+bandit12@bandit:/tmp/mysecrettmpdir$ gunzip a
+bandit12@bandit:/tmp/mysecrettmpdir$ ls
+a  data.txt
+bandit12@bandit:/tmp/mysecrettmpdir$ file a
+a: POSIX tar archive (GNU)
+bandit12@bandit:/tmp/mysecrettmpdir$ mv a a.tar
+bandit12@bandit:/tmp/mysecrettmpdir$ tar -xvf a.tar
+data5.bin
+bandit12@bandit:/tmp/mysecrettmpdir$ file data5.bin
+data5.bin: POSIX tar archive (GNU)
+bandit12@bandit:/tmp/mysecrettmpdir$ mv data5.bin b.tar
+bandit12@bandit:/tmp/mysecrettmpdir$ tar tvf b.tar
+-rw-r--r-- root/root       217 2023-10-05 06:19 data6.bin
+bandit12@bandit:/tmp/mysecrettmpdir$ tar xvf b.tar
+data6.bin
+bandit12@bandit:/tmp/mysecrettmpdir$ file data6.bin
+data6.bin: bzip2 compressed data, block size = 900k
+bandit12@bandit:/tmp/mysecrettmpdir$ mv data6.bin c.bz2
+bandit12@bandit:/tmp/mysecrettmpdir$ bzip2 -d c.bz2
+bandit12@bandit:/tmp/mysecrettmpdir$ ls
+a.tar  b.tar  c  data.txt
+bandit12@bandit:/tmp/mysecrettmpdir$ file c
+c: POSIX tar archive (GNU)
+bandit12@bandit:/tmp/mysecrettmpdir$ mv c c.tar
+bandit12@bandit:/tmp/mysecrettmpdir$ tar tvf c.tar
+-rw-r--r-- root/root        79 2023-10-05 06:19 data8.bin
+bandit12@bandit:/tmp/mysecrettmpdir$ tar xvf c.tar
+data8.bin
+bandit12@bandit:/tmp/mysecrettmpdir$ file data8.bin
+data8.bin: gzip compressed data, was "data9.bin", last modified: Thu Oct  5 06:19:20 2023, max compression, from Unix, original size modulo 2^32 49
+9:20 2023, max compression, from Unix, original size modulo 2^32 49
+bandit12@bandit:/tmp/mysecrettmpdir$ mv data8.bin d.gz
+bandit12@bandit:/tmp/mysecrettmpdir$ gunzip d.gz
+bandit12@bandit:/tmp/mysecrettmpdir$ ls
+a.tar  b.tar  c.tar  d  data.txt
+bandit12@bandit:/tmp/mysecrettmpdir$ file d
+d: ASCII text
+bandit12@bandit:/tmp/mysecrettmpdir$ cat d
+The password is wbWdlBxEir4CaE8LaPhauuOo6pwRmrDw
+```
