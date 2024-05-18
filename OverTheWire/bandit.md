@@ -18,7 +18,7 @@ ssh bandit0@bandit.labs.overthewire.org -p 2220
 
 and insert the password `bandit0` when asked for it.
 
-## Level 1
+## Level 0 -> 1
 
 ### Task
 
@@ -26,14 +26,23 @@ The password for the next level is stored in a file called `readme` located in t
 
 ### Solution
 
+We first `ssh` as `bandit0`. Then we issue the `ls` command which lists files in our current directory.
+
 ```
 bandit0@bandit:~$ ls
 readme
+```
+
+We can read the content of a file with the `cat` command.
+
+```
 bandit0@bandit:~$ cat readme
 NH2SXQwcBdpmTEzi3bvBHMM9H66vVXjL
 ```
 
-## Level 2
+This looks like the password for the next level...
+
+## Level 1 -> 2
 
 ### Task
 
@@ -41,9 +50,16 @@ The password for the next level is stored in a file called `-` located in the ho
 
 ### Solution
 
+We list files as before.
+
 ```
 bandit1@bandit:~$ ls
 -
+```
+
+Here we have out `-` file. Though, if we try the command `cat -`, we get some problems. The solution is as follows.
+
+```
 bandit1@bandit:~$ cat ./-
 rRGizSaX8Mk1RTb1CNQoXTcYZWU6lgzi
 ```
@@ -59,6 +75,11 @@ The password for the next level is stored in a file called `spaces in this filen
 ```
 bandit2@bandit:~$ ls
 spaces in this filename
+```
+
+We surround the filename with quotes (`"`).
+
+```
 bandit2@bandit:~$ cat "spaces in this filename"
 aBZ0W5EmUfAf7kHTQeOwd8bauFJ2lAiG
 ```
@@ -399,7 +420,7 @@ Therefore:
 vim bandit14
 ```
 
-and paste the private key in there;
+and paste the private key in there; then
 
 ```
 chmod 600 bandit14
@@ -442,8 +463,10 @@ The password for the next level can be retrieved by submitting the password of t
 
 ### Solution
 
+We look for some info about `openssl s_client` using `tldr`.
+
 ```
-tldr openssl s_client
+$ tldr openssl s_client
 
 openssl s_client
 
@@ -1089,7 +1112,7 @@ You do not need to create new connections each time.
 
 ### Solution
 
-Example Bash `for` loop producing all numbers between 1 and 1000:
+Example Bash `for` loop producing all numbers between $1$ and $1000$:
 
 ```
 for i in {1..10}; do echo $i; done
@@ -1233,11 +1256,21 @@ bandit26@bandit:~$ cat text.txt
  | '_ \ / _` | '_ \ / _` | | __| / / '_ \
  | |_) | (_| | | | | (_| | | |_ / /| (_) |
  |_.__/ \__,_|_| |_|\__,_|_|\__|____\___/
+```
+
+We try to execute `bandit27-do`.
+
+```
 bandit26@bandit:~$ ./bandit27-do
 Run a command as another user.
   Example: ./bandit27-do id
 bandit26@bandit:~$ ./bandit27-do id
 uid=11026(bandit26) gid=11026(bandit26) euid=11027(bandit27) groups=11026(bandit26)
+```
+
+This suggests to proceed as follows:
+
+```
 bandit26@bandit:~$ ./bandit27-do whoami
 bandit27
 bandit26@bandit:~$ ./bandit27-do cat /etc/bandit_pass/bandit27
@@ -1254,9 +1287,16 @@ Clone the repository and find the password for the next level.
 
 ### Solution
 
+We cannot clone the repository in out home directory, since we have no write permissions there.
+
 ```
 bandit27@bandit:~$ git clone ssh://bandit27-git@localhost:2220/home/bandit27-git/repo
 fatal: could not create work tree dir 'repo': Permission denied
+```
+
+The solution is to create a directory into `/tmp`:
+
+```
 bandit27@bandit:~$ cd /tmp
 bandit27@bandit:/tmp$ git clone ssh://bandit27-git@localhost:2220/home/bandit27-git/repo
 Cloning into 'repo'...
@@ -1282,14 +1322,16 @@ remote: Counting objects: 100% (3/3), done.
 remote: Compressing objects: 100% (2/2), done.
 remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
 Receiving objects: 100% (3/3), 287 bytes | 287.00 KiB/s, done.
-bandit27@bandit:/tmp$ ls
-ls: cannot open directory '.': Permission denied
+```
+
+Then we move into `repo` and list the files.
+
+```
 bandit27@bandit:/tmp$ cd repo
 bandit27@bandit:/tmp/repo$ ls
 README
 bandit27@bandit:/tmp/repo$ cat README
 The password to the next level is: AVanL161y9rsbcJIsFHuw35rjaOM19nR
-bandit27@bandit:/tmp/repo$
 ```
 
 ## Level 29
@@ -1301,6 +1343,8 @@ There is a git repository at `ssh://bandit28-git@localhost/home/bandit28-git/rep
 Clone the repository and find the password for the next level.
 
 ### Solution
+
+As above, work from `/tmp`.
 
 ```
 bandit28@bandit:/tmp$ cd /tmp && mkdir mydir123 && cd mydir123 && git clone ssh://bandit28-git@localhost:2220/home/bandit28-git/repo
@@ -1328,7 +1372,9 @@ remote: Compressing objects: 100% (6/6), done.
 remote: Total 9 (delta 2), reused 0 (delta 0), pack-reused 0
 Receiving objects: 100% (9/9), done.
 Resolving deltas: 100% (2/2), done.
-bandit28@bandit:/tmp/mydir123$
+```
+
+```
 bandit28@bandit:/tmp/mydir123$ cd repo
 bandit28@bandit:/tmp/mydir123/repo$ ls
 README.md
@@ -1341,6 +1387,11 @@ Some notes for level29 of bandit.
 - username: bandit29
 - password: xxxxxxxxxx
 
+```
+
+There seems to be no password here. Right, _seems_. Use the `git log` command to view the commits.
+
+```
 bandit28@bandit:/tmp/mydir123/repo$ git log --oneline
 14f754b (HEAD -> master, origin/master, origin/HEAD) fix info leak
 f08b9cc add missing data
@@ -1381,16 +1432,16 @@ Clone the repository and find the password for the next level.
 
 ### Solution
 
+Work from `/tmp`.
+
 ```
-bandit29@bandit:~$ cd tmp
--bash: cd: tmp: No such file or directory
 bandit29@bandit:~$ cd /tmp
 bandit29@bandit:/tmp$ mkdir bandit29tmp
 bandit29@bandit:/tmp$ cd bandit29tmp
 bandit29@bandit:/tmp/bandit29tmp$
 ```
 
-To clone: `ssh://bandit29-git@localhost:2220/home/bandit29-git/repo`.
+To clone: `ssh://bandit29-git@localhost:2220/home/bandit29-git/repo`. Therefore:
 
 ```
 bandit29@bandit:/tmp/bandit29tmp$ git clone ssh://bandit29-git@localhost:2220/home/bandit29-git/repo
@@ -1418,14 +1469,17 @@ remote: Compressing objects: 100% (11/11), done.
 remote: Total 16 (delta 2), reused 0 (delta 0), pack-reused 0
 Receiving objects: 100% (16/16), done.
 Resolving deltas: 100% (2/2), done.
+```
+
+Move into `repo` and have a look around.
+
+```
 bandit29@bandit:/tmp/bandit29tmp$ cd repo
 bandit29@bandit:/tmp/bandit29tmp/repo$ git log --oneline
 4364630 (HEAD -> master, origin/master, origin/HEAD) fix username
 fca34dd initial commit of README.md
 bandit29@bandit:/tmp/bandit29tmp/repo$ git checkout -b tmp fca34dd
 Switched to a new branch 'tmp'
-bandit29@bandit:/tmp/bandit29tmp/repo$ cat READm
-cat: READm: No such file or directory
 bandit29@bandit:/tmp/bandit29tmp/repo$ cat README.md
 # Bandit Notes
 Some notes for bandit30 of bandit.
@@ -1435,104 +1489,9 @@ Some notes for bandit30 of bandit.
 - username: bandit29
 - password: <no passwords in production!>
 
-bandit29@bandit:/tmp/bandit29tmp/repo$ git fetch origin
-The authenticity of host '[localhost]:2220 ([127.0.0.1]:2220)' can't be established.
-ED25519 key fingerprint is SHA256:C2ihUBV7ihnV1wUXRb4RrEcLfXC5CXlhmAAM/urerLY.
-This key is not known by any other names
-Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
-Could not create directory '/home/bandit29/.ssh' (Permission denied).
-Failed to add the host to the list of known hosts (/home/bandit29/.ssh/known_hosts).
-                         _                     _ _ _
-                        | |__   __ _ _ __   __| (_) |_
-                        | '_ \ / _` | '_ \ / _` | | __|
-                        | |_) | (_| | | | | (_| | | |_
-                        |_.__/ \__,_|_| |_|\__,_|_|\__|
-
-
-                      This is an OverTheWire game server.
-            More information on http://www.overthewire.org/wargames
-
-bandit29-git@localhost's password:
-bandit29@bandit:/tmp/bandit29tmp/repo$ git branch -r
-  origin/HEAD -> origin/master
-  origin/dev
-  origin/master
-  origin/sploits-dev
-bandit29@bandit:/tmp/bandit29tmp/repo$ git checkout origin/sploits-dev
-Note: switching to 'origin/sploits-dev'.
-
-You are in 'detached HEAD' state. You can look around, make experimental
-changes and commit them, and you can discard any commits you make in this
-state without impacting any branches by switching back to a branch.
-
-If you want to create a new branch to retain commits you create, you may
-do so (now or later) by using -c with the switch command. Example:
-
-  git switch -c <new-branch-name>
-
-Or undo this operation with:
-
-  git switch -
-
-Turn off this advice by setting config variable advice.detachedHead to false
-
-HEAD is now at 07b750d add some silly exploit, just for shit and giggles
-bandit29@bandit:/tmp/bandit29tmp/repo$ git checkout -b  origin/sploits-dev
-Switched to a new branch 'origin/sploits-dev'
-bandit29@bandit:/tmp/bandit29tmp/repo$ ls
-exploits  README.md
-bandit29@bandit:/tmp/bandit29tmp/repo$ cat README.md
-# Bandit Notes
-Some notes for bandit30 of bandit.
-
-## credentials
-
-- username: bandit30
-- password: <no passwords in production!>
-
-bandit29@bandit:/tmp/bandit29tmp/repo$ cat exploits/
-cat: exploits/: Is a directory
-bandit29@bandit:/tmp/bandit29tmp/repo$ ls exploits/
-horde5.md
-bandit29@bandit:/tmp/bandit29tmp/repo$ cat exploits/horde5.md
-
-bandit29@bandit:/tmp/bandit29tmp/repo$ git checkout -b origin/dev
-Switched to a new branch 'origin/dev'
-bandit29@bandit:/tmp/bandit29tmp/repo$ cat README.md
-# Bandit Notes
-Some notes for bandit30 of bandit.
-
-## credentials
-
-- username: bandit30
-- password: <no passwords in production!>
-
-bandit29@bandit:/tmp/bandit29tmp/repo$ git checkout -b origin/master
-Switched to a new branch 'origin/master'
-bandit29@bandit:/tmp/bandit29tmp/repo$ ls
-exploits  README.md
-bandit29@bandit:/tmp/bandit29tmp/repo$  cat README.md
-# Bandit Notes
-Some notes for bandit30 of bandit.
-
-## credentials
-
-- username: bandit30
-- password: <no passwords in production!>
-
-bandit29@bandit:/tmp/bandit29tmp/repo$ ls exploits/
-horde5.md
-bandit29@bandit:/tmp/bandit29tmp/repo$ ls -l exploits/
-total 4
--rw-rw-r-- 1 bandit29 bandit29 1 May 18 12:41 horde5.md
-bandit29@bandit:/tmp/bandit29tmp/repo$ file exploits/
-exploits/: directory
-bandit29@bandit:/tmp/bandit29tmp/repo$ file exploits/horde5.md
-exploits/horde5.md: very short file (no magic)
-bandit29@bandit:/tmp/bandit29tmp/repo$
 ```
 
-Again:
+Let's look if there are other branches...
 
 ```
 bandit29@bandit:/tmp/bandit29tmp/repo$ git branch -r
@@ -1540,6 +1499,11 @@ bandit29@bandit:/tmp/bandit29tmp/repo$ git branch -r
   origin/dev
   origin/master
   origin/sploits-dev
+```
+
+Then:
+
+```
 bandit29@bandit:/tmp/bandit29tmp/repo$ git checkout dev
 Branch 'dev' set up to track remote branch 'dev' from 'origin'.
 Switched to a new branch 'dev'
@@ -1601,6 +1565,9 @@ remote: Enumerating objects: 4, done.
 remote: Counting objects: 100% (4/4), done.
 remote: Total 4 (delta 0), reused 0 (delta 0), pack-reused 0
 Receiving objects: 100% (4/4), done.
+```
+
+```
 bandit30@bandit:/tmp/bandit30tmp$ cd repo
 bandit30@bandit:/tmp/bandit30tmp/repo$ ls
 README.md
@@ -1658,13 +1625,14 @@ Failed to add the host to the list of known hosts (/home/bandit31/.ssh/known_hos
             More information on http://www.overthewire.org/wargames
 
 bandit31-git@localhost's password:
-
 remote: Enumerating objects: 4, done.
 remote: Counting objects: 100% (4/4), done.
 remote: Compressing objects: 100% (3/3), done.
 remote: Total 4 (delta 0), reused 0 (delta 0), pack-reused 0
 Receiving objects: 100% (4/4), done.
-bandit31@bandit:/tmp/bandit31tmp$
+```
+
+```
 bandit31@bandit:/tmp/bandit31tmp$ cd repo
 bandit31@bandit:/tmp/bandit31tmp/repo$ ls
 README.md
@@ -1705,18 +1673,21 @@ Failed to add the host to the list of known hosts (/home/bandit31/.ssh/known_hos
 
 bandit31-git@localhost's password:
 Everything up-to-date
+```
+
+Strange... It seems not to have committed out file!
+
+```
 bandit31@bandit:/tmp/bandit31tmp/repo$ git status
 On branch master
 Your branch is up to date with 'origin/master'.
 
 nothing to commit, working tree clean
-bandit31@bandit:/tmp/bandit31tmp/repo$ ls
-key.txt  README.md
-bandit31@bandit:/tmp/bandit31tmp/repo$ ls
-key.txt  README.md
 bandit31@bandit:/tmp/bandit31tmp/repo$ git log --oneline
 12c8b5c (HEAD -> master, origin/master, origin/HEAD) initial commit
 ```
+
+Let's try to be more explicit.
 
 ```
 bandit31@bandit:/tmp/bandit31tmp/repo$ git add key.txt
@@ -1730,26 +1701,9 @@ On branch master
 Your branch is up to date with 'origin/master'.
 
 nothing to commit, working tree clean
-bandit31@bandit:/tmp/bandit31tmp/repo$ git push
-The authenticity of host '[localhost]:2220 ([127.0.0.1]:2220)' can't be established.
-ED25519 key fingerprint is SHA256:C2ihUBV7ihnV1wUXRb4RrEcLfXC5CXlhmAAM/urerLY.
-This key is not known by any other names
-Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
-Could not create directory '/home/bandit31/.ssh' (Permission denied).
-Failed to add the host to the list of known hosts (/home/bandit31/.ssh/known_hosts).
-                         _                     _ _ _
-                        | |__   __ _ _ __   __| (_) |_
-                        | '_ \ / _` | '_ \ / _` | | __|
-                        | |_) | (_| | | | | (_| | | |_
-                        |_.__/ \__,_|_| |_|\__,_|_|\__|
-
-
-                      This is an OverTheWire game server.
-            More information on http://www.overthewire.org/wargames
-
-bandit31-git@localhost's password:
-Everything up-to-date
 ```
+
+Ah! The `.gitignore` file!
 
 ```
 bandit31@bandit:/tmp/bandit31tmp/repo$ vim .gitignore
@@ -1780,9 +1734,6 @@ Failed to add the host to the list of known hosts (/home/bandit31/.ssh/known_hos
                       This is an OverTheWire game server.
             More information on http://www.overthewire.org/wargames
 
-bandit31-git@localhost's password:
-
-Permission denied, please try again.
 bandit31-git@localhost's password:
 Enumerating objects: 4, done.
 Counting objects: 100% (4/4), done.
@@ -1912,6 +1863,8 @@ WELCOME TO THE UPPERCASE SHELL
 >>
 ```
 
+This seems to be quite clearly some shell that converts all the input stuff to uppercase... Try some command to verify the theory.
+
 ```
 >> ls
 sh: 1: LS: Permission denied
@@ -1919,12 +1872,16 @@ sh: 1: LS: Permission denied
 sh: 1: WHOAMI: Permission denied
 ```
 
-Spawn a normal shell. Use the variable `$0`.
+This fact makes the shell unusable for us, the uppercase commands do not work.
+
+We can though spawn a normal shell. Use the variable `$0`.
 
 ```
 >> $0
 $
 ```
+
+Seems to work...
 
 ```
 $ whoami
