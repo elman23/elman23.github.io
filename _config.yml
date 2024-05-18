@@ -1,5 +1,70 @@
-remote_theme: pages-themes/hacker@v0.2.0
+# Set theme
+remote_theme: daviddarnes/alembic@main
+
+# File excludes
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+
+# Set plugins
 plugins:
+  - jekyll-sitemap
+  - jekyll-mentions
+  - jekyll-paginate
+  - jekyll-seo-tag
+  - jekyll-redirect-from
+  - jekyll-feed
+  - jekyll-commonmark
+  - jekyll-include-cache
+  - jemoji
   - jekyll-remote-theme
-title: ElMan23 GitHub Pages
-description: ElMan23 GitHub Pages
+
+# Site settings
+url: "https://elman23.github.io"
+baseurl: ""
+title: "ElMan23 GitHub Pages"
+description: "ElMan23 GitHub Pages"
+permalink: pretty
+logo: "https://www.gravatar.com/avatar/6c0377abcf4da91cdd35dea4554b2a4c?s=52"
+
+# Pagination
+paginate: 5
+paginate_path: blog/page:num
+
+# Header nav
+navigation_header:
+  - title: Home
+    url: /
+  - title: About
+    url: /about/
+  - title: Blog
+    url: /blog/
+
+# Footer nav
+navigation_footer:
+  - title: Back to top
+    url: "#top"
+
+# Collections
+collections:
+  posts:
+    title: ElMan23 GitHub Pages
+    output: true
+    description: "ElMan23 GitHub Pages"
+    feature_text: |
+      Welcome to my blog
+
+# Collection settings
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: post # Set the default layout for posts
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: page # Set the default layout for pages
+s
