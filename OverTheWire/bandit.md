@@ -1565,3 +1565,388 @@ index 1af21d3..a4b1cf1 100644
 +- password: xbhV3HpNGlTIdnjUrdAlPzc2L6y9EOnS
 
 ```
+
+## Level 31
+
+### Task
+
+There is a git repository at `ssh://bandit30-git@localhost/home/bandit30-git/repo` via the port `2220`. The password for the user `bandit30-git` is the same as for the user `bandit30`.
+
+Clone the repository and find the password for the next level.
+
+### Solution
+
+```
+bandit30@bandit:~$ cd /tmp && mkdir bandit30tmp && cd bandit30tmp
+bandit30@bandit:/tmp/bandit30tmp$ git clone ssh://bandit30-git@localhost:2220/home/bandit30-git/repo
+Cloning into 'repo'...
+The authenticity of host '[localhost]:2220 ([127.0.0.1]:2220)' can't be established.
+ED25519 key fingerprint is SHA256:C2ihUBV7ihnV1wUXRb4RrEcLfXC5CXlhmAAM/urerLY.
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Could not create directory '/home/bandit30/.ssh' (Permission denied).
+Failed to add the host to the list of known hosts (/home/bandit30/.ssh/known_hosts).
+                         _                     _ _ _
+                        | |__   __ _ _ __   __| (_) |_
+                        | '_ \ / _` | '_ \ / _` | | __|
+                        | |_) | (_| | | | | (_| | | |_
+                        |_.__/ \__,_|_| |_|\__,_|_|\__|
+
+
+                      This is an OverTheWire game server.
+            More information on http://www.overthewire.org/wargames
+
+bandit30-git@localhost's password:
+remote: Enumerating objects: 4, done.
+remote: Counting objects: 100% (4/4), done.
+remote: Total 4 (delta 0), reused 0 (delta 0), pack-reused 0
+Receiving objects: 100% (4/4), done.
+bandit30@bandit:/tmp/bandit30tmp$ cd repo
+bandit30@bandit:/tmp/bandit30tmp/repo$ ls
+README.md
+bandit30@bandit:/tmp/bandit30tmp/repo$ cat README.md
+just an epmty file... muahaha
+bandit30@bandit:/tmp/bandit30tmp/repo$ git log --oneline
+d39631d (HEAD -> master, origin/master, origin/HEAD) initial commit of README.md
+bandit30@bandit:/tmp/bandit30tmp/repo$ git branch -r
+  origin/HEAD -> origin/master
+  origin/master
+```
+
+But:
+
+```
+bandit30@bandit:/tmp/bandit30tmp/repo$ git tag
+secret
+bandit30@bandit:/tmp/bandit30tmp/repo$ git show secret
+OoffzGDlzhAlerFJ2cAiz1D41JW1Mhmt
+```
+
+## Level 32
+
+### Task
+
+There is a git repository at `ssh://bandit31-git@localhost/home/bandit31-git/repo` via the port `2220`. The password for the user `bandit31-git` is the same as for the user `bandit31`.
+
+Clone the repository and find the password for the next level.
+
+### Solution
+
+Therefore: `ssh://bandit31-git@localhost:2220/home/bandit31-git/repo`.
+
+```
+bandit31@bandit:/tmp$ cd /tmp && mkdir bandit31tmp && cd bandit31tmp
+```
+
+```
+bandit31@bandit:/tmp/bandit31tmp$ git clone ssh://bandit31-git@localhost:2220/home/bandit31-git/repo
+Cloning into 'repo'...
+The authenticity of host '[localhost]:2220 ([127.0.0.1]:2220)' can't be established.
+ED25519 key fingerprint is SHA256:C2ihUBV7ihnV1wUXRb4RrEcLfXC5CXlhmAAM/urerLY.
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Could not create directory '/home/bandit31/.ssh' (Permission denied).
+Failed to add the host to the list of known hosts (/home/bandit31/.ssh/known_hosts).
+                         _                     _ _ _
+                        | |__   __ _ _ __   __| (_) |_
+                        | '_ \ / _` | '_ \ / _` | | __|
+                        | |_) | (_| | | | | (_| | | |_
+                        |_.__/ \__,_|_| |_|\__,_|_|\__|
+
+
+                      This is an OverTheWire game server.
+            More information on http://www.overthewire.org/wargames
+
+bandit31-git@localhost's password:
+
+remote: Enumerating objects: 4, done.
+remote: Counting objects: 100% (4/4), done.
+remote: Compressing objects: 100% (3/3), done.
+remote: Total 4 (delta 0), reused 0 (delta 0), pack-reused 0
+Receiving objects: 100% (4/4), done.
+bandit31@bandit:/tmp/bandit31tmp$
+bandit31@bandit:/tmp/bandit31tmp$ cd repo
+bandit31@bandit:/tmp/bandit31tmp/repo$ ls
+README.md
+bandit31@bandit:/tmp/bandit31tmp/repo$ cat README.md
+This time your task is to push a file to the remote repository.
+
+Details:
+    File name: key.txt
+    Content: 'May I come in?'
+    Branch: master
+
+```
+
+```
+bandit31@bandit:/tmp/bandit31tmp/repo$ echo "May I come in?" > key.txt
+bandit31@bandit:/tmp/bandit31tmp/repo$ git add .
+bandit31@bandit:/tmp/bandit31tmp/repo$ git commit -m "commit"
+On branch master
+Your branch is up to date with 'origin/master'.
+
+nothing to commit, working tree clean
+bandit31@bandit:/tmp/bandit31tmp/repo$ git push
+The authenticity of host '[localhost]:2220 ([127.0.0.1]:2220)' can't be established.
+ED25519 key fingerprint is SHA256:C2ihUBV7ihnV1wUXRb4RrEcLfXC5CXlhmAAM/urerLY.
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Could not create directory '/home/bandit31/.ssh' (Permission denied).
+Failed to add the host to the list of known hosts (/home/bandit31/.ssh/known_hosts).
+                         _                     _ _ _
+                        | |__   __ _ _ __   __| (_) |_
+                        | '_ \ / _` | '_ \ / _` | | __|
+                        | |_) | (_| | | | | (_| | | |_
+                        |_.__/ \__,_|_| |_|\__,_|_|\__|
+
+
+                      This is an OverTheWire game server.
+            More information on http://www.overthewire.org/wargames
+
+bandit31-git@localhost's password:
+Everything up-to-date
+bandit31@bandit:/tmp/bandit31tmp/repo$ git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+nothing to commit, working tree clean
+bandit31@bandit:/tmp/bandit31tmp/repo$ ls
+key.txt  README.md
+bandit31@bandit:/tmp/bandit31tmp/repo$ ls
+key.txt  README.md
+bandit31@bandit:/tmp/bandit31tmp/repo$ git log --oneline
+12c8b5c (HEAD -> master, origin/master, origin/HEAD) initial commit
+```
+
+```
+bandit31@bandit:/tmp/bandit31tmp/repo$ git add key.txt
+The following paths are ignored by one of your .gitignore files:
+key.txt
+hint: Use -f if you really want to add them.
+hint: Turn this message off by running
+hint: "git config advice.addIgnoredFile false"
+bandit31@bandit:/tmp/bandit31tmp/repo$ git commit -m "commit"
+On branch master
+Your branch is up to date with 'origin/master'.
+
+nothing to commit, working tree clean
+bandit31@bandit:/tmp/bandit31tmp/repo$ git push
+The authenticity of host '[localhost]:2220 ([127.0.0.1]:2220)' can't be established.
+ED25519 key fingerprint is SHA256:C2ihUBV7ihnV1wUXRb4RrEcLfXC5CXlhmAAM/urerLY.
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Could not create directory '/home/bandit31/.ssh' (Permission denied).
+Failed to add the host to the list of known hosts (/home/bandit31/.ssh/known_hosts).
+                         _                     _ _ _
+                        | |__   __ _ _ __   __| (_) |_
+                        | '_ \ / _` | '_ \ / _` | | __|
+                        | |_) | (_| | | | | (_| | | |_
+                        |_.__/ \__,_|_| |_|\__,_|_|\__|
+
+
+                      This is an OverTheWire game server.
+            More information on http://www.overthewire.org/wargames
+
+bandit31-git@localhost's password:
+Everything up-to-date
+```
+
+```
+bandit31@bandit:/tmp/bandit31tmp/repo$ vim .gitignore
+```
+
+Remove `*.txt` from there.
+
+```
+bandit31@bandit:/tmp/bandit31tmp/repo$ git add key.txt
+bandit31@bandit:/tmp/bandit31tmp/repo$ git commit -m "commit"
+[master f6c389c] commit
+ 1 file changed, 1 insertion(+)
+ create mode 100644 key.txt
+bandit31@bandit:/tmp/bandit31tmp/repo$ git push
+The authenticity of host '[localhost]:2220 ([127.0.0.1]:2220)' can't be established.
+ED25519 key fingerprint is SHA256:C2ihUBV7ihnV1wUXRb4RrEcLfXC5CXlhmAAM/urerLY.
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Could not create directory '/home/bandit31/.ssh' (Permission denied).
+Failed to add the host to the list of known hosts (/home/bandit31/.ssh/known_hosts).
+                         _                     _ _ _
+                        | |__   __ _ _ __   __| (_) |_
+                        | '_ \ / _` | '_ \ / _` | | __|
+                        | |_) | (_| | | | | (_| | | |_
+                        |_.__/ \__,_|_| |_|\__,_|_|\__|
+
+
+                      This is an OverTheWire game server.
+            More information on http://www.overthewire.org/wargames
+
+bandit31-git@localhost's password:
+
+Permission denied, please try again.
+bandit31-git@localhost's password:
+Enumerating objects: 4, done.
+Counting objects: 100% (4/4), done.
+Delta compression using up to 2 threads
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 316 bytes | 316.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+remote: ### Attempting to validate files... ####
+remote:
+remote: .oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
+remote:
+remote: Well done! Here is the password for the next level:
+remote: rmCBvG56y58BXzv98yZGdO7ATVL5dW8y
+remote:
+remote: .oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.oOo.
+remote:
+To ssh://localhost:2220/home/bandit31-git/repo
+ ! [remote rejected] master -> master (pre-receive hook declined)
+error: failed to push some refs to 'ssh://localhost:2220/home/bandit31-git/repo'
+```
+
+## Level 33
+
+### Task
+
+After all this `git` stuff its time for another escape. Good luck!
+
+### Solution
+
+```
+$ ssh bandit32@bandit.labs.overthewire.org -p 2220                                     1 ↵
+                         _                     _ _ _
+                        | |__   __ _ _ __   __| (_) |_
+                        | '_ \ / _` | '_ \ / _` | | __|
+                        | |_) | (_| | | | | (_| | | |_
+                        |_.__/ \__,_|_| |_|\__,_|_|\__|
+
+
+                      This is an OverTheWire game server.
+            More information on http://www.overthewire.org/wargames
+
+bandit32@bandit.labs.overthewire.org's password:
+
+      ,----..            ,----,          .---.
+     /   /   \         ,/   .`|         /. ./|
+    /   .     :      ,`   .'  :     .--'.  ' ;
+   .   /   ;.  \   ;    ;     /    /__./ \ : |
+  .   ;   /  ` ; .'___,/    ,' .--'.  '   \' .
+  ;   |  ; \ ; | |    :     | /___/ \ |    ' '
+  |   :  | ; | ' ;    |.';  ; ;   \  \;      :
+  .   |  ' ' ' : `----'  |  |  \   ;  `      |
+  '   ;  \; /  |     '   :  ;   .   \    .\  ;
+   \   \  ',  /      |   |  '    \   \   ' \ |
+    ;   :    /       '   :  |     :   '  |--"
+     \   \ .'        ;   |.'       \   \ ;
+  www. `---` ver     '---' he       '---" ire.org
+
+
+Welcome to OverTheWire!
+
+If you find any problems, please report them to the #wargames channel on
+discord or IRC.
+
+--[ Playing the games ]--
+
+  This machine might hold several wargames.
+  If you are playing "somegame", then:
+
+    * USERNAMES are somegame0, somegame1, ...
+    * Most LEVELS are stored in /somegame/.
+    * PASSWORDS for each level are stored in /etc/somegame_pass/.
+
+  Write-access to homedirectories is disabled. It is advised to create a
+  working directory with a hard-to-guess name in /tmp/.  You can use the
+  command "mktemp -d" in order to generate a random and hard to guess
+  directory in /tmp/.  Read-access to both /tmp/ is disabled and to /proc
+  restricted so that users cannot snoop on eachother. Files and directories
+  with easily guessable or short names will be periodically deleted! The /tmp
+  directory is regularly wiped.
+  Please play nice:
+
+    * don't leave orphan processes running
+    * don't leave exploit-files laying around
+    * don't annoy other players
+    * don't post passwords or spoilers
+    * again, DONT POST SPOILERS!
+      This includes writeups of your solution on your blog or website!
+
+--[ Tips ]--
+
+  This machine has a 64bit processor and many security-features enabled
+  by default, although ASLR has been switched off.  The following
+  compiler flags might be interesting:
+
+    -m32                    compile for 32bit
+    -fno-stack-protector    disable ProPolice
+    -Wl,-z,norelro          disable relro
+
+  In addition, the execstack tool can be used to flag the stack as
+  executable on ELF binaries.
+
+  Finally, network-access is limited for most levels by a local
+  firewall.
+
+--[ Tools ]--
+
+ For your convenience we have installed a few useful tools which you can find
+ in the following locations:
+
+    * gef (https://github.com/hugsy/gef) in /opt/gef/
+    * pwndbg (https://github.com/pwndbg/pwndbg) in /opt/pwndbg/
+    * peda (https://github.com/longld/peda.git) in /opt/peda/
+    * gdbinit (https://github.com/gdbinit/Gdbinit) in /opt/gdbinit/
+    * pwntools (https://github.com/Gallopsled/pwntools)
+    * radare2 (http://www.radare.org/)
+
+--[ More information ]--
+
+  For more information regarding individual wargames, visit
+  http://www.overthewire.org/wargames/
+
+  For support, questions or comments, contact us on discord or IRC.
+
+  Enjoy your stay!
+
+WELCOME TO THE UPPERCASE SHELL
+>>
+```
+
+```
+>> ls
+sh: 1: LS: Permission denied
+>> whoami
+sh: 1: WHOAMI: Permission denied
+```
+
+The shell converts every command into uppercase. We need to fix it and gain the normal shell again. Since this is an interactive shell, we have the chance to execute it again using the variable `$0`.
+
+```
+>> $0
+$
+```
+
+```
+$ whoami
+bandit33
+$ pwd
+/home/bandit32
+$ ls -al
+total 36
+drwxr-xr-x  2 root     root      4096 Oct  5  2023 .
+drwxr-xr-x 70 root     root      4096 Oct  5  2023 ..
+-rw-r--r--  1 root     root       220 Jan  6  2022 .bash_logout
+-rw-r--r--  1 root     root      3771 Jan  6  2022 .bashrc
+-rw-r--r--  1 root     root       807 Jan  6  2022 .profile
+-rwsr-x---  1 bandit33 bandit32 15128 Oct  5  2023 uppershell
+$ cat /etc/bandit_pass/bandt33
+cat: /etc/bandit_pass/bandt33: No such file or directory
+$ cat /etc/bandit_pass/bandit33
+odHo63fHiFqcWWJG9rLiLDtPm45KzUKy
+```
+
+## Level 34
+
+### Task
+
+At this moment, level 34 does not exist yet.
