@@ -1191,11 +1191,11 @@ bandit25@bandit:~$ ls -l /home/bandit26/text.txt
 -rw-r----- 1 bandit26 bandit26 258 Oct  5  2023 /home/bandit26/text.txt
 ```
 
-What we need to do is to trigger more to go into its command view so that the program doesn’t just exit. In other words, make your terminal as small as possible then ssh in.
+Trigger `more` to go into _command view_. Make the terminal small and execute the `ssh` command.
 
 Then press `v` to turn `more` into `vim` editing the file.
 
-Here: `:e /etc/bandit_pass/bandit26`.
+Now open the `bandit26` password file (just for cuiosity): `:e /etc/bandit_pass/bandit26`.
 
 Get:
 
@@ -1919,7 +1919,7 @@ sh: 1: LS: Permission denied
 sh: 1: WHOAMI: Permission denied
 ```
 
-The shell converts every command into uppercase. We need to fix it and gain the normal shell again. Since this is an interactive shell, we have the chance to execute it again using the variable `$0`.
+Spawn a normal shell. Use the variable `$0`.
 
 ```
 >> $0
