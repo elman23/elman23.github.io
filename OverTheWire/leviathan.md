@@ -474,3 +474,25 @@ Print the number as decimal:
 (gdb) print/d 0x00001bd3
 $2 = 7123
 ```
+
+Finally:
+
+```
+leviathan6@gibson:~$ ls
+leviathan6
+leviathan6@gibson:~$ ./leviathan6 7123
+$ whoami
+leviathan7
+$ cat /etc/leviathan_pass/leviathan7
+8GpZ5f8Hze
+```
+
+## Level 7
+
+```
+leviathan7@gibson:~$ ls
+CONGRATULATIONS
+leviathan7@gibson:~$ cat CONGRATULATIONS
+Well Done, you seem to have used a *nix system before, now try something more serious.
+(Please don't post writeups, solutions or spoilers about the games on the web. Thank you!)
+```
