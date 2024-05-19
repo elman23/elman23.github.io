@@ -169,3 +169,72 @@ leviathan4
 $ cat /etc/leviathan_pass/leviathan4
 AgvropI4OA
 ```
+
+## Level 4 -> 5
+
+```
+leviathan4@gibson:~$ ls
+leviathan4@gibson:~$ ls -la
+total 24
+drwxr-xr-x  3 root root       4096 Oct  5  2023 .
+drwxr-xr-x 83 root root       4096 Oct  5  2023 ..
+-rw-r--r--  1 root root        220 Jan  6  2022 .bash_logout
+-rw-r--r--  1 root root       3771 Jan  6  2022 .bashrc
+-rw-r--r--  1 root root        807 Jan  6  2022 .profile
+dr-xr-x---  2 root leviathan4 4096 Oct  5  2023 .trash
+leviathan4@gibson:~$ cd .trash/
+leviathan4@gibson:~/.trash$ ls
+bin
+leviathan4@gibson:~/.trash$ ./bin
+01000101 01001011 01001011 01101100 01010100 01000110 00110001 01011000 01110001 01110011 00001010
+leviathan4@gibson:~/.trash$ ltrace bin
+Can't execute `bin': Permission denied
+failed to initialize process 795368: No such file or directory
+couldn't open program 'bin': No such file or directory
+leviathan4@gibson:~/.trash$ strace bin
+strace: Can't stat 'bin': No such file or directory
+leviathan4@gibson:~/.trash$ ltrace ./bin
+__libc_start_main(0x80491a6, 1, 0xffffd644, 0 <unfinished ...>
+fopen("/etc/leviathan_pass/leviathan5", "r")     = 0
++++ exited (status 255) +++
+leviathan4@gibson:~/.trash$ file bin
+bin: setuid ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux.so.2, BuildID[sha1]=8a80a5de629bf55ff162e8110099b5c4e77a4bb1, for GNU/Linux 3.2.0, not stripped
+```
+
+From [here](https://www.geeksforgeeks.org/python-program-to-convert-binary-to-ascii/):
+
+```
+# Function to convert binary to ASCII value
+def binary_to_string(bits):
+    return ''.join([chr(int(i, 2)) for i in bits])
+
+# Driver Code
+
+# This is the binary equivalent of string "GFG"
+bin_values = ['01000111', '01000110', '01000111']
+
+# calling the function
+# and storing the result in variable 's'
+s = binary_to_string(bin_values)
+
+# Printing the result
+print("The string created from the binary parts : ",s)
+```
+
+Our case:
+
+```
+def binary_to_string(bits):
+    return ''.join([chr(int(i, 2)) for i in bits])
+
+bin_values = ["01000101", "01001011", "01001011", "01101100", "01010100", "01000110", "00110001", "01011000", "01110001", "01110011", "00001010"]
+s = binary_to_string(bin_values)
+print(s)
+```
+
+```
+>>> bin_values = ["01000101", "01001011", "01001011", "01101100", "01010100", "01000110", "00110001", "01011000", "01110001", "01110011", "00001010"]
+>>> s = binary_to_string(bin_values)
+>>> print(s)
+EKKlTF1Xqs
+```
