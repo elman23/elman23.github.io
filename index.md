@@ -75,6 +75,7 @@ Experimenting:
 ### OverTheWire
 
 - [OverTheWire Bandit](OverTheWire/bandit.md)
+- [OverTheWire Leviathan](OverTheWire/leviathan.md)
 
 ### UnderTheWire
 
