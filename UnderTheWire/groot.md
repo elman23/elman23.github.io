@@ -4,41 +4,40 @@
 
 The goal of this level is to log into the game. Do the following in order to achieve this goal.
 
-1. Obtain the initial credentials via the #StartHere channel on our Slack (link). Once you are in the channel, scroll to the top to see the credentials.
+1. Obtain the initial credentials via the **#StartHere** channel on our Slack. Once you are in the channel, scroll to the top to see the credentials.
 
-2. After obtaining the credentials, connect to the server via SSH. You will need an SSH client such as Putty. The host that you will be connecting to is groot.underthewire.tech, on port 22.
+2. After obtaining the credentials, connect to the server via SSH. You will need an SSH client such as Putty. The host that you will be connecting to is `groot.underthewire.tech`, on port 22.
 
-3. When prompted, use the credentials for the applicable game found in the #StartHere Slack channel.
+3. When prompted, use the credentials for the applicable game found in the **#StartHere** Slack channel.
 
-4. You have successfully connected to the game server when your path changes to “PS C:\Users\Groot1\desktop>”.
+4. You have successfully connected to the game server when your path changes to `PS C:\Users\Groot1\desktop>`.
 
 ---
 
 `groot1:groot1`
 
-## Groot1
+## Level 1 -> 2
 
-The password for groot2 is the last five alphanumeric characters of the MD5 hash of this system’s hosts file.
+The password for `groot2` is the last five alphanumeric characters of the MD5 hash of this system’s hosts file.
 
-NOTE:
-– The password will be lowercase no matter how it appears on the screen.
+**NOTE**: The password will be lowercase no matter how it appears on the screen.
 
-IMPORTANT:
-Once you feel you have completed the Groot1 challenge, start a new connection to the server, and log in with the username of Groot2 and this password will be the answer from Groot1. If successful, close out the Groot1 connection and begin to solve the Groot2 challenge. This concept is repeated over and over until you reach the end of the game.
+**IMPORTANT**:
+Once you feel you have completed the `groot1` challenge, start a new connection to the server, and log in with the username of `groot2` and this password will be the answer from `groot1`. If successful, close out the `groot1` connection and begin to solve the `groot2` challenge. This concept is repeated over and over until you reach the end of the game.
 
 ---
 
-```
+```powershell
 Get-FileHash <filepath> -Algorithm MD5
 ```
 
-The hosts file in Windows is
+The hosts file in Windows is:
 
 ```
 C:\Windows\System32\drivers\etc\hosts
 ```
 
-```
+```powershell
 PS C:\users\Groot1\desktop> Get-FileHash C:\Windows\System32\drivers\etc\hosts -
 Algorithm MD5
 
@@ -52,3 +51,5 @@ Therefore:
 ```
 groot2:464c3
 ```
+
+## Level 2 -> 3
