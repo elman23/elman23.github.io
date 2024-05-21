@@ -4,15 +4,18 @@ Hi!
 
 My name is E.
 
-I have a background in pure Mathematics, for few years I first did researcher (I have a PhD) and I worked as a teacher.
+I have a background in pure Mathematics.
 
-I currently work as Software Developer and DevOps Engineer in a small company.
+I have some experience with pure research (I have a PhD); for some years I also worked as a teacher.
+
+I currently work as Software Developer in a small company.
+
+Since the team is not that big, I have some experience with different aspects of software development, delivery, testing, system management.
 
 My role gives me the opportunity to get some hands-on experience into different fields:
 
 - backend development (Java, Spring Boot);
-- full-stack development with Spring Boot and Vaadin;
-- database management and queries;
+- database management;
 - deployment, containerization, CI/CD, DevOps practices;
 - Linux system management;
 - data analysis;
@@ -20,7 +23,7 @@ My role gives me the opportunity to get some hands-on experience into different 
 
 ## Interests
 
-My interests:
+My interests in the field of Computer Science lie mostly in the following:
 
 - Backend, API and algorithm development;
 - DevOps, DevSecOps, GitOps;
@@ -34,7 +37,7 @@ My interests:
 Technologies I worked with:
 
 - Java, Spring Boot, Vaadin;
-- JavaScript, NodeJS;
+- JavaScript, TypeScript, NodeJS;
 - Python, FastAPI;
 - Jupyter Notebooks, Jupyter Lab, notebooks (Kaggle, Colab);
 - A little bit of Angular (mainly for frontend mantainment);
@@ -45,7 +48,7 @@ Technologies I worked with:
 
 ## Other Interests
 
-What I'd like to learn:
+What I'd like to learn / I am currently experimenting:
 
 - Rust programming languange;
 - Go programming language;
@@ -54,13 +57,13 @@ What I'd like to learn:
 - Kubernetes;
 - React for frontend development;
 - Android app development;
-- Kernels.
+- Kernel stuff.
 
 ## Portfolio
 
 Portfolio:
 
-- [Book App](https://github.com/elman23/book-rest-api/tree/main): [Spring Boot](https://spring.io/projects/spring-boot/) REST API to showcase the implementation practices: Spring Boot, Spring Security, JPA.
+- [Book App](https://github.com/elman23/book-rest-api/tree/main): [Spring Boot](https://spring.io/projects/spring-boot/) REST API, it includes Spring Boot, Spring Security, JPA.
 - [Post App](https://github.com/elman23/postapp): [FastAPI](https://fastapi.tiangolo.com/) project implementing basic "social media-like post" functionality with authentication, users, database support.
 - [Article API](https://github.com/elman23/articleapi): [Gorilla](https://gorilla.github.io/) REST API for articles with authentication and database support.
 
