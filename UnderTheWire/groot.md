@@ -358,3 +358,70 @@ Mode                LastWriteTime         Length Name
 
 
 ```
+
+`groot7:star-lord_rules`
+
+## Groot 7 -> 8
+
+The password for groot8 is the name of the dll, as depicted in the registry, associated with the “applockerfltr” service PLUS the name of the file on the desktop.
+
+NOTE:
+– The password will be lowercase no matter how it appears on the screen.
+– If the name of the dll is “abc.dll” and the file on the desktop is named “\_1234”, the password would be “abc_1234”.
+
+---
+
+```
+PS C:\users\Groot7\desktop> get-service applockerfltr | select -property *
+
+
+Name                : applockerfltr
+RequiredServices    : {AppIDSvc, AppID, FltMgr}
+CanPauseAndContinue : False
+CanShutdown         : False
+CanStop             : False
+DisplayName         : Smartlocker Filter Driver
+DependentServices   : {}
+MachineName         : .
+ServiceName         : applockerfltr
+ServicesDependedOn  : {AppIDSvc, AppID, FltMgr}
+ServiceHandle       :
+Status              : Stopped
+ServiceType         : KernelDriver
+StartType           : Manual
+Site                :
+Container           :
+
+
+
+PS C:\users\Groot7\desktop> Get-Item HKLM:\SYSTEM\CurrentControlSet\Services\applockerfltr
+
+
+    Hive: HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services
+
+
+Name                           Property
+----                           --------
+applockerfltr                  DisplayName     : @%systemroot%\system32\srpapi.dll,-102
+                               ErrorControl    : 1
+                               ImagePath       : system32\drivers\applockerfltr.sys
+                               Start           : 3
+                               Type            : 1
+                               Description     : @%systemroot%\system32\srpapi.dll,-103
+                               DependOnService : {FltMgr, AppID, AppIDSvc}
+
+
+PS C:\users\Groot7\desktop> ls
+
+
+    Directory: C:\users\Groot7\desktop
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+-a----        5/31/2021   5:13 PM              0 _home
+
+
+```
+
+`groot8:srpapi_home`
