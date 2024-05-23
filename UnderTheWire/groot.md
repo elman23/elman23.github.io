@@ -14,7 +14,7 @@ The goal of this level is to log into the game. Do the following in order to ach
 
 ---
 
-`groot1:groot1`
+Following the procedure, we end up with the credentials `groot1:groot1`.
 
 ## Groot 1 -> 2
 
@@ -27,6 +27,8 @@ Once you feel you have completed the `groot1` challenge, start a new connection 
 
 ---
 
+We can get the hash of a file with the commandlet `Get-FileHash`. We specify the filepath after the command and `-Algorithm` as `MD5`. The syntax is:
+
 ```powershell
 Get-FileHash <filepath> -Algorithm MD5
 ```
@@ -37,33 +39,31 @@ The hosts file in Windows is:
 C:\Windows\System32\drivers\etc\hosts
 ```
 
+Thus:
+
 ```powershell
-PS C:\users\Groot1\desktop> Get-FileHash C:\Windows\System32\drivers\etc\hosts -
-Algorithm MD5
+PS C:\users\Groot1\desktop> Get-FileHash C:\Windows\System32\drivers\etc\hosts -Algorithm MD5
 
 Algorithm       Hash
 ---------       ----
 MD5             6EEC08310BD5328FFC8FB72CD8E464C3
 ```
 
-Therefore:
-
-```
-groot2:464c3
-```
+Therefore we get the credentials: `groot2:464c3`.
 
 ## Groot 2 -> 3
 
-The password for groot3 is the word that is made up from the letters in the range of 1,481,110 to 1,481,117 within the file on the desktop.
+The password for `groot3` is the word that is made up from the letters in the range of 1,481,110 to 1,481,117 within the file on the desktop.
 
-NOTE:
+**NOTE**:
 – The password will be lowercase no matter how it appears on the screen.
 
-▼HINT:
-
+**HINT**:
 Seems like a great time to explore using ranges within PowerShell...
 
 ---
+
+Start by listing the files in the `desktop` folder:
 
 ```
 PS C:\users\Groot2\desktop> ls
@@ -75,8 +75,11 @@ PS C:\users\Groot2\desktop> ls
 Mode                LastWriteTime         Length Name
 ----                -------------         ------ ----
 -a----        8/30/2018   5:52 AM        2357268 elements.txt
+```
 
+Now we get the content of the file `elements.txt` and we save it to a variable named `$content`; then, we list the specified indexes with the bracket syntax; it goes as follows:
 
+```
 PS C:\users\Groot2\desktop> $content = get-content .\elements.txt
 PS C:\users\Groot2\desktop> $content[1481110..1481117]
 
@@ -88,15 +91,15 @@ n
 g
 ```
 
-`groot3:hiding`
+Thus: `groot3:hiding`.
 
 ## Groot 3 -> 4
 
-The password for groot4 is the number of times the word “beetle” is listed in the file on the desktop.
+The password for `groot4` is the number of times the word `"beetle"` is listed in the file on the desktop.
 
 ---
 
-[Here](https://stackoverflow.com/questions/29889495/count-specific-string-in-text-file-using-powershell) we find (where the word is `/export` and the file is `YourFile.txt`):
+[Here](https://stackoverflow.com/questions/29889495/count-specific-string-in-text-file-using-powershell) we find a useful hint (where the word is `/export` and the file is `YourFile.txt`):
 
 ```
 $FileContent = Get-Content "YourFile.txt"
@@ -132,31 +135,40 @@ PS C:\users\Groot3\desktop> $Matches.Matches.Count
 5
 ```
 
+Hence: `groot4:5`.
+
 ## Groot 4 -> 5
 
-The password for groot5 is the name of the Drax subkey within the HKEY_CURRENT_USER (HKCU) registry hive.
+The password for `groot5` is the name of the `Drax` subkey within the `HKEY_CURRENT_USER` (`HKCU`) registry hive.
 
-NOTE:
+**NOTE**:
 – The password will be lowercase no matter how it appears on the screen.
 
 ---
+
+We use `Get-ChildItem`:
 
 ```
 PS C:\users\Groot4\desktop> Get-ChildItem -Path HKCU:\ -Recurse | Select-String Drax
 
 HKEY_CURRENT_USER\Software\Microsoft\Assistance\Drax
 HKEY_CURRENT_USER\Software\Microsoft\Assistance\Drax\destroyer
+...
 ```
+
+Therefore: `groot5:destroyer`.
 
 ## Groot 5 -> 6
 
-The password for groot6 is the name of the workstation that the user with a username of “baby.groot” can log into as depicted in Active Directory PLUS the name of the file on the desktop
+The password for `groot6` is the name of the workstation that the user with a username of `"baby.groot"` can log into as depicted in Active Directory PLUS the name of the file on the desktop.
 
-NOTE:
-– If the workstation is “system1” and the file on the desktop is named “\_log”, the password would be “system1_log”.
+**NOTE**:
+– If the workstation is `"system1"` and the file on the desktop is named `"\_log"`, the password would be `"system1_log"`.
 – The password will be lowercase no matter how it appears on the screen.
 
 ---
+
+List the files in `desktop`:
 
 ```
 PS C:\users\Groot5\desktop> ls
@@ -168,8 +180,11 @@ PS C:\users\Groot5\desktop> ls
 Mode                LastWriteTime         Length Name
 ----                -------------         ------ ----
 -a----        9/20/2020   3:38 PM              0 _enterprise
+```
 
+Then we use `Get-ADUser` specifying `-Properties *`:
 
+```
 PS C:\users\Groot5\desktop> Get-ADUser baby.groot -Properties *
 
 
@@ -282,38 +297,30 @@ whenChanged                          : 8/30/2018 10:51:10 AM
 whenCreated                          : 8/30/2018 3:28:43 AM
 ```
 
-Shortly:
+Shortly, since the property we are interested in is `userWorkstations`:
 
 ```
 PS C:\users\Groot5\desktop> (Get-ADUser baby.groot -Properties *).userWorkstations
 wk11
-PS C:\users\Groot5\desktop> ls
-
-
-    Directory: C:\users\Groot5\desktop
-
-
-Mode                LastWriteTime         Length Name
-----                -------------         ------ ----
--a----        9/20/2020   3:38 PM              0 _enterprise
-
-
 ```
+
+Thus: `groot6:wk11_enterprise`.
 
 ## Groot 6 -> 7
 
-The password for groot7 is the name of the program that is set to start when this user logs in PLUS the name of the file on the desktop.
+The password for `groot7` is the name of the program that is set to start when this user logs in PLUS the name of the file on the desktop.
 
-NOTE:
+**NOTE**:
 – Omit the executable extension.
-– If the program is “mspaint” and the file on the desktop is named “\_log”, the password would be “mspaint_log”.
+– If the program is `"mspaint"` and the file on the desktop is named `"_log"`, the password would be `"mspaint_log"`.
 – The password will be lowercase no matter how it appears on the screen.
 
-▼ HINT :
-
+**HINT**:
 https://blog.cylance.com/windows-registry-persistence-part-2-the-run-keys-and-search-order
 
 ---
+
+The commandlet `Get-WmiObject` gives us some information about the services:
 
 ```
 PS C:\users\Groot6\desktop> Get-WmiObject Win32_StartupCommand | Select-Object Name, command, Location, User  | Format-List
@@ -343,9 +350,11 @@ Name     : star-lord
 command  : C:\star-lord.exe
 Location : HKU\S-1-5-21-758131494-606461608-3556270690-1169\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
 User     : underthewire\Groot6
+```
 
+Now we can list the files in `desktop`:
 
-
+```
 PS C:\users\Groot6\desktop> ls
 
 
@@ -355,21 +364,21 @@ PS C:\users\Groot6\desktop> ls
 Mode                LastWriteTime         Length Name
 ----                -------------         ------ ----
 -a----        8/21/2020   1:24 PM              0 _rules
-
-
 ```
 
-`groot7:star-lord_rules`
+The credentials for the next level are hence: `groot7:star-lord_rules`.
 
 ## Groot 7 -> 8
 
-The password for groot8 is the name of the dll, as depicted in the registry, associated with the “applockerfltr” service PLUS the name of the file on the desktop.
+The password for `groot8` is the name of the DLL, as depicted in the registry, associated with the `"applockerfltr"` service PLUS the name of the file on the desktop.
 
-NOTE:
+**NOTE**:
 – The password will be lowercase no matter how it appears on the screen.
-– If the name of the dll is “abc.dll” and the file on the desktop is named “\_1234”, the password would be “abc_1234”.
+– If the name of the dll is `"abc.dll"` and the file on the desktop is named `"_1234"`, the password would be `"abc_1234"`.
 
 ---
+
+We first try with `Get-Service`:
 
 ```
 PS C:\users\Groot7\desktop> get-service applockerfltr | select -property *
@@ -391,9 +400,11 @@ ServiceType         : KernelDriver
 StartType           : Manual
 Site                :
 Container           :
+```
 
+It doesn't seem that useful. Try with `Get-Item`:
 
-
+```
 PS C:\users\Groot7\desktop> Get-Item HKLM:\SYSTEM\CurrentControlSet\Services\applockerfltr
 
 
@@ -409,8 +420,11 @@ applockerfltr                  DisplayName     : @%systemroot%\system32\srpapi.d
                                Type            : 1
                                Description     : @%systemroot%\system32\srpapi.dll,-103
                                DependOnService : {FltMgr, AppID, AppIDSvc}
+```
 
+The file in `desktop` is:
 
+```
 PS C:\users\Groot7\desktop> ls
 
 
@@ -420,23 +434,21 @@ PS C:\users\Groot7\desktop> ls
 Mode                LastWriteTime         Length Name
 ----                -------------         ------ ----
 -a----        5/31/2021   5:13 PM              0 _home
-
-
 ```
 
-`groot8:srpapi_home`
+Therefore, the credentials: `groot8:srpapi_home`.
 
 ## Groot 8 -> 9
 
-The password for groot9 is the description of the firewall rule blocking MySQL PLUS the name of the file on the desktop.
+The password for `groot9` is the description of the firewall rule blocking MySQL PLUS the name of the file on the desktop.
 
-NOTE:
-– If the description of the rule is “blue” and the file on the desktop is named “\_bob”, the password would be “blue_bob”.
+**NOTE**:
+– If the description of the rule is `"blue"` and the file on the desktop is named `"_bob"`, the password would be `"blue_bob"`.
 – The password will be lowercase no matter how it appears on the screen.
 
 ---
 
-The base is `Get-NetFirewallRule`.
+The base is to use the commandlet `Get-NetFirewallRule`.
 
 ```
 PS C:\users\Groot8\desktop> Get-NetFirewallRule -Action Block -Enabled True -Direction Outbound
@@ -607,9 +619,11 @@ Status                : The rule was parsed successfully from the store. (65536)
 EnforcementStatus     : NotApplicable
 PolicyStoreSource     : PersistentStore
 PolicyStoreSourceType : Local
+```
 
+Moreover, get tie file name:
 
-
+```
 PS C:\users\Groot8\desktop> ls
 
 
@@ -619,18 +633,16 @@ PS C:\users\Groot8\desktop> ls
 Mode                LastWriteTime         Length Name
 ----                -------------         ------ ----
 -a----        8/30/2018  10:51 AM              0 _starlord
-
-
 ```
 
-`groot9:call_me_starlord`
+Credentials for the next level: `groot9:call_me_starlord`.
 
 ## Groot 9 -> 10
 
-The password for groot10 is the name of the OU that doesn’t have accidental deletion protection enabled PLUS the name of the file on the desktop.
+The password for `groot10` is the name of the OU that doesn’t have accidental deletion protection enabled PLUS the name of the file on the desktop.
 
-NOTE:
-– If the name of the OU is called “blue” and the file on the desktop is named “\_bob”, the password would be “blue_bob”.
+**NOTE**:
+– If the name of the OU is called `"blue"` and the file on the desktop is named `"_bob"`, the password would be `"blue_bob"`.
 – The password will be lowercase no matter how it appears on the screen.
 
 ---
@@ -881,16 +893,18 @@ Mode                LastWriteTime         Length Name
 -a----        8/30/2018  10:51 AM              0 _tester
 ```
 
-`groot10:t-25_tester`
+Thus: `groot10:t-25_tester`.
 
 ## Groot 10 -> 11
 
-The password for groot11 is the one word that makes the two files on the desktop different.
+The password for `groot11` is the one word that makes the two files on the desktop different.
 
-NOTE:
+**NOTE**:
 – The password will be lowercase no matter how it appears on the screen.
 
 ---
+
+In Linux we can use `diff`... Let's give it a try:
 
 ```
 PS C:\users\Groot10\desktop> ls
@@ -911,15 +925,21 @@ InputObject SideIndicator
 ----------- -------------
 .\old.txt   =>
 .\new.txt   <=
+```
 
+Not working as expected... We find the commandlet `Compare-Object`:
 
+```
 PS C:\users\Groot10\desktop> Compare-Object (Get-Content new.txt) (Get-Content old.txt)
 
 InputObject SideIndicator
 ----------- -------------
 taserface   <=
+```
 
+Alternatively, we can use `diff`, but reading the files with `cat`!
 
+```
 PS C:\users\Groot10\desktop> diff (cat new.txt) (cat old.txt)
 
 InputObject SideIndicator
@@ -929,14 +949,14 @@ taserface   <=
 
 ## Groot 11 -> 12
 
-The password for groot12 is within an alternate data stream (ADS) somewhere on the desktop.
+The password for `groot12` is within an alternate data stream (ADS) somewhere on the desktop.
 
-NOTE:
+**NOTE**:
 – The password will be lowercase no matter how it appears on the screen.
 
 ---
 
-Here: https://stackoverflow.com/questions/53380498/powershell-list-all-alternate-data-stream-information-from-one-directory.
+[Here](https://stackoverflow.com/questions/53380498/powershell-list-all-alternate-data-stream-information-from-one-directory) we find some information about Alternate Data Streams in Powershell.
 
 ```
 PS C:\users\Groot11\desktop> $files = gci -recurse | % { gi $_.FullName -stream * } | where stream -ne ':$Data' | select filename,stream,@{'name'='identifier';"e"={"$($_.filename)$($_.stream)"}}
@@ -947,40 +967,32 @@ FileName                                   Stream identifier
 C:\users\Groot11\desktop\TPS_Reports04.pdf secret C:\users\Groot11\desktop\TPS_Reports04.pdfsecret
 ```
 
-Here, too: http://powershellcookbook.com/recipe/XilI/interact-with-alternate-data-streams.
-
-```
-$files = Get-ChildItem .
-ForEach ($file in $files) { Get-Content $file -Stream * }
-```
-
-or
-
-```
-$files = Get-ChildItem .
-$files.foreach({ Get-Content $_ })
-```
-
-[Here](http://powershellcookbook.com/recipe/XilI/interact-with-alternate-data-streams) we find something interesting:
+[Here](http://powershellcookbook.com/recipe/XilI/interact-with-alternate-data-streams) we find something interesting, too: we can specify the data stream after the file name, separating them with `:`, as follows:
 
 ```
 Get-Content C:\users\Groot11\desktop\TPS_Reports04.pdf:secret
 ```
+
+Hence:
 
 ```
 PS C:\users\Groot11\desktop> Get-Content C:\users\Groot11\desktop\TPS_Reports04.pdf:secret
 spaceships
 ```
 
+Therefore: `groot13:spaceships`.
+
 ## Groot 12 -> 13
 
-The password for groot13 is the owner of the Nine Realms folder on the desktop.
+The password for `groot13` is the owner of the `Nine Realms` folder on the desktop.
 
-NOTE:
-– Exclude the Administrator, the Administrators group, and System.
-– The password will be lowercase with no punctuation no matter how it appears on the screen. For example, if the owner is “john.doe”, it would be “johndoe”.
+**NOTE**:
+– Exclude the `Administrator`, the `Administrators` group, and System.
+– The password will be lowercase with no punctuation no matter how it appears on the screen. For example, if the owner is `"john.doe"`, it would be `"johndoe"`.
 
 ---
+
+Simply list what is in `desktop`:
 
 ```
 PS C:\users\Groot12\desktop> Get-ChildItem .
@@ -992,9 +1004,12 @@ PS C:\users\Groot12\desktop> Get-ChildItem .
 Mode                LastWriteTime         Length Name
 ----                -------------         ------ ----
 d-----        8/30/2018  10:51 AM                Nine Realms
+```
 
+Now `Get-Acl` comes to help:
 
-PS C:\users\Groot12\desktop> get-acl '.\Nine Realms'
+```
+PS C:\users\Groot12\desktop> Get-Acl '.\Nine Realms'
 
 
     Directory: C:\users\Groot12\desktop
@@ -1005,17 +1020,19 @@ Path        Owner                Access
 Nine Realms underthewire\Airwolf NT AUTHORITY\SYSTEM Allow  FullControl...
 ```
 
-`groot13:airwolf`
+The credentials: `groot13:airwolf`.
 
 ## Groot 13 -> 14
 
-The password for groot14 is the name of the Registered Owner of this system as depicted in the Registry PLUS the name of the file on the desktop.
+The password for `groot14` is the name of the Registered Owner of this system as depicted in the Registry PLUS the name of the file on the desktop.
 
-NOTE:
-– If the Registered Owner is “Elroy” and the file on the desktop is named “\_bob”, the password would be “elroy_bob”.
+**NOTE**:
+– If the Registered Owner is `"Elroy"` and the file on the desktop is named `"_bob"`, the password would be `"elroy_bob"`.
 – The password will be lowercase no matter how it appears on the screen.
 
 ---
+
+We can find the desired information with `Get-ComputerInfo`:
 
 ```
 PS C:\users\Groot13\desktop> Get-ComputerInfo | Select WindowsRegisteredOwner
@@ -1036,17 +1053,19 @@ Mode                LastWriteTime         Length Name
 -a----        8/30/2018  10:51 AM              0 _ned
 ```
 
-`groot14:utw_team_ned`
+The credentials are thus: `groot14:utw_team_ned`.
 
 ## Groot 14 -> 15
 
-The password for groot15 is the description of the share whose name contains “task” in it PLUS the name of the file on the desktop.
+The password for `groot15` is the description of the share whose name contains `"task"` in it PLUS the name of the file on the desktop.
 
-NOTE:
-– If the description is “frozen_pizza” and the file on the desktop is named “\_sucks”, the password would be “frozen_pizza_sucks”.
+**NOTE**:
+– If the description is `"frozen_pizza"` and the file on the desktop is named `"_sucks"`, the password would be `"frozen_pizza_sucks"`.
 – The password will be lowercase no matter how it appears on the screen.
 
 ---
+
+Use `Get-SmbShare`:
 
 ```
 PS C:\users\Groot14\desktop> Get-SmbShare
@@ -1073,7 +1092,7 @@ Mode                LastWriteTime         Length Name
 -a----        8/30/2018  10:51 AM              0 _8
 ```
 
-`groot15:scheduled_things_8`
+Final credentials: `groot15:scheduled_things_8`.
 
 ## Groot 15
 
