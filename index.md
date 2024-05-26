@@ -61,7 +61,11 @@ What I'd like to learn / I am currently experimenting:
 
 ## Portfolio
 
-Portfolio:
+I use the pretext of a "book app", since I like to keep a list of books to read.
+
+I try to experiment with a minimal entity configuration to focus best on the framework and the language. For example, a book may be represented by its author and title.
+
+Some applications I have developed as a _base_ for additional freatures:
 
 - [Spring Book App](https://github.com/elman23/spring-book-app): [Spring Boot](https://spring.io/projects/spring-boot/) Spring REST API, it uses Spring Boot, Spring Security, JPA.
 - [Rust Book App](https://github.com/elman23/rust-book-app): written in Rust, REST API with PostgreSQL database.
