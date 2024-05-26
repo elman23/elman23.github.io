@@ -63,8 +63,8 @@ What I'd like to learn / I am currently experimenting:
 
 Portfolio:
 
-- A first [Book App](https://github.com/elman23/book-rest-api/tree/main): [Spring Boot](https://spring.io/projects/spring-boot/) (Java) REST API, it includes Spring Boot, Spring Security, JPA.
-- Another [Book App](https://github.com/elman23/book-app): written in Rust, REST API with PostgreSQL database; the project includes an import application that saves book records from a CSV file to the database.
+- [Spring Book App](https://github.com/elman23/book-rest-api/tree/main): [Spring Boot](https://spring.io/projects/spring-boot/) Spring REST API, it uses Spring Boot, Spring Security, JPA.
+- [Rust Book App](https://github.com/elman23/rust-book-app): written in Rust, REST API with PostgreSQL database.
 - [Post App](https://github.com/elman23/postapp): [FastAPI](https://fastapi.tiangolo.com/) (Python) project implementing basic "social media like post" functionality with authentication, users, database support.
 - [Article API](https://github.com/elman23/articleapi): [Gorilla](https://gorilla.github.io/) (Go) REST API for articles with authentication and database support.
 
