@@ -72,12 +72,6 @@ Some applications I have developed as a _base_ for additional freatures:
 - [Post App](https://github.com/elman23/postapp): [FastAPI](https://fastapi.tiangolo.com/) (Python) project implementing basic "social media like post" functionality with authentication, users, database support.
 - [Article API](https://github.com/elman23/articleapi): [Gorilla](https://gorilla.github.io/) (Go) REST API for articles with authentication and database support.
 
-Experimenting:
-
-- API in Rust:
-  - [Rust REST API](https://github.com/elman23/rust-rest-api)
-  - [Basic API in Rust](https://github.com/elman23/warp_api)
-
 ## WriteUps
 
 ### OverTheWire
