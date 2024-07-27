@@ -32,7 +32,7 @@ My interests in the field of Computer Science lie mostly in the following:
 
 ## Technologies
 
-Technologies I worked with:
+Technologies I came in contact with:
 
 - Java, Spring Boot, Vaadin;
 - JavaScript, TypeScript, NodeJS;
