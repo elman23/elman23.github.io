@@ -71,11 +71,13 @@ Some applications I have developed as a _base_ for additional freatures:
 - [Post App](https://github.com/elman23/postapp): [FastAPI](https://fastapi.tiangolo.com/) (Python) project implementing basic "social media like post" functionality with authentication, users, database support.
 - [Article API](https://github.com/elman23/articleapi): [Gorilla](https://gorilla.github.io/) (Go) REST API for articles with authentication and database support.
 
+<!--
 ## Notes
 
 Some interesting notes I wrote down (the result is quite quick and dirty):
 
 - [Attention](notes/attention.pdf) for transformers, following [3B1B presentation](https://www.youtube.com/watch?v=eMlx5fFNoYc&t=269s).
+-->
 
 ## WriteUps
 
