@@ -1,36 +1,34 @@
 # ElMan23 GitHub Pages
 
-Hi!
+Welcome to ElMan23 GitHub Pages!
 
-My name is E.
+## Background
 
 I have a background in pure Mathematics.
 
-I have some experience with pure research (I have a PhD); for some years I also worked as a teacher.
+I have some experience with pure research (I have a PhD); for some years I worked as a teacher, both at high school and at university (as assistant).
 
-I currently work as Software Developer in a small company.
+I currently work as Software Developer.
 
-Since the team is not that big, I have some experience with different aspects of software development, delivery, testing, system management.
+I have some experience with different aspects of software development, delivery, testing, system management.
 
 My role gives me the opportunity to get some hands-on experience into different fields:
 
 - backend development (Java, Spring Boot);
 - database management;
 - deployment, containerization, CI/CD, DevOps practices;
-- Linux system management;
-- data analysis;
-- machine learing.
+- Linux system management.
 
 ## Interests
 
 My interests in the field of Computer Science lie mostly in the following:
 
 - Backend, API and algorithm development;
+- Data Science;
+- AI, ML & related;
 - DevOps, DevSecOps, GitOps;
 - Scripting and system administration;
-- Cybersecurity;
-- Data Science;
-- AI, ML & related.
+- Cybersecurity.
 
 ## Technologies
 
@@ -50,10 +48,11 @@ Technologies I worked with:
 
 What I'd like to learn / I am currently experimenting:
 
+- Machine Learning from a theoretical point of view;
+- Python for ML;
 - Rust programming languange;
 - Go programming language;
 - Python for API development;
-- Python for ML;
 - Kubernetes;
 - React for frontend development;
 - Android app development;
@@ -61,9 +60,9 @@ What I'd like to learn / I am currently experimenting:
 
 ## Portfolio
 
-I use the pretext of a "book app", since I like to keep a list of books to read.
+I use the pretext of a "book app", since I like to keep a list of read books.
 
-I try to experiment with a minimal entity configuration to focus best on the framework and the language. For example, a book may be represented by its author and title.
+I try to experiment with a minimal entity configuration to focus best on the framework and the language. For example, a book may be represented simply by its author and title.
 
 Some applications I have developed as a _base_ for additional freatures:
 
@@ -71,6 +70,12 @@ Some applications I have developed as a _base_ for additional freatures:
 - [Rust Book App](https://github.com/elman23/rust-book-app): written in Rust, REST API with PostgreSQL database.
 - [Post App](https://github.com/elman23/postapp): [FastAPI](https://fastapi.tiangolo.com/) (Python) project implementing basic "social media like post" functionality with authentication, users, database support.
 - [Article API](https://github.com/elman23/articleapi): [Gorilla](https://gorilla.github.io/) (Go) REST API for articles with authentication and database support.
+
+## Notes
+
+Some interesting notes I wrote down (the result is quite quick and dirty):
+
+- [Attention](notes/attention.pdf) for transformers, following [3B1B presentation](https://www.youtube.com/watch?v=eMlx5fFNoYc&t=269s).
 
 ## WriteUps
 
