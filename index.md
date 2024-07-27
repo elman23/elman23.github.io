@@ -12,7 +12,7 @@ I currently work as Software Developer.
 
 I have some experience with different aspects of software development, delivery, testing, system management.
 
-My role gives me the opportunity to get some hands-on experience into different fields:
+My role gives me the opportunity to get some hands-on experience with:
 
 - backend development (Java, Spring Boot);
 - database management;
