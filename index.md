@@ -60,7 +60,7 @@ What I'd like to learn / I am currently experimenting:
 
 ## Portfolio
 
-I use the pretext of a "book app", since I like to keep a list of read books.
+I use the pretext of a "book app", since I like to keep a list of books that I read.
 
 I try to experiment with a minimal entity configuration to focus best on the framework and the language. For example, a book may be represented simply by its author and title.
 
