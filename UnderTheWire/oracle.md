@@ -865,3 +865,120 @@ Name                           Property
 ```
 
 `oracle13:192.168.2.3`
+
+## Oracle 13 -> 14
+
+### Task
+
+The password for `oracle14` is the name of the user who created the Galaxy security group as depicted in the event logs on the desktop PLUS the name of the text file on the user’s desktop.
+
+NOTE:
+– If the user’s name is `randy` and the file on the desktop is named `1234`, the password would be `randy1234`.
+– The password will be lowercase no matter how it appears on the screen.
+
+▼ HINT:
+https://msdn.microsoft.com/en-us/powershell/reference/5.1/microsoft.powershell.diagnostics/get-winevent
+
+### Solution
+
+```
+PS C:\users\Oracle13\desktop> Get-ChildItem
+
+
+    Directory: C:\users\Oracle13\desktop
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+-a----        8/30/2018  10:51 AM              0 88
+-a----        8/30/2018   5:52 AM        2166784 security.evtx
+```
+
+```
+PS C:\users\Oracle13\desktop> Get-WinEvent -Path '.\security.evtx' | Where-Object -Property Message -Match 'Galaxy'
+
+
+   ProviderName: Microsoft-Windows-Security-Auditing
+
+TimeCreated                     Id LevelDisplayName Message
+-----------                     -- ---------------- -------
+5/19/2017 1:19:28 AM          4728 Information      A member was added to a security-enabled global group....
+5/19/2017 1:19:28 AM          4737 Information      A security-enabled global group was changed....
+5/19/2017 1:18:26 AM          4727 Information      A security-enabled global group was created....
+```
+
+```
+PS C:\users\Oracle13\desktop> Get-WinEvent -Path .\security.evtx | Where-Object -Property Message -Match 'Galaxy' | Format-List
+
+
+TimeCreated  : 5/19/2017 1:19:28 AM
+ProviderName : Microsoft-Windows-Security-Auditing
+Id           : 4728
+Message      : A member was added to a security-enabled global group.
+
+               Subject:
+                Security ID:            S-1-5-21-2268727836-2773903800-2952248001-1622
+                Account Name:           nebula
+                Account Domain:         UNDERTHEWIRE
+                Logon ID:               0xBD8CC7
+
+               Member:
+                Security ID:            S-1-5-21-2268727836-2773903800-2952248001-1623
+                Account Name:           CN=Bereet,OU=Morag,DC=UNDERTHEWIRE,DC=TECH
+
+               Group:
+                Security ID:            S-1-5-21-2268727836-2773903800-2952248001-1626
+                Group Name:             Galaxy
+                Group Domain:           UNDERTHEWIRE
+
+               Additional Information:
+                Privileges:             -
+
+TimeCreated  : 5/19/2017 1:19:28 AM
+ProviderName : Microsoft-Windows-Security-Auditing
+Id           : 4737
+Message      : A security-enabled global group was changed.
+
+               Subject:
+                Security ID:            S-1-5-21-2268727836-2773903800-2952248001-1622
+                Account Name:           nebula
+                Account Domain:         UNDERTHEWIRE
+                Logon ID:               0xBD8CC7
+
+               Group:
+                Security ID:            S-1-5-21-2268727836-2773903800-2952248001-1626
+                Group Name:             Galaxy
+                Group Domain:           UNDERTHEWIRE
+
+               Changed Attributes:
+                SAM Account Name:       -
+                SID History:            -
+
+               Additional Information:
+                Privileges:             -
+
+TimeCreated  : 5/19/2017 1:18:26 AM
+ProviderName : Microsoft-Windows-Security-Auditing
+Id           : 4727
+Message      : A security-enabled global group was created.
+
+               Subject:
+                Security ID:            S-1-5-21-2268727836-2773903800-2952248001-1621
+                Account Name:           gamora
+                Account Domain:         UNDERTHEWIRE
+                Logon ID:               0xBC24FF
+
+               New Group:
+                Security ID:            S-1-5-21-2268727836-2773903800-2952248001-1626
+                Group Name:             Galaxy
+                Group Domain:           UNDERTHEWIRE
+
+               Attributes:
+                SAM Account Name:       Galaxy
+                SID History:            -
+
+               Additional Information:
+                Privileges:             -
+```
+
+`oracle14:gamora88`
