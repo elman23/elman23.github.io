@@ -649,3 +649,219 @@ Mode                LastWriteTime         Length Name
 ```
 
 Therefore: `oracle7:t-50_97`.
+
+## Oracle 7 -> 8
+
+### Task
+
+The password for `oracle8` is the name of the domain that a trust is built with PLUS the name of the file on the user’s desktop.
+NOTE:
+– The password will be lowercase no matter how it appears on the screen.
+– If the name of the trust is `blob` and the file on the desktop is named `1234`, the password would be `blob1234`.
+
+### Solution
+
+```
+PS C:\users\Oracle7\desktop> Get-ChildItem
+
+
+    Directory: C:\users\Oracle7\desktop
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+-a----        8/30/2018  10:50 AM              0 111
+```
+
+Give a look [here](https://learn.microsoft.com/en-us/powershell/module/activedirectory/get-adtrust?view=windowsserver2022-ps).
+
+```
+PS C:\users\Oracle7\desktop> Get-ADTrust -Filter *
+
+
+Direction               : Outbound
+DisallowTransivity      : True
+DistinguishedName       : CN=multiverse,CN=System,DC=underthewire,DC=tech
+ForestTransitive        : False
+IntraForest             : False
+IsTreeParent            : False
+IsTreeRoot              : False
+Name                    : multiverse
+ObjectClass             : trustedDomain
+ObjectGUID              : bbfcc0ca-e586-4058-9aef-c6b4a6b32708
+SelectiveAuthentication : False
+SIDFilteringForestAware : False
+SIDFilteringQuarantined : False
+Source                  : DC=underthewire,DC=tech
+Target                  : multiverse
+TGTDelegation           : False
+TrustAttributes         : 1
+TrustedPolicy           :
+TrustingPolicy          :
+TrustType               : MIT
+UplevelOnly             : False
+UsesAESKeys             : False
+UsesRC4Encryption       : False
+```
+
+`oracle8:multiverse111`
+
+## Oracle 8 -> 9
+
+### Task
+
+The password for `oracle9` is the name of the file in the GET Request from `www.guardian.galaxy.com` within the log file on the desktop.
+
+NOTE:
+– Don’t include the extension.
+– The password will be lowercase no matter how it appears on the screen.
+
+### Solution
+
+```
+PS C:\users\Oracle8\desktop> Get-ChildItem
+
+
+    Directory: C:\users\Oracle8\desktop
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+-a----        8/30/2018   5:52 AM         405295 logs.txt
+```
+
+```
+PS C:\users\Oracle8\desktop> Get-Content .\logs.txt | Select-String -Pattern 'guardian.galaxy'
+
+guardian.galaxy.com - - [28/Jul/1995:13:03:55 -0400] "GET /images/star-lord.gif HTTP/1.0" 200 786
+```
+
+`oracle9:star-lord`
+
+## Oracle 9 -> 10
+
+### Task
+
+The password for `oracle10` is the computer name of the DNS record of the mail server listed in the `UnderTheWire.tech` zone PLUS the name of the file on the user’s desktop.
+
+NOTE:
+– If the server name is `some_blob` and the file on the desktop is named `1234`, the password would be `some_blob1234`.
+– Only submit the computer name and not the fully qualified domain name.
+– The password will be lowercase no matter how it appears on the screen.
+
+### Solution
+
+```
+PS C:\users\Oracle9\desktop> Get-ChildItem
+
+
+    Directory: C:\users\Oracle9\desktop
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+-a----        8/30/2018  10:51 AM              0 9229
+```
+
+```
+PS C:\users\Oracle9\desktop> Get-DnsServerResourceRecord -ZoneName underthewire.tech -RRType Mx
+
+HostName                  RecordType Type       Timestamp            TimeToLive      RecordData
+--------                  ---------- ----       ---------            ----------      ----------
+utw_exch                  MX         15         0                    01:00:00        [10][mail.utw_exch.]
+```
+
+`oracle10:utw_exch9229`
+
+## Oracle 10 -> 11
+
+### Task
+
+The password for `oracle11` is the `.biz` site the user has previously navigated to.
+NOTE:
+– Don’t include the extension.
+– The password will be lowercase no matter how it appears on the screen.
+
+▼ HINT:
+The registry is awesome!
+
+### Solution
+
+```
+PS C:\users\Oracle10\desktop> Get-Item 'HKCU:\Software\Microsoft\Internet Explorer\TypedURLs'
+
+
+    Hive: HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer
+
+
+Name                           Property
+----                           --------
+TypedURLs                      url1 : http://go.microsoft.com/fwlink/p/?LinkId=255141
+                               url2 : http://google.com
+                               url3 : http://underthewire.tech
+                               url4 : http://bimmerfest.com
+                               url5 : http://nba.com
+                               url6 : http://yondu.biz
+                               url7 : http://hardknocks.edu
+                               url8 : http://installation.org                                 AAAA   NoRecords
+```
+
+`oracle11:yondu`
+
+## Oracle 11 -> 12
+
+### Task
+
+The password for `oracle12` is the drive letter associated with the mapped drive that this user has.
+
+NOTE:
+– Submission should be one letter and lowercase.
+
+▼ HINT:
+The registry is awesome!
+
+### Solution
+
+```
+PS C:\users\Oracle11\desktop> Get-ChildItem 'HKCU:\Network'
+
+
+    Hive: HKEY_CURRENT_USER\Network
+
+
+Name                           Property
+----                           --------
+M                              RemotePath     : \\127.0.0.1\WsusContent
+                               UserName       : 0
+                               ProviderName   : Microsoft Windows Network
+                               ProviderType   : 131072
+                               ConnectionType : 1
+                               DeferFlags     : 4
+```
+
+`oracle12:m`
+
+## Oracle 12 -> 13
+
+### Task
+
+The password for `oracle13` is the IP of the system that this user has previously established a remote desktop with.
+
+▼ HINT:
+The registry is awesome!
+
+### Solution
+
+```
+PS C:\users\oracle12\desktop> Get-ChildItem 'HKCU:\Software\Microsoft\Terminal Server Client'
+
+
+    Hive: HKEY_CURRENT_USER\Software\Microsoft\Terminal Server Client
+
+
+Name                           Property
+----                           --------
+192.168.2.3                    UsernameHint : MyServer\raccoon
+```
+
+`oracle13:192.168.2.3`
