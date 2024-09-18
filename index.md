@@ -91,3 +91,4 @@ Some interesting notes I wrote down (the result is quite quick and dirty):
 - [UnderTheWire Century](UnderTheWire/century.md)
 - [UnderTheWire Cyborg](UnderTheWire/cyborg.md)
 - [UnderTheWire Groot](UnderTheWire/groot.md)
+- [UnderTheWire Oracle](UnderTheWire/oracle.md)
