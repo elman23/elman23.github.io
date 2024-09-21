@@ -1057,3 +1057,19 @@ We get:
 So we use the link passing `e` as parameter: natas12.natas.labs.overthewire.org/upload/f2ce8mjyzp.php?e=cat /etc/natas_webpass/natas13.
 
 Get: `trbs5pCjCrkuSknBBKHhaBxq6Wm1j3LC`.
+
+## Natas 13
+
+### Credentials
+
+Username: natas13
+Password: trbs5pCjCrkuSknBBKHhaBxq6Wm1j3LC
+URL: http://natas13.natas.labs.overthewire.org
+
+### Message
+
+For security reasons, we now only accept image files!
+
+Choose a JPEG to upload (max 1KB):
+
+### Solution
