@@ -1256,7 +1256,7 @@ This works:
 
 ### Credentials
 
-Username: natas5
+Username: natas15
 Password: SdqIqBsFcz3yotlNYErZSZwblkm0lrvx
 URL: http://natas15.natas.labs.overthewire.org
 
