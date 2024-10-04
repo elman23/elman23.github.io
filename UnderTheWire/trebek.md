@@ -181,7 +181,129 @@ Credentials: `trebek2:mess_cleaner`.
 
 ## Trebek 2 -> 3
 
+### Task
+
+The password for trebek3 is the name of the executable associated with the C-3PO service PLUS the name of the file on the user’s desktop.
+
+NOTE:
+– Don’t include the file extension (i.e.- .exe). If the executable name is “binary.exe” and the file on the desktop is named “1234”, the password would be “binary1234”.
+– The password will be lowercase no matter how it appears on the screen.
+
+▼ HINT:
+https://technet.microsoft.com/en-us/library/ee176852.aspx
+
+### Solution
+
+```powershell
+PS C:\users\trebek2\desktop> ls
+
+
+    Directory: C:\users\trebek2\desktop
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+-a----        8/30/2018  10:45 AM              0 823
+```
+
+```powershell
+PS C:\users\trebek2\desktop> Get-WmiObject win32_service | Where-Object -Property Name -like 'C-3PO'
+| select PathName
+
+PathName
+--------
+g:\star_wars\droid.exe
+```
+
+Credentials: `trebek3:droid823`.
+
 ## Trebek 3 -> 4
+
+### Task
+
+The password for trebek4 is the IP that the user Yoda last logged in from as depicted in the event logs on the desktop PLUS the name of the text file on the user’s desktop.
+
+NOTE:
+– If the IP address is “2.3.3.2” and the file on the desktop is named “bobby”, the password would be “2.3.3.2bobby”.
+
+▼ HINT:
+https://technet.microsoft.com/en-us/library/ee176852.aspx
+
+### Solution
+
+```powershell
+PS C:\users\trebek3\desktop> ls
+
+
+    Directory: C:\users\trebek3\desktop
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+-a----        8/30/2018  10:46 AM              0 address
+-a----        8/30/2018   5:55 AM       99684352 security.evtx
+```
+
+```powershell
+PS C:\users\trebek3\desktop> Get-WinEvent -Path "security.evtx" | Where-Object -Property Message -Mat
+ch 'credential' | Where-Object -Property Message -Match 'yoda' | Format-List
+
+
+TimeCreated  : 5/11/2017 8:41:10 PM
+ProviderName : Microsoft-Windows-Security-Auditing
+Id           : 4648
+Message      : A logon was attempted using explicit credentials.
+
+               Subject:
+                Security ID:            S-1-5-18
+                Account Name:           TREBEK$
+                Account Domain:         UNDERTHEWIRE
+                Logon ID:               0x3E7
+                Logon GUID:             {00000000-0000-0000-0000-000000000000}
+
+               Account Whose Credentials Were Used:
+                Account Name:           yoda
+                Account Domain:         UNDERTHEWIRE
+                Logon GUID:             {9449A69A-659C-D6F2-ED4B-53521312F225}
+
+               Target Server:
+                Target Server Name:     localhost
+                Additional Information: localhost
+
+               Process Information:
+                Process ID:             0xf10
+                Process Name:           C:\Windows\System32\winlogon.exe
+
+               Network Information:
+                Network Address:        10.30.1.18
+                Port:                   0
+
+               This event is generated when a process attempts to log on an account by explicitly
+               specifying that account’s credentials.  This most commonly occurs in batch-type
+               configurations such as scheduled tasks, or when using the RUNAS command.
+
+TimeCreated  : 5/11/2017 8:41:08 PM
+ProviderName : Microsoft-Windows-Security-Auditing
+Id           : 4776
+Message      : The computer attempted to validate the credentials for an account.
+
+               Authentication Package:  MICROSOFT_AUTHENTICATION_PACKAGE_V1_0
+               Logon Account:   yoda
+               Source Workstation:      ORACLE
+               Error Code:      0x0
+
+TimeCreated  : 5/11/2017 8:41:06 PM
+ProviderName : Microsoft-Windows-Security-Auditing
+Id           : 4776
+Message      : The computer attempted to validate the credentials for an account.
+
+               Authentication Package:  MICROSOFT_AUTHENTICATION_PACKAGE_V1_0
+               Logon Account:   yoda
+               Source Workstation:      ORACLE
+               Error Code:      0x0
+```
+
+`trebek4:10.30.1.18address`
 
 ## Trebek 4 -> 5
 
