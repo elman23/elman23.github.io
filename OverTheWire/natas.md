@@ -2511,7 +2511,7 @@ We are given the source code for the first page:
 
 <?php
 
-function print_credentials() { /* {{{ */
+function print_credentials() {
     if($_SESSION and array_key_exists("admin", $_SESSION) and $_SESSION["admin"] == 1) {
     print "You are an admin. The credentials for the next level are:<br>";
     print "<pre>Username: natas22\n";
