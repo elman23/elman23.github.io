@@ -13,16 +13,15 @@ def encode_cookie(cookie: str) -> str:
 
 
 def send_request() -> str:
-    cookie = "PHPSESSID=" + "admin"
-    headers = {'Content-Type': 'application/x-www-form-urlencoded',
+    cookie = "PHPSESSID=" + "brafbmkkbb2tmhhrn5m68r36n2"
+    headers = {'Content-Type': 'text/html; charset=UTF-8',
                'Cookie': cookie}
-    body = "name=test\nadmin 1"
+    body = {"name": "admin"}
     response = requests.post(url, headers=headers,
-                             auth=basic_auth, data=body, verify=False)
+                             auth=basic_auth, json=body, verify=False)
     return response.text
 
 
 if __name__ == '__main__':
-    text = send_request()
     text = send_request()
     print(text)

