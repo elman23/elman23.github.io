@@ -7,11 +7,6 @@ basic_auth = HTTPBasicAuth('natas20', 'p5mCvP7GS2K6Bmt3gqhM2Fc1A5T8MVyw')
 url = "http://natas20.natas.labs.overthewire.org/index.php?debug"
 
 
-def encode_cookie(cookie: str) -> str:
-    encoded_cookie = base64.b16encode(cookie.encode('ascii')).lower()
-    return encoded_cookie.decode('ascii')
-
-
 def send_request() -> str:
     cookie = "PHPSESSID=" + "admin"
     headers = {'Content-Type': 'application/x-www-form-urlencoded',
