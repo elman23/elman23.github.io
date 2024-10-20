@@ -1,0 +1,7 @@
+.idea/
+.venv/
+Pipfile
+Pipfile.lock
+__pycache__/
+.DS_Store
+.pdf
