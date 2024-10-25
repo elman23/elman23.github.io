@@ -17,7 +17,9 @@ URL: http://natas0.natas.labs.overthewire.org
 ### Credentials
 
 Username: natas0
+
 Password: natas0
+
 URL: http://natas0.natas.labs.overthewire.org
 
 ### Message
@@ -55,7 +57,9 @@ You can find the password for the next level on this page.
 ### Credentials
 
 Username: natas1
+
 Password: 0nzCigAq7t2iALyvU9xcHlYN4MlkIwlq
+
 URL: http://natas1.natas.labs.overthewire.org
 
 ### Message
@@ -85,7 +89,9 @@ next level on this page, but rightclicking has been blocked!
 ### Credentials
 
 Username: natas2
+
 Password: TguMNxKo1DSa1tujBLuZJnDUlCcUAPlI
+
 URL: http://natas2.natas.labs.overthewire.org
 
 ### Message
@@ -133,7 +139,9 @@ mallory:9urtcpzBmH
 ### Credentials
 
 Username: natas3
+
 Password: 3gqisGdR0pjm6tpkDKdIWO2hSvchLeYH
+
 URL: http://natas3.natas.labs.overthewire.org
 
 ### Message
@@ -182,7 +190,9 @@ natas4:QryZXc2e0zahULdHrtHxzyYkj59kUxLQ
 ### Credentials
 
 Username: natas4
+
 Password: QryZXc2e0zahULdHrtHxzyYkj59kUxLQ
+
 URL: http://natas4.natas.labs.overthewire.org
 
 ### Message
@@ -242,7 +252,9 @@ Access granted. The password for natas5 is 0n35PkggAPm2zbEpOU802c0x0Msn1ToK
 ### Credentials
 
 Username: natas5
+
 Password: 0n35PkggAPm2zbEpOU802c0x0Msn1ToK
+
 URL: http://natas5.natas.labs.overthewire.org
 
 ### Message
@@ -307,7 +319,9 @@ Access granted. The password for natas6 is 0RoJwHdSKWFTYR5WuiAewauSuNaBXned</div
 ### Credentials
 
 Username: natas6
+
 Password: 0RoJwHdSKWFTYR5WuiAewauSuNaBXned
+
 URL: http://natas6.natas.labs.overthewire.org
 
 ### Message
@@ -379,7 +393,9 @@ Submit the secret in the field requiring it and get:
 ### Credentials
 
 Username: natas7
+
 Password: bmg8SvU1LizuWjx3y7xkNERkHxGre0GS
+
 URL: http://natas7.natas.labs.overthewire.org
 
 ### Message
@@ -414,7 +430,9 @@ This gives us:
 ### Credentials
 
 Username: natas8
+
 Password: xcoXLmzMkoIP9D7hlgPlh9XD7OgLAe5Q
+
 URL: http://natas8.natas.labs.overthewire.org
 
 ### Message
@@ -511,7 +529,9 @@ This works: it returns:
 ### Credentials
 
 Username: natas9
+
 Password: ZE1ck82lmdGIoErlhQgWND6j2Wzz6b6t
+
 URL: http://natas9.natas.labs.overthewire.org
 
 ### Message
@@ -611,7 +631,9 @@ t7I5VHvpa14sJTUGV0cbEsbYfFP2dmOu
 ### Credentials
 
 Username: natas10
+
 Password: t7I5VHvpa14sJTUGV0cbEsbYfFP2dmOu
+
 URL: http://natas10.natas.labs.overthewire.org
 
 ### Message
@@ -696,7 +718,9 @@ so this will search both `dictionary.txt` and `/etc/natas_webpass/natas11` for t
 ### Credentials
 
 Username: natas11
+
 Password: UJdqkK1pTu6VLt9UHWAgRZz6sVUZ3lEk
+
 URL: http://natas11.natas.labs.overthewire.org
 
 ### Message
@@ -949,7 +973,9 @@ This shows the password:
 ### Credentials
 
 Username: natas12
+
 Password: yZdkjAYZRd3R7tq7T5kXMjMJlOIkzDeB
+
 URL: http://natas12.natas.labs.overthewire.org
 
 ### Message
@@ -1063,7 +1089,9 @@ Get: `trbs5pCjCrkuSknBBKHhaBxq6Wm1j3LC`.
 ### Credentials
 
 Username: natas13
+
 Password: trbs5pCjCrkuSknBBKHhaBxq6Wm1j3LC
+
 URL: http://natas13.natas.labs.overthewire.org
 
 ### Message
@@ -1183,7 +1211,9 @@ z3UYcr4v4uBpeX8f7EZbMHlzK4UR2XtQ
 ### Credentials
 
 Username: natas14
+
 Password: z3UYcr4v4uBpeX8f7EZbMHlzK4UR2XtQ
+
 URL: http://natas14.natas.labs.overthewire.org
 
 ### Message
@@ -1257,7 +1287,9 @@ This works:
 ### Credentials
 
 Username: natas15
+
 Password: SdqIqBsFcz3yotlNYErZSZwblkm0lrvx
+
 URL: http://natas15.natas.labs.overthewire.org
 
 ### Message
@@ -1391,7 +1423,9 @@ Password:  hPkjKYviLQctEW33QmuXL6eDVfMW4sGo
 ### Credentials
 
 Username: natas16
+
 Password: hPkjKYviLQctEW33QmuXL6eDVfMW4sGo
+
 URL: http://natas16.natas.labs.overthewire.org
 
 ### Message
@@ -1495,7 +1529,9 @@ EqjHJbo7LFNb8vwhHb9s75hokh5TF0OC
 ### Credentials
 
 Username: natas17
+
 Password: EqjHJbo7LFNb8vwhHb9s75hokh5TF0OC
+
 URL: http://natas17.natas.labs.overthewire.org
 
 ### Message
@@ -1614,7 +1650,9 @@ Found password: 6OG1PbKdVjyBlpxgD4DDbRG6ZLlCGgCJ
 ### Credentials
 
 Username: natas18
+
 Password: 6OG1PbKdVjyBlpxgD4DDbRG6ZLlCGgCJ
+
 URL: http://natas18.natas.labs.overthewire.org
 
 ### Message
@@ -1887,7 +1925,9 @@ Password: tnwER7PdfWkxsG4FNWUtoAZ9VyZTJqJr</pre><div id="viewsource"><a href="in
 ### Credentials
 
 Username: natas19
+
 Password: tnwER7PdfWkxsG4FNWUtoAZ9VyZTJqJr
+
 URL: http://natas19.natas.labs.overthewire.org
 
 ### Message
@@ -2037,7 +2077,9 @@ Password: p5mCvP7GS2K6Bmt3gqhM2Fc1A5T8MVyw</pre></div>
 ### Credentials
 
 Username: natas20
+
 Password: p5mCvP7GS2K6Bmt3gqhM2Fc1A5T8MVyw
+
 URL: http://natas20.natas.labs.overthewire.org
 
 ### Message
@@ -2464,7 +2506,9 @@ admin 1<br>
 ### Credentials
 
 Username: natas21
+
 Password: BPhv63cKE1lkQl04cE5CuFTzXe15NfiH
+
 URL: http://natas21.natas.labs.overthewire.org
 
 ### Message
@@ -2685,7 +2729,9 @@ Password: d8rwGBl0Xslg3b76uh3fEbSlnOUBlozz</pre>
 ### Credentials
 
 Username: natas22
+
 Password: d8rwGBl0Xslg3b76uh3fEbSlnOUBlozz
+
 URL: http://natas22.natas.labs.overthewire.org
 
 ### Message
@@ -2855,7 +2901,9 @@ Password: dIUQcI3uSus1JEOSSWRAEXBG8KbR8tRs</pre>
 ### Credentials
 
 Username: natas23
+
 Password: dIUQcI3uSus1JEOSSWRAEXBG8KbR8tRs
+
 URL: http://natas23.natas.labs.overthewire.org
 
 ### Message
@@ -2971,7 +3019,9 @@ Password:
 ### Credentials
 
 Username: natas24
+
 Password: MeuqmfJ8DDKuTr5pcvzFKSwlxedZYEWd
+
 URL: http://natas24.natas.labs.overthewire.org
 
 ### Message
@@ -3101,7 +3151,9 @@ Password:
 ### Credentials
 
 Username: natas25
+
 Password: ckELKUWZUfpOv6uxS6M7lXBpBssJZ4Ws
+
 URL: http://natas25.natas.labs.overthewire.org
 
 ### Message
@@ -3432,7 +3484,9 @@ if __name__ == '__main__':
 ### Credentials
 
 Username: natas26
+
 Password: cVXXwxMS3Y26n5UZU89QgpGmWCelaQlE
+
 URL: http://natas26.natas.labs.overthewire.org
 
 ### Message
@@ -3768,7 +3822,9 @@ This gives the value `u3RRffXjysjgwFU6b9xa23i6prmUsYne`.
 ### Credentials
 
 Username: natas27
+
 Password: u3RRffXjysjgwFU6b9xa23i6prmUsYne
+
 URL: http://natas27.natas.labs.overthewire.org
 
 ### Message
@@ -4229,7 +4285,9 @@ This gives in the output:
 ### Credentials
 
 Username: natas28
+
 Password: 1JNwQM1Oi6J6j1k49Xyw7ZN6pXMQInVj
+
 URL: http://natas28.natas.labs.overthewire.org
 
 ### Message
