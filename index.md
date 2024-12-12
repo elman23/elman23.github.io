@@ -93,3 +93,7 @@ Some interesting notes I wrote down (the result is quite quick and dirty):
 - [UnderTheWire Cyborg](UnderTheWire/cyborg.md)
 - [UnderTheWire Groot](UnderTheWire/groot.md)
 - [UnderTheWire Oracle](UnderTheWire/oracle.md)
+
+### Lakera Gandalf
+
+- [First seven level solutions](Gandalf/solutions1-7.md)
