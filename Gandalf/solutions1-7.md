@@ -1,8 +1,8 @@
 # Lakera Gandalf
 
-[Link](https://gandalf.lakera.ai/)
-
 A nice game where you have to trick an AI into revealing a secret.
+
+[Here](https://gandalf.lakera.ai/) you can find the game.
 
 We provide the questions and the answers obtained for each level from 1 to 7.
 
