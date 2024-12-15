@@ -48,9 +48,8 @@ Technologies I came in contact with:
 
 What I'd like to learn / I am currently experimenting:
 
-- Machine Learning from a theoretical point of view;
-- Python for ML;
-- Rust programming languange;
+- Machine Learning: [Seth Weidman](https://github.com/SethHWeidman)'s [Deep learning from scratch](https://github.com/elman23/DeepLearningFromScratch), [Andrej Karpathy](https://github.com/karpathy)'s [nanoGPT](https://github.com/elman23/nanoGPT) and [Neural networks from zero to hero](https://github.com/elman23/nn-zero-to-hero);
+- Rust programming languange: [Rustlings](https://github.com/elman23/rustlings) and [100 exercises to learn Rust](https://github.com/elman23/100-exercises-to-learn-rust);
 - Go programming language;
 - Python for API development;
 - Kubernetes;
@@ -96,4 +95,4 @@ Some interesting notes I wrote down (the result is quite quick and dirty):
 
 ### Lakera Gandalf
 
-- [First seven level solutions](Gandalf/solutions1-7.md)
+- [First seven levels](Gandalf/solutions1-7.md)
