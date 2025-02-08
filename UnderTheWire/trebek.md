@@ -1,6 +1,6 @@
 # Trebek
 
-https://underthewire.tech/trebek
+[https://underthewire.tech/trebek](https://underthewire.tech/trebek)
 
 ## Trebek 0 -> 1
 
@@ -8,13 +8,13 @@ https://underthewire.tech/trebek
 
 The goal of this level is to log into the game. Do the following in order to achieve this goal.
 
-1. Obtain the initial credentials via the #StartHere channel on our Slack (Link). Once you are in the channel, scroll to the top to see the credentials.
+1. Obtain the initial credentials via the `#StartHere` channel on our Slack ([Link](https://communityinviter.com/apps/underthewire/under-the-wire)). Once you are in the channel, scroll to the top to see the credentials.
 
-2. After obtaining the credentials, connect to the server via SSH. You will need an SSH client such as Putty. The host that you will be connecting to is trebek.underthewire.tech, on port 22.
+2. After obtaining the credentials, connect to the server via SSH. You will need an SSH client such as Putty. The host that you will be connecting to is `trebek.underthewire.tech`, on port `22`.
 
-3. When prompted, use the credentials for the applicable game found in the #StartHere Slack channel.
+3. When prompted, use the credentials for the applicable game found in the `#StartHere` Slack channel.
 
-4. You have successfully connected to the game server when your path changes to “PS C:\Users\Trebek1\desktop>”.
+4. You have successfully connected to the game server when your path changes to `PS C:\Users\Trebek1\desktop>`.
 
 ### Solution
 
@@ -28,14 +28,14 @@ ssh trebek1@trebek.underthewire.tech
 
 ### Task
 
-The password for trebek2 is the name of the script referenced in a deleted task as depicted in the event logs on the desktop.
+The password for `trebek2` is the name of the script referenced in a deleted task as depicted in the event logs on the desktop.
 
 NOTE:
-– Don’t include the file extension (i.e.- .vbs)
+– Don’t include the file extension (i.e. - `.vbs`)
 – The password will be lowercase no matter how it appears on the screen.
 
 IMPORTANT:
-Once you feel you have completed the Trebek1 challenge, start a new connection to the server, and log in with the username of Trebek2 and this password will be the answer from Trebek1. If successful, close out the Trebek1 connection and begin to solve the Trebek2 challenge. This concept is repeated over and over until you reach the end of the game.
+Once you feel you have completed the `Trebek1` challenge, start a new connection to the server, and log in with the username of `Trebek2` and this password will be the answer from `Trebek1`. If successful, close out the `Trebek1` connection and begin to solve the `Trebek2` challenge. This concept is repeated over and over until you reach the end of the game.
 
 ▼ HINT:
 https://msdn.microsoft.com/en-us/powershell/reference/5.1/microsoft.powershell.diagnostics/get-winevent
@@ -107,7 +107,6 @@ Message      : A scheduled task was deleted.
                    </Exec>
                  </Actions>
                </Task>
-
 
 ...
 
@@ -183,10 +182,10 @@ Credentials: `trebek2:mess_cleaner`.
 
 ### Task
 
-The password for trebek3 is the name of the executable associated with the C-3PO service PLUS the name of the file on the user’s desktop.
+The password for `trebek3` is the name of the executable associated with the `C-3PO` service PLUS the name of the file on the user’s `desktop`.
 
 NOTE:
-– Don’t include the file extension (i.e.- .exe). If the executable name is “binary.exe” and the file on the desktop is named “1234”, the password would be “binary1234”.
+– Don’t include the file extension (i.e. - `.exe`). If the executable name is `binary.exe` and the file on the `desktop` is named `1234`, the password would be `binary1234`.
 – The password will be lowercase no matter how it appears on the screen.
 
 ▼ HINT:
@@ -307,22 +306,130 @@ Message      : The computer attempted to validate the credentials for an account
 
 ## Trebek 4 -> 5
 
+### Task
+
+The password for `trebek5` is the last execution date of Microsoft Access PLUS the name of the text file on the user’s `desktop`.
+
+Note:
+– Format for the date is 2 digit month, 2 digit day, 4 digit year. Ex: `9 feb 2009` would be `02/09/2009`.
+– If the date is `02/09/2009` and the file on the `desktop` is named `_bob`, the password would be `02/09/2009_bob`.
+▼ HINT:
+
+https://technet.microsoft.com/en-us/library/ee176852.aspx
+
+▼ HINT:
+
+https://www.fireeye.com/blog/threat-research/2013/08/execute.html
+
+### Solution
+
+Try with:
+```powershell
+Get-WinEvent -LogName "Microsoft-Windows-Shell-Core/Operational" | Where-Object { $_.Message -like "*msaccess.exe*" } | Select-Object -First 1 TimeCreated
+```
+
+Now working:
+```
+Get-WinEvent : Attempted to perform an unauthorized operation.
+At line:1 char:1
++ Get-WinEvent -LogName "Microsoft-Windows-Shell-Core/Operational" | Wh ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [Get-WinEvent], UnauthorizedA
+   ccessException
+    + FullyQualifiedErrorId : System.UnauthorizedAccessException,Microsoft.Po
+   werShell.Commands.GetWinEventCommand
+```
+
+Try with:
+```powershell
+$path = "$env:SystemRoot\Prefetch\MSACCESS.EXE*"
+Get-Item $path | Select-Object LastWriteTime
+```
+
+Output:
+```
+LastWriteTime
+-------------
+1/5/2017 6:04:00 PM
+```
+
+The file on the `desktop`:
+```powershell
+PS C:\users\trebek4\desktop> Get-ChildItem
+
+
+    Directory: C:\users\trebek4\desktop
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+-a----        8/30/2018  10:46 AM              0 _red
+```
+
+Password: `01/05/2017_red`.
+
 ## Trebek 5 -> 6
+
+### Task
+
+The password for `trebek6` is the name of the executable that is starting at `3/23/2017 8:08:53 PM` via the Software Protection service as depicted in the event log on the `desktop`.
+
+NOTE:
+– Don’t include the file extension (i.e. - `.exe`).
+– The password will be lowercase no matter how it appears on the screen.
+
+### Solution
 
 ## Trebek 6 -> 7
 
+### Task
+
+### Solution
+
 ## Trebek 7 -> 8
+
+### Task
+
+### Solution
 
 ## Trebek 8 -> 9
 
+### Task
+
+### Solution
+
 ## Trebek 9 -> 10
+
+### Task
+
+### Solution
 
 ## Trebek 10 -> 11
 
+### Task
+
+### Solution
+
 ## Trebek 11 -> 12
+
+### Task
+
+### Solution
 
 ## Trebek 12 -> 13
 
+### Task
+
+### Solution
+
 ## Trebek 13 -> 14
 
+### Task
+
+### Solution
+
 ## Trebek 14 -> 15
+
+### Task
+
+### Solution

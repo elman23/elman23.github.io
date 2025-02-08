@@ -14,9 +14,9 @@ I have some experience with different aspects of software development, delivery,
 
 My role gives me the opportunity to get some hands-on experience with:
 
-- backend development (Java, Spring Boot);
-- database management;
-- deployment, containerization, CI/CD, DevOps practices;
+- backend development (Java: Spring Boot, Python: Django, Flask, FastAPI);
+- database management (Postgres, MySQL, MongoDB);
+- deployment, containerization (Docker), CI/CD, DevOps practices;
 - Linux system management.
 
 ## Interests
@@ -92,6 +92,7 @@ Some interesting notes I wrote down (the result is quite quick and dirty):
 - [UnderTheWire Cyborg](UnderTheWire/cyborg.md)
 - [UnderTheWire Groot](UnderTheWire/groot.md)
 - [UnderTheWire Oracle](UnderTheWire/oracle.md)
+- [UnderTheWire Trebek](UnderTheWire/trebek.md)
 
 ### Lakera Gandalf
 

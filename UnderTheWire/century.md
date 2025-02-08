@@ -1,6 +1,6 @@
 # Century
 
-[https://underthewire.tech/century-2](https://underthewire.tech/century-2)
+[https://underthewire.tech/century-2](https://underthewire.tech/century)
 
 ## Century0
 
