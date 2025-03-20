@@ -52,33 +52,40 @@ $$
 
 ### **3.1 Single-Qubit Gates**
 
-- **Pauli Matrices**:
-  $$
-  X = \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix}, \quad
-  Y = \begin{bmatrix} 0 & -i \\ i & 0 \end{bmatrix}, \quad
-  Z = \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}.
-  $$
-- **Hadamard Gate $H$**: Creates superposition.
-  $$
-  H = \frac{1}{\sqrt{2}} \begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}.
-  $$
-  Applying $H$ to $|0\rangle$ gives:
-  $$
-  H|0\rangle = \frac{1}{\sqrt{2}} \left(|0\rangle + |1\rangle\right).
-  $$
+#### **Pauli Matrices**:
+
+$$
+X = \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix}, \quad
+Y = \begin{bmatrix} 0 & -i \\ i & 0 \end{bmatrix}, \quad
+Z = \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}.
+$$
+
+#### **Hadamard Gate $H$**: Creates superposition.
+
+$$
+H = \frac{1}{\sqrt{2}} \begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}.
+$$
+
+Applying $H$ to $|0\rangle$ gives:
+
+$$
+H|0\rangle = \frac{1}{\sqrt{2}} \left(|0\rangle + |1\rangle\right).
+$$
 
 ### **3.2 Multi-Qubit Gates**
 
-- **CNOT (Controlled-NOT) Gate**:
-  $$
-  \text{CNOT} = \begin{bmatrix}
-  1 & 0 & 0 & 0 \\
-  0 & 1 & 0 & 0 \\
-  0 & 0 & 0 & 1 \\
-  0 & 0 & 1 & 0
-  \end{bmatrix}.
-  $$
-  It entangles two qubits.
+**CNOT (Controlled-NOT) Gate**:
+
+$$
+\text{CNOT} = \begin{bmatrix}
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & 0 & 1 \\
+0 & 0 & 1 & 0
+\end{bmatrix}.
+$$
+
+It entangles two qubits.
 
 ## **4. Quantum Entanglement**
 
@@ -253,42 +260,51 @@ $$
 
 When we measure the first qubit, the outcome probabilities are determined by the coefficients:
 
-- **For outcome $|0\rangle$:**
-  $$
-  A_0 = \frac{(-1)^{f(0)} + (-1)^{f(1)}}{2\sqrt{2}}.
-  $$
-- **For outcome $|1\rangle$:**
-  $$
-  A_1 = \frac{(-1)^{f(0)} - (-1)^{f(1)}}{2\sqrt{2}}.
-  $$
+**For outcome $|0\rangle$:**
+
+$$
+A_0 = \frac{(-1)^{f(0)} + (-1)^{f(1)}}{2\sqrt{2}}.
+$$
+
+**For outcome $|1\rangle$:**
+
+$$
+A_1 = \frac{(-1)^{f(0)} - (-1)^{f(1)}}{2\sqrt{2}}.
+$$
 
 There are two cases:
 
-1. **$f$ is constant:**  
-   Then $f(0) = f(1)$ so that:
+### **$f$ is constant:**
 
-   $$
-   (-1)^{f(0)} = (-1)^{f(1)}.
-   $$
+Then $f(0) = f(1)$ so that:
 
-   Thus,
+$$
+(-1)^{f(0)} = (-1)^{f(1)}.
+$$
 
-   $$
-   A_0 = \frac{2(-1)^{f(0)}}{2\sqrt{2}} = \frac{(-1)^{f(0)}}{\sqrt{2}}, \quad A_1 = 0.
-   $$
+Thus,
 
-   Measurement will yield $|0\rangle$ with certainty.
+$$
+A_0 = \frac{2(-1)^{f(0)}}{2\sqrt{2}} = \frac{(-1)^{f(0)}}{\sqrt{2}}, \quad A_1 = 0.
+$$
 
-2. **$f$ is balanced:**  
-   Then $f(0) \neq f(1)$, implying:
-   $$
-   (-1)^{f(0)} = -(-1)^{f(1)}.
-   $$
-   Thus,
-   $$
-   A_0 = 0, \quad A_1 = \frac{2(-1)^{f(0)}}{2\sqrt{2}} = \frac{(-1)^{f(0)}}{\sqrt{2}}.
-   $$
-   Measurement will yield $|1\rangle$ with certainty.
+Measurement will yield $|0\rangle$ with certainty.
+
+### **$f$ is balanced:**
+
+Then $f(0) \neq f(1)$, implying:
+
+$$
+(-1)^{f(0)} = -(-1)^{f(1)}.
+$$
+
+Thus,
+
+$$
+A_0 = 0, \quad A_1 = \frac{2(-1)^{f(0)}}{2\sqrt{2}} = \frac{(-1)^{f(0)}}{\sqrt{2}}.
+$$
+
+Measurement will yield $|1\rangle$ with certainty.
 
 ---
 
@@ -533,33 +549,34 @@ For a three-qubit system ($N = 2^3 = 8$), this transformation enables efficient 
 
 #### **Step-by-Step Process**
 
-1. **Initial State**
-   Suppose Alice wants to send a qubit state:
+##### **Initial State**
 
-   $$
-   |\phi\rangle = \alpha |0\rangle + \beta |1\rangle
-   $$
+Suppose Alice wants to send a qubit state:
 
-   She and Bob share an entangled **Bell state**:
+$$
+|\phi\rangle = \alpha |0\rangle + \beta |1\rangle
+$$
 
-   $$
-   |\beta*{00}\rangle = \frac{1}{\sqrt{2}} (|00\rangle + |11\rangle)
-   $$
+She and Bob share an entangled **Bell state**:
 
-   The total three-qubit system (Alice's qubit + Bell pair) is:
+$$
+|\beta*{00}\rangle = \frac{1}{\sqrt{2}} (|00\rangle + |11\rangle)
+$$
 
-   $$
-   |\Psi\rangle = |\phi\rangle \otimes |\beta*{00}\rangle
-   $$
+The total three-qubit system (Alice's qubit + Bell pair) is:
 
-2. **Bell Measurement on Alice’s Qubits**
-   Alice applies a **CNOT gate** followed by a **Hadamard gate** and measures her two qubits. This collapses Bob’s qubit into one of four possible states.
+$$
+|\Psi\rangle = |\phi\rangle \otimes |\beta*{00}\rangle
+$$
 
-3. **Classical Communication**
-   Alice sends her **two classical measurement results** to Bob.
+**Bell Measurement on Alice’s Qubits**
+Alice applies a **CNOT gate** followed by a **Hadamard gate** and measures her two qubits. This collapses Bob’s qubit into one of four possible states.
 
-4. **Bob’s Recovery Operation**
-   Depending on Alice’s measurement result, Bob applies an appropriate quantum gate (Identity, $X$, $Z$, or $XZ$) to recover $|\phi\rangle$.
+**Classical Communication**
+Alice sends her **two classical measurement results** to Bob.
+
+**Bob’s Recovery Operation**
+Depending on Alice’s measurement result, Bob applies an appropriate quantum gate (Identity, $X$, $Z$, or $XZ$) to recover $|\phi\rangle$.
 
 Thus, **Alice’s original quantum state is transferred to Bob without physical movement** of the qubit.
 
@@ -716,16 +733,16 @@ For an $n$-qubit system, the QFT can be implemented using the following steps:
 
 For a **three-qubit QFT**, the circuit consists of:
 
-- **Hadamard gates**: $H$
-- **Controlled phase gates** $R_k$ defined as:
+**Hadamard gates**: $H$
+**Controlled phase gates** $R_k$ defined as:
 
-  $$
-  R_k =
-  \begin{bmatrix}
-  1 & 0 \\
-  0 & e^{2\pi i / 2^k}
-  \end{bmatrix}
-  $$
+$$
+R_k =
+\begin{bmatrix}
+1 & 0 \\
+0 & e^{2\pi i / 2^k}
+\end{bmatrix}
+$$
 
 ### **4.2 QFT Circuit for Three Qubits**
 
