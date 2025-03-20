@@ -20,7 +20,7 @@ $$
 \mathbf{b} \in \{0,1\}
 $$
 
-A classical state of an $n$-bit register is a vector in $ \{0,1\}^n $.
+A classical state of an $n$-bit register is a vector in $\{0,1\}^n$.
 
 ### **1.2 Quantum Computing**
 
@@ -30,14 +30,14 @@ $$
 |\psi\rangle = \alpha |0\rangle + \beta |1\rangle, \quad \text{where } \alpha, \beta \in \mathbb{C} \text{ and } |\alpha|^2 + |\beta|^2 = 1.
 $$
 
-The vector $ |\psi\rangle $ belongs to a two-dimensional Hilbert space $ \mathbb{C}^2 $, where $ |0\rangle = (1,0)^T $ and $ |1\rangle = (0,1)^T $.
+The vector $|\psi\rangle$ belongs to a two-dimensional Hilbert space $\mathbb{C}^2$, where $|0\rangle = (1,0)^T$ and $|1\rangle = (0,1)^T$.
 
 ## **2. Quantum Registers and Superposition**
 
 For an $n$-qubit quantum system, the state is a superposition of all $2^n$ computational basis states:
 
 $$
-|\Psi\rangle = \sum_{x=0}^{2^n - 1} c_x |x\rangle, \quad \text{where } c_x \in \mathbb{C} \text{ and } \sum |c_x|^2 = 1.
+|\Psi\rangle = \sum\_{x=0}^{2^n - 1} c_x |x\rangle, \quad \text{where } c_x \in \mathbb{C} \text{ and } \sum |c_x|^2 = 1.
 $$
 
 This ability to represent all possible states simultaneously is called **quantum parallelism**.
@@ -58,13 +58,13 @@ $$
   Y = \begin{bmatrix} 0 & -i \\ i & 0 \end{bmatrix}, \quad
   Z = \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}.
   $$
-- **Hadamard Gate (H)**: Creates superposition.
+- **Hadamard Gate $H$**: Creates superposition.
   $$
   H = \frac{1}{\sqrt{2}} \begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}.
   $$
-  Applying $H$ to $ |0\rangle $ gives:
+  Applying $H$ to $|0\rangle$ gives:
   $$
-  H|0\rangle = \frac{1}{\sqrt{2}} (|0\rangle + |1\rangle).
+  H|0\rangle = \frac{1}{\sqrt{2}} \left(|0\rangle + |1\rangle\right).
   $$
 
 ### **3.2 Multi-Qubit Gates**
@@ -100,13 +100,13 @@ $$
 \mathbb{P}(\text{measuring } |x\rangle) = |c_x|^2.
 $$
 
-Measurement is represented by projection operators $ P_x = |x\rangle \langle x| $.
+Measurement is represented by projection operators $P_x = |x\rangle \langle x|$.
 
 ## **6. Differences Between Quantum and Classical Computing**
 
 | Feature              | Classical Computing               | Quantum Computing                                      |
-| -------------------- | --------------------------------- | ------------------------------------------------------ | ---------------- | ---------- |
-| **Information unit** | Bit ($0$ or $1$)                  | Qubit ($\alpha                                         | 0\rangle + \beta | 1\rangle$) |
+| -------------------- | --------------------------------- | ------------------------------------------------------ |
+| **Information unit** | Bit: $0$ or $1$                   | Qubit: $\alpha\mid 0\rangle + \beta \mid 1\rangle$     |
 | **Storage**          | $n$-bit register stores one value | $n$-qubit system stores $2^n$ coefficients             |
 | **Computation**      | Deterministic, sequential         | Superposition allows parallelism                       |
 | **Logic Gates**      | AND, OR, NOT, XOR, NAND, NOR      | Unitary transformations (e.g., Hadamard, CNOT, T-gate) |
@@ -144,15 +144,15 @@ is constant (same output for both inputs) or balanced (different outputs for the
 
 ## 1. The Problem Setting
 
-We have a function $ f $ with the promise that it is either constant or balanced. Classically, one must evaluate $ f(0) $ and $ f(1) $ to decide. The Deutsch algorithm uses quantum superposition and interference to decide with one oracle call.
+We have a function $f$ with the promise that it is either constant or balanced. Classically, one must evaluate $f(0)$ and $f(1)$ to decide. The Deutsch algorithm uses quantum superposition and interference to decide with one oracle call.
 
-The function is implemented by an oracle (or black box) represented as a unitary operator $ U_f $ defined by:
+The function is implemented by an oracle (or black box) represented as a unitary operator $U_f$ defined by:
 
 $$
 U_f|x\rangle|y\rangle = |x\rangle|y\oplus f(x)\rangle,
 $$
 
-where $ \oplus $ denotes addition modulo 2.
+where $\oplus$ denotes addition modulo 2.
 
 ---
 
@@ -160,7 +160,7 @@ where $ \oplus $ denotes addition modulo 2.
 
 The algorithm uses two qubits:
 
-- The **first qubit** holds the input $ x $.
+- The **first qubit** holds the input $x$.
 - The **second qubit** is an auxiliary qubit (also called the ancilla).
 
 The initial state is chosen as:
@@ -173,13 +173,13 @@ $$
 
 ## 3. Applying the Hadamard Transform
 
-Next, we apply the Hadamard gate $ H $ to both qubits. The Hadamard gate acts as:
+Next, we apply the Hadamard gate $H$ to both qubits. The Hadamard gate acts as:
 
 $$
 H|0\rangle = \frac{1}{\sqrt{2}}\left(|0\rangle + |1\rangle\right), \quad H|1\rangle = \frac{1}{\sqrt{2}}\left(|0\rangle - |1\rangle\right).
 $$
 
-After applying $ H $ to each qubit, the state becomes:
+After applying $H$ to each qubit, the state becomes:
 
 $$
 |\psi_1\rangle = (H\otimes H)|0\rangle|1\rangle = \left(\frac{|0\rangle+|1\rangle}{\sqrt{2}}\right) \otimes \left(\frac{|0\rangle-|1\rangle}{\sqrt{2}}\right).
@@ -193,21 +193,21 @@ $$
 
 ---
 
-## 4. Oracle Operation $ U_f $
+## 4. Oracle Operation $U_f$
 
-We now apply the oracle $ U_f $. Its action is defined by:
+We now apply the oracle $U_f$. Its action is defined by:
 
 $$
 U_f|x\rangle\Big(|0\rangle-|1\rangle\Big) = (-1)^{f(x)}|x\rangle\Big(|0\rangle-|1\rangle\Big).
 $$
 
-This works because, for the ancilla in the state $\frac{|0\rangle - |1\rangle}{\sqrt{2}}$, we have:
+This works because, for the ancilla in the state \(\frac{|0\rangle - |1\rangle}{\sqrt{2}}\), we have:
 
 $$
 U_f|x\rangle\frac{|0\rangle - |1\rangle}{\sqrt{2}} = \frac{|x\rangle(|0\oplus f(x)\rangle - |1\oplus f(x)\rangle)}{\sqrt{2}} = (-1)^{f(x)}|x\rangle\frac{|0\rangle-|1\rangle}{\sqrt{2}}.
 $$
 
-Thus, applying $ U_f $ to $ |\psi_1\rangle $ gives:
+Thus, applying $U_f$ to $|\psi_1\rangle$ gives:
 
 $$
 |\psi_2\rangle = \frac{1}{2}\Big[ (-1)^{f(0)}|0\rangle(|0\rangle-|1\rangle) + (-1)^{f(1)}|1\rangle(|0\rangle-|1\rangle)\Big].
@@ -264,8 +264,8 @@ When we measure the first qubit, the outcome probabilities are determined by the
 
 There are two cases:
 
-1. **$ f $ is constant:**  
-   Then $ f(0) = f(1) $ so that:
+1. **$f$ is constant:**  
+   Then $f(0) = f(1)$ so that:
 
    $$
    (-1)^{f(0)} = (-1)^{f(1)}.
@@ -279,8 +279,8 @@ There are two cases:
 
    Measurement will yield $|0\rangle$ with certainty.
 
-2. **$ f $ is balanced:**  
-   Then $ f(0) \neq f(1) $, implying:
+2. **$f$ is balanced:**  
+   Then $f(0) \neq f(1)$, implying:
    $$
    (-1)^{f(0)} = -(-1)^{f(1)}.
    $$
@@ -296,9 +296,9 @@ There are two cases:
 
 - **Initialization:** Start with $|0\rangle|1\rangle$.
 - **Superposition:** Apply Hadamard gates to create a superposition of states.
-- **Oracle Query:** Use the oracle $ U_f $ to imprint the function information as phase factors.
+- **Oracle Query:** Use the oracle $U_f$ to imprint the function information as phase factors.
 - **Interference:** Apply a final Hadamard to the first qubit to cause constructive or destructive interference.
-- **Measurement:** The measurement of the first qubit directly reveals whether $ f $ is constant ($|0\rangle$) or balanced ($|1\rangle$).
+- **Measurement:** The measurement of the first qubit directly reveals whether $f$ is constant ($|0\rangle$) or balanced ($|1\rangle$).
 
 This example illustrates the power of quantum parallelism and interference: by querying the oracle once on a superposition state, we effectively evaluate the function on both inputs simultaneously.
 
@@ -320,13 +320,13 @@ A **three-qubit quantum system** is a fundamental building block for larger quan
 
 ## **1. Hilbert Space Representation for Three Qubits**
 
-Each qubit exists in a two-dimensional **Hilbert space** $ \mathcal{H}\_2 $. A system of **three qubits** resides in the tensor product space:
+Each qubit exists in a two-dimensional **Hilbert space** $\mathcal{H}_2$. A system of **three qubits** resides in the tensor product space:
 
 $$
-\mathcal{H}_8 = \mathcal{H}_2 \otimes \mathcal{H}_2 \otimes \mathcal{H}_2
+\mathcal{H}\_8 = \mathcal{H}\_2 \otimes \mathcal{H}\_2 \otimes \mathcal{H}\_2
 $$
 
-which is an **8-dimensional complex vector space** $ \mathbb{C}^8 $ spanned by the **computational basis states**:
+which is an **8-dimensional complex vector space** $\mathbb{C}^8$ spanned by the **computational basis states**:
 
 $$
 \{ |000\rangle, |001\rangle, |010\rangle, |011\rangle, |100\rangle, |101\rangle, |110\rangle, |111\rangle \}
@@ -337,13 +337,13 @@ $$
 A general quantum state for three qubits is given by a **linear superposition**:
 
 $$
-|\Psi\rangle = \sum_{x=0}^{7} c_x |x\rangle = c_0 |000\rangle + c_1 |001\rangle + c_2 |010\rangle + c_3 |011\rangle + c_4 |100\rangle + c_5 |101\rangle + c_6 |110\rangle + c_7 |111\rangle
+|\Psi\rangle = \sum\_{x=0}^{7} c_x |x\rangle = c_0 |000\rangle + c_1 |001\rangle + c_2 |010\rangle + c_3 |011\rangle + c_4 |100\rangle + c_5 |101\rangle + c_6 |110\rangle + c_7 |111\rangle
 $$
 
-where $ c_i \in \mathbb{C} $ are complex probability amplitudes satisfying the **normalization condition**:
+where $c_i \in \mathbb{C}$ are complex probability amplitudes satisfying the **normalization condition**:
 
 $$
-\sum_{i=0}^{7} |c_i|^2 = 1
+\sum\_{i=0}^{7} |c_i|^2 = 1
 $$
 
 ---
@@ -358,8 +358,8 @@ $$
 
 For example:
 
-- $ |000\rangle = |0\rangle \otimes |0\rangle \otimes |0\rangle $
-- $ |101\rangle = |1\rangle \otimes |0\rangle \otimes |1\rangle $
+- $|000\rangle = |0\rangle \otimes |0\rangle \otimes |0\rangle$
+- $|101\rangle = |1\rangle \otimes |0\rangle \otimes |1\rangle$
 
 Using **vector notation**, we write:
 
@@ -374,7 +374,7 @@ $$
 \begin{bmatrix} 1 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 \end{bmatrix}
 $$
 
-Similarly, for $ |101\rangle $:
+Similarly, for $|101\rangle$:
 
 $$
 |101\rangle = \begin{bmatrix} 0 \\ 1 \end{bmatrix} \otimes \begin{bmatrix} 1 \\ 0 \end{bmatrix} \otimes \begin{bmatrix} 0 \\ 1 \end{bmatrix} =
@@ -412,7 +412,7 @@ H \otimes I \otimes I =
 \end{bmatrix}
 $$
 
-Applying $ H $ to $ |000\rangle $ gives:
+Applying $H$ to $|000\rangle$ gives:
 
 $$
 H |000\rangle = \frac{1}{\sqrt{2}} (|000\rangle + |100\rangle)
@@ -422,10 +422,10 @@ $$
 
 ### **3.2 Multi-Qubit Gates**
 
-The **CNOT (Controlled-NOT) gate** is a two-qubit gate that flips the target qubit if the control qubit is $ |1\rangle $. Its matrix form in three-qubit space (control: first qubit, target: second qubit) is:
+The **CNOT (Controlled-NOT) gate** is a two-qubit gate that flips the target qubit if the control qubit is $|1\rangle$. Its matrix form in three-qubit space (control: first qubit, target: second qubit) is:
 
 $$
-\text{CNOT}_{1,2} =
+\text{CNOT}\_{1,2} =
 \begin{bmatrix}
 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
@@ -438,10 +438,10 @@ $$
 \end{bmatrix}
 $$
 
-If we apply **CNOT** to $ |110\rangle $, the result is:
+If we apply **CNOT** to $|110\rangle$, the result is:
 
 $$
-\text{CNOT}_{1,2} |110\rangle = |100\rangle
+\text{CNOT}\_{1,2} |110\rangle = |100\rangle
 $$
 
 ---
@@ -468,7 +468,7 @@ The **W state** is **robust** against measurement on a single qubit, unlike the 
 
 ## **5. Measurement and Collapsing of States**
 
-Measuring a three-qubit system collapses it into one of the eight computational basis states $ |000\rangle, ..., |111\rangle $ with probability $ |c_i|^2 $.
+Measuring a three-qubit system collapses it into one of the eight computational basis states $|000\rangle, ..., |111\rangle$ with probability $|c_i|^2$.
 
 For example, in the GHZ state:
 
@@ -476,7 +476,7 @@ $$
 P(|000\rangle) = P(|111\rangle) = \frac{1}{2}
 $$
 
-If we measure the first qubit and obtain $ |0\rangle $, the system collapses to $ |000\rangle $.
+If we measure the first qubit and obtain $|0\rangle$, the system collapses to $|000\rangle$.
 
 ---
 
@@ -502,23 +502,23 @@ Quantum algorithms exploit **superposition and entanglement** to perform computa
 
 ### **1.1 Quantum Parallelism**
 
-A classical 3-bit register can store only **one** of the $ 2^3 = 8 $ possible states at a time. However, a **three-qubit** quantum register can store a **superposition** of all eight states:
+A classical 3-bit register can store only **one** of the $2^3 = 8$ possible states at a time. However, a **three-qubit** quantum register can store a **superposition** of all eight states:
 
 $$
 |\Psi\rangle = \frac{1}{\sqrt{8}} (|000\rangle + |001\rangle + |010\rangle + |011\rangle + |100\rangle + |101\rangle + |110\rangle + |111\rangle)
 $$
 
-This enables quantum parallelism, where an operation applied to $ |\Psi\rangle $ affects all states simultaneously.
+This enables quantum parallelism, where an operation applied to $|\Psi\rangle$ affects all states simultaneously.
 
 ### **1.2 Quantum Fourier Transform (QFT)**
 
-The **Quantum Fourier Transform (QFT)** is a crucial subroutine in quantum algorithms like **Shor's algorithm** (for factoring large numbers efficiently). The QFT maps a computational basis state $ |j\rangle $ to a **superposition**:
+The **Quantum Fourier Transform (QFT)** is a crucial subroutine in quantum algorithms like **Shor's algorithm** (for factoring large numbers efficiently). The QFT maps a computational basis state $|j\rangle$ to a **superposition**:
 
 $$
-QFT |j\rangle = \frac{1}{\sqrt{N}} \sum_{k=0}^{N-1} e^{2\pi i jk/N} |k\rangle
+QFT |j\rangle = \frac{1}{\sqrt{N}} \sum\_{k=0}^{N-1} e^{2\pi i jk/N} |k\rangle
 $$
 
-For a three-qubit system ($ N = 2^3 = 8 $), this transformation enables efficient **period-finding**, which is central to breaking RSA encryption.
+For a three-qubit system ($N = 2^3 = 8$), this transformation enables efficient **period-finding**, which is central to breaking RSA encryption.
 
 ---
 
@@ -533,7 +533,7 @@ For a three-qubit system ($ N = 2^3 = 8 $), this transformation enables efficien
 
 #### **Step-by-Step Process**
 
-1. **Initial State**  
+1. **Initial State**
    Suppose Alice wants to send a qubit state:
 
    $$
@@ -543,23 +543,23 @@ For a three-qubit system ($ N = 2^3 = 8 $), this transformation enables efficien
    She and Bob share an entangled **Bell state**:
 
    $$
-   |\beta_{00}\rangle = \frac{1}{\sqrt{2}} (|00\rangle + |11\rangle)
+   |\beta*{00}\rangle = \frac{1}{\sqrt{2}} (|00\rangle + |11\rangle)
    $$
 
    The total three-qubit system (Alice's qubit + Bell pair) is:
 
    $$
-   |\Psi\rangle = |\phi\rangle \otimes |\beta_{00}\rangle
+   |\Psi\rangle = |\phi\rangle \otimes |\beta*{00}\rangle
    $$
 
-2. **Bell Measurement on Alice’s Qubits**  
+2. **Bell Measurement on Alice’s Qubits**
    Alice applies a **CNOT gate** followed by a **Hadamard gate** and measures her two qubits. This collapses Bob’s qubit into one of four possible states.
 
-3. **Classical Communication**  
+3. **Classical Communication**
    Alice sends her **two classical measurement results** to Bob.
 
-4. **Bob’s Recovery Operation**  
-   Depending on Alice’s measurement result, Bob applies an appropriate quantum gate (Identity, $ X $, $ Z $, or $ XZ $) to recover $ |\phi\rangle $.
+4. **Bob’s Recovery Operation**
+   Depending on Alice’s measurement result, Bob applies an appropriate quantum gate (Identity, $X$, $Z$, or $XZ$) to recover $|\phi\rangle$.
 
 Thus, **Alice’s original quantum state is transferred to Bob without physical movement** of the qubit.
 
@@ -577,7 +577,7 @@ $$
 |0_L\rangle = |000\rangle, \quad |1_L\rangle = |111\rangle
 $$
 
-If a single qubit undergoes a **bit-flip error** ($ |0\rangle \leftrightarrow |1\rangle $), the error state might be:
+If a single qubit undergoes a **bit-flip error** ($|0\rangle \leftrightarrow |1\rangle$), the error state might be:
 
 $$
 |010\rangle \quad \text{or} \quad |100\rangle \quad \text{or} \quad |001\rangle
@@ -585,8 +585,8 @@ $$
 
 A **majority vote** allows the correction of the error:
 
-- If two qubits are $ |0\rangle $ and one is $ |1\rangle $, assume the error affected the **single $ |1\rangle $** and flip it back.
-- Similarly, if two are $ |1\rangle $ and one is $ |0\rangle $, flip the erroneous **$ |0\rangle $\*\*.
+- If two qubits are $|0\rangle$ and one is $|1\rangle$, assume the error affected the **single $|1\rangle$** and flip it back.
+- Similarly, if two are $|1\rangle$ and one is $|0\rangle$, flip the erroneous **$|0\rangle$**.
 
 Thus, the logical state remains intact.
 
@@ -602,7 +602,7 @@ Each parity check detects whether adjacent qubits differ, allowing correction wi
 
 ### **3.3 Protection Against Phase-Flip Errors**
 
-The bit-flip code does not protect against **phase errors** ($ |+\rangle \leftrightarrow |-\rangle $). The **Shor Code** (using 9 qubits) extends error correction to phase-flip errors by encoding each qubit into a **three-qubit phase code**.
+The bit-flip code does not protect against **phase errors** ($|+\rangle \leftrightarrow |-\rangle$). The **Shor Code** (using 9 qubits) extends error correction to phase-flip errors by encoding each qubit into a **three-qubit phase code**.
 
 ---
 
@@ -630,13 +630,13 @@ The **Quantum Fourier Transform (QFT)** is the quantum analog of the **Discrete 
 
 # **1. Discrete Fourier Transform (DFT)**
 
-In classical computation, the **Discrete Fourier Transform (DFT)** maps a vector $ (x*0, x_1, \dots, x*{N-1}) $ to another vector $ (y*0, y_1, \dots, y*{N-1}) $ using the formula:
+In classical computation, the **Discrete Fourier Transform (DFT)** maps a vector $(x*0, x_1, \dots, x*{N-1})$ to another vector $(y*0, y_1, \dots, y*{N-1})$ using the formula:
 
 $$
-y_k = \frac{1}{\sqrt{N}} \sum_{j=0}^{N-1} x_j e^{2\pi i jk / N}, \quad k = 0, 1, ..., N-1
+y*k = \frac{1}{\sqrt{N}} \sum*{j=0}^{N-1} x_j e^{2\pi i jk / N}, \quad k = 0, 1, ..., N-1
 $$
 
-where $ e^{2\pi i / N} $ is the **primitive N-th root of unity**.
+where $e^{2\pi i / N}$ is the **primitive N-th root of unity**.
 
 ### **Key Features of the DFT**
 
@@ -652,26 +652,26 @@ The **Quantum Fourier Transform (QFT)** applies the same transformation but in a
 The **Quantum Fourier Transform** acts on a quantum state:
 
 $$
-|\psi\rangle = \sum_{j=0}^{N-1} x_j |j\rangle
+|\psi\rangle = \sum\_{j=0}^{N-1} x_j |j\rangle
 $$
 
 and transforms it into:
 
 $$
-QFT |\psi\rangle = \sum_{k=0}^{N-1} y_k |k\rangle
+QFT |\psi\rangle = \sum\_{k=0}^{N-1} y_k |k\rangle
 $$
 
-where the amplitudes $ y_k $ are given by:
+where the amplitudes $y_k$ are given by:
 
 $$
-y_k = \frac{1}{\sqrt{N}} \sum_{j=0}^{N-1} x_j e^{2\pi i jk / N}
+y*k = \frac{1}{\sqrt{N}} \sum*{j=0}^{N-1} x_j e^{2\pi i jk / N}
 $$
 
-For an **N-qubit system**, where $ N = 2^n $, QFT can be efficiently implemented using **quantum gates**.
+For an **N-qubit system**, where $N = 2^n$, QFT can be efficiently implemented using **quantum gates**.
 
 ---
 
-# **3. QFT on a Three-Qubit System ($ N = 2^3 = 8 $)**
+# **3. QFT on a Three-Qubit System ($N = 2^3 = 8$)**
 
 In a **three-qubit system**, we have **8 basis states**:
 
@@ -679,9 +679,9 @@ $$
 |0\rangle, |1\rangle, |2\rangle, ..., |7\rangle
 $$
 
-### **3.1 Matrix Representation of QFT for $ N = 8 $**
+### **3.1 Matrix Representation of QFT for $N = 8$**
 
-The QFT transformation for $ N = 8 $ is represented by the unitary matrix:
+The QFT transformation for $N = 8$ is represented by the unitary matrix:
 
 $$
 QFT_8 =
@@ -708,16 +708,16 @@ The QFT can be implemented efficiently using **Hadamard gates** and **controlled
 
 ### **4.1 Decomposition into Quantum Gates**
 
-For an $ n $-qubit system, the QFT can be implemented using the following steps:
+For an $n$-qubit system, the QFT can be implemented using the following steps:
 
-1. **Apply a Hadamard gate ($ H $)** to the first qubit.
-2. **Apply controlled-phase gates** $ R_k $ to introduce phase shifts based on other qubits.
+1. **Apply a Hadamard gate ($H$)** to the first qubit.
+2. **Apply controlled-phase gates** $R_k$ to introduce phase shifts based on other qubits.
 3. **Repeat for remaining qubits**.
 
 For a **three-qubit QFT**, the circuit consists of:
 
-- **Hadamard gates**: $ H $
-- **Controlled phase gates** $ R_k $ defined as:
+- **Hadamard gates**: $H$
+- **Controlled phase gates** $R_k$ defined as:
 
   $$
   R_k =
@@ -741,9 +741,9 @@ q2 ────┤ H ├───────┤ R₄       ├───┘   �
 
 Where:
 
-- $ R_2 $ applies a phase shift of $ e^{2\pi i / 4} $.
-- $ R_3 $ applies a phase shift of $ e^{2\pi i / 8} $.
-- $ R_4 $ applies a phase shift of $ e^{2\pi i / 16} $.
+- $R_2$ applies a phase shift of $e^{2\pi i / 4}$.
+- $R_3$ applies a phase shift of $e^{2\pi i / 8}$.
+- $R_4$ applies a phase shift of $e^{2\pi i / 16}$.
 
 ---
 
@@ -751,7 +751,7 @@ Where:
 
 ### **5.1 Complexity of QFT**
 
-A naive implementation of the DFT requires **$ O(N^2) $ operations**. However, QFT can be implemented in **$ O(n^2) $**, which is exponentially faster.
+A naive implementation of the DFT requires **$O(N^2)$ operations**. However, QFT can be implemented in **$O(n^2)$**, which is exponentially faster.
 
 ### **5.2 Applications of QFT**
 
@@ -764,3 +764,6 @@ A naive implementation of the DFT requires **$ O(N^2) $ operations**. However, Q
 # **Conclusion**
 
 The **Quantum Fourier Transform (QFT)** is a core component of quantum computing, enabling efficient transformations in **logarithmic time**. Its ability to encode periodicity makes it fundamental to **Shor’s algorithm** and **quantum phase estimation**. Using a **Hadamard gate** and **controlled-phase shifts**, QFT efficiently transforms quantum states, achieving **exponential speedup over classical Fourier transforms**.
+
+$$
+$$
