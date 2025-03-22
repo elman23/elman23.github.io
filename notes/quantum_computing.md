@@ -678,7 +678,7 @@ $$
 using the formula:
 
 $$
-y_k = \frac{1}{\sqrt{N}} \sum{j=0}^{N-1} x_j e^{2\pi i jk / N}, \quad k = 0, 1, ..., N-1
+y_k = \frac{1}{\sqrt{N}} \sum_{j=0}^{N-1} x_j e^{2\pi i jk / N}, \quad k = 0, 1, ..., N-1
 $$
 
 where $e^{2\pi i / N}$ is the **primitive $N$-th root of unity**.
@@ -697,19 +697,19 @@ The **Quantum Fourier Transform (QFT)** applies the same transformation but in a
 The **Quantum Fourier Transform** acts on a quantum state:
 
 $$
-|\psi\rangle = \sum\_{j=0}^{N-1} x_j |j\rangle
+|\psi\rangle = \sum_{j=0}^{N-1} x_j |j\rangle
 $$
 
 and transforms it into:
 
 $$
-QFT |\psi\rangle = \sum\_{k=0}^{N-1} y_k |k\rangle
+QFT |\psi\rangle = \sum_{k=0}^{N-1} y_k |k\rangle
 $$
 
 where the amplitudes $y_k$ are given by:
 
 $$
-y*k = \frac{1}{\sqrt{N}} \sum*{j=0}^{N-1} x_j e^{2\pi i jk / N}
+y_k = \frac{1}{\sqrt{N}} \sum_{j=0}^{N-1} x_j e^{2\pi i jk / N}
 $$
 
 For an **N-qubit system**, where $N = 2^n$, QFT can be efficiently implemented using **quantum gates**.
