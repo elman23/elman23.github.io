@@ -59,12 +59,12 @@ X =
 \begin{bmatrix}
 0 & 1 \\
 1 & 0
-\end{bmatrix},
+\end{bmatrix},\quad
 Y =
 \begin{bmatrix}
 0 & -i \\
 i & 0
-\end{bmatrix},
+\end{bmatrix},\quad
 Z =
 \begin{bmatrix}
 1 & 0 \\
