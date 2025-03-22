@@ -663,13 +663,25 @@ The **Quantum Fourier Transform (QFT)** is the quantum analog of the **Discrete 
 
 # **1. Discrete Fourier Transform (DFT)**
 
-In classical computation, the **Discrete Fourier Transform (DFT)** maps a vector $(x*0, x_1, \dots, x*{N-1})$ to another vector $(y*0, y_1, \dots, y*{N-1})$ using the formula:
+In classical computation, the **Discrete Fourier Transform (DFT)** maps a vector
 
 $$
-y*k = \frac{1}{\sqrt{N}} \sum*{j=0}^{N-1} x_j e^{2\pi i jk / N}, \quad k = 0, 1, ..., N-1
+x*0, x_1, \dots, x*{N-1}
 $$
 
-where $e^{2\pi i / N}$ is the **primitive N-th root of unity**.
+to another vector
+
+$$
+y*0, y_1, \dots, y*{N-1}
+$$
+
+using the formula:
+
+$$
+y*k = \frac{1}{\sqrt{N}} \sum{j=0}^{N-1} x_j e^{2\pi i jk / N}, \quad k = 0, 1, ..., N-1
+$$
+
+where $e^{2\pi i / N}$ is the **primitive $N$-th root of unity**.
 
 ### **Key Features of the DFT**
 
