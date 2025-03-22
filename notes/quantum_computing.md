@@ -75,7 +75,11 @@ $$
 #### **Hadamard Gate $H$**: Creates superposition.
 
 $$
-H = \frac{1}{\sqrt{2}} \begin{bmatrix} 1 & 1 \\ 1 & -1 \end{bmatrix}.
+H = \frac{1}{\sqrt{2}}
+\begin{bmatrix}
+1 & 1 \\
+1 & -1
+\end{bmatrix}.
 $$
 
 Applying $H$ to $|0\rangle$ gives:
