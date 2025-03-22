@@ -158,7 +158,7 @@ Make an example of a simple quantum computing algorithm, explaining all the pass
 Below is an example of the **Deutsch algorithm**—one of the simplest quantum algorithms that illustrates quantum parallelism and interference. This algorithm determines whether a Boolean function
 
 $$
-f:\left{ 0,1\right} \to \left{ 0,1 \right}
+f:\{ 0,1\} \to \{ 0,1 \}
 $$
 
 is constant (same output for both inputs) or balanced (different outputs for the two inputs) with a single evaluation (query) of the function, compared to two queries classically.
