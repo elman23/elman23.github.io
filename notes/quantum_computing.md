@@ -55,9 +55,24 @@ $$
 #### **Pauli Matrices**:
 
 $$
-X = \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix}, \quad
-Y = \begin{bmatrix} 0 & -i \\ i & 0 \end{bmatrix}, \quad
-Z = \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}.
+X =
+\begin{bmatrix}
+0 & 1 \\ 1 & 0
+\end{bmatrix},
+$$
+
+$$
+Y =
+\begin{bmatrix}
+0 & -i \\ i & 0
+\end{bmatrix},
+$$
+
+$$
+Z =
+\begin{bmatrix}
+1 & 0 \\ 0 & -1
+\end{bmatrix}.
 $$
 
 #### **Hadamard Gate $H$**: Creates superposition.
@@ -781,6 +796,3 @@ A naive implementation of the DFT requires **$O(N^2)$ operations**. However, QFT
 # **Conclusion**
 
 The **Quantum Fourier Transform (QFT)** is a core component of quantum computing, enabling efficient transformations in **logarithmic time**. Its ability to encode periodicity makes it fundamental to **Shor’s algorithm** and **quantum phase estimation**. Using a **Hadamard gate** and **controlled-phase shifts**, QFT efficiently transforms quantum states, achieving **exponential speedup over classical Fourier transforms**.
-
-$$
-$$
