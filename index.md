@@ -6,18 +6,18 @@ Welcome to ElMan23 GitHub Pages!
 
 I have a background in pure Mathematics.
 
-I have some experience with pure research (I have a PhD); for some years I worked as a teacher, both at high school and at university (as assistant).
+I have some experience with pure research (I have a PhD); for some years I worked as a teacher, both at high school and as university assistant.
 
-I currently work as Software Developer.
+I currently work in the field of Software Developement.
 
 I have some experience with different aspects of software development, delivery, testing, system management.
 
 My role gives me the opportunity to get some hands-on experience with:
 
-- backend development (Java: Spring Boot, Python: Django, Flask, FastAPI);
+- backend development (Java: Spring Boot, Python: Django, FastAPI);
 - database management (Postgres, MySQL, MongoDB);
 - deployment, containerization (Docker), CI/CD, DevOps practices;
-- Linux system management.
+- Linux and Windows system management.
 
 ## Interests
 
@@ -34,22 +34,25 @@ My interests in the field of Computer Science lie mostly in the following:
 
 Technologies I came in contact with:
 
-- Java, Spring Boot, Vaadin;
-- JavaScript, TypeScript, NodeJS;
-- Python, FastAPI;
+- Java: Spring Boot, Vaadin, Maven;
+- Python: Django, FastAPI;
+- JavaScript: TypeScript, NodeJS, Angular, React;
 - Jupyter Notebooks, Jupyter Lab, notebooks (Kaggle, Colab);
-- A little bit of Angular (mainly for frontend mantainment);
-- PowerShell and Bash;
-- Docker, Docker Compose, Docker Swarm;
-- GitHub, GitLab;
-- PostgreSQL, MySQL, MongoDB, InfluxDB.
+- Scripting: PowerShell and Bash;
+- Containerization: Docker, Docker Compose, Docker Swarm;
+- VCS: GitHub, GitLab, Bitbucket;
+- Databases: PostgreSQL, MySQL, MongoDB, InfluxDB.
 
 ## Other Interests
 
 What I'd like to learn / I am currently experimenting:
 
-- Machine Learning: [Seth Weidman](https://github.com/SethHWeidman)'s [Deep learning from scratch](https://github.com/elman23/DeepLearningFromScratch), [Andrej Karpathy](https://github.com/karpathy)'s [nanoGPT](https://github.com/elman23/nanoGPT) and [Neural networks from zero to hero](https://github.com/elman23/nn-zero-to-hero);
-- Rust programming languange: [Rustlings](https://github.com/elman23/rustlings) and [100 exercises to learn Rust](https://github.com/elman23/100-exercises-to-learn-rust);
+- Machine Learning:
+  - [Seth Weidman](https://github.com/SethHWeidman)'s [Deep learning from scratch](https://github.com/elman23/DeepLearningFromScratch),
+  - [Andrej Karpathy](https://github.com/karpathy)'s [nanoGPT](https://github.com/elman23/nanoGPT) and [Neural networks from zero to hero](https://github.com/elman23/nn-zero-to-hero);
+- Rust programming languange:
+  - [Rustlings](https://github.com/elman23/rustlings),
+  - [100 exercises to learn Rust](https://github.com/elman23/100-exercises-to-learn-rust);
 - Go programming language;
 - Python for API development;
 - Kubernetes;
@@ -73,7 +76,7 @@ Some applications I have developed as a _base_ for additional freatures:
 <!--
 ## Notes
 
-Some interesting notes I wrote down (the result is quite quick and dirty):
+Some notes I wrote down (the result is quite quick and dirty):
 
 - [Attention](notes/attention.pdf) for transformers, following [3B1B presentation](https://www.youtube.com/watch?v=eMlx5fFNoYc&t=269s).
 -->
