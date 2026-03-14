@@ -44,7 +44,7 @@ Programming languages:
   - FastAPI;
 - Rust: I'm interested in the language and I'm learning it by coding stuff @ [CodeCrafters](https://codecrafters.io/);
 
-I know a few basics about frontend development: I happened to meet with:
+I know very few about frontend development: I happened to meet with:
 - TypeScript, 
 - NodeJS, 
 - Angular, 
