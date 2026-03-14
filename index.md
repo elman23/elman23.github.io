@@ -30,6 +30,8 @@ My interests in the field of Computer Science lie mostly in the following:
 - Scripting and system administration;
 - Cybersecurity.
 
+I love to thinker with machines and try to learn how they actually work.
+
 ## Technologies
 
 Here I list some technologies I came in contact with.
@@ -46,7 +48,6 @@ Programming languages:
 
 I know very few about frontend development: I happened to meet with:
 - TypeScript, 
-- NodeJS, 
 - Angular, 
 - React.
 
