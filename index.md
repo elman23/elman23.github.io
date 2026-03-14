@@ -32,17 +32,53 @@ My interests in the field of Computer Science lie mostly in the following:
 
 ## Technologies
 
-Technologies I came in contact with:
+Here I list some technologies I came in contact with.
 
-- Java: Spring Boot, Vaadin, Maven;
-- Python: Django, FastAPI;
-- JavaScript: TypeScript, NodeJS, Angular, React;
+Programming languages:
+- Java: 
+  - Spring Boot, 
+  - Vaadin;
+- Python: 
+  - Flask, 
+  - Django, 
+  - FastAPI;
 - Rust: I'm interested in the language and I'm learning it by coding stuff @ [CodeCrafters](https://codecrafters.io/);
-- Jupyter Notebooks, Jupyter Lab, notebooks (Kaggle, Colab);
-- Scripting: PowerShell and Bash;
-- Containerization: Docker, Docker Compose, Docker Swarm;
-- VCS: GitHub, GitLab, Bitbucket;
-- Databases: PostgreSQL, MySQL, MongoDB, InfluxDB.
+
+I know a few basics about frontend development: I happened to meet with:
+- TypeScript, 
+- NodeJS, 
+- Angular, 
+- React.
+
+Machine learning:
+- Jupyter Notebooks, 
+- Jupyter Lab, 
+- Kaggle, 
+- Colab.
+
+Scripting:
+- PowerShell,
+- Bash. 
+
+Containerization: 
+- Docker, 
+- Docker Compose, 
+- Docker Swarm.
+
+Infrastructure provisioning:
+- Terraform,
+- Ansible.
+ 
+VCS: 
+- GitHub, 
+- GitLab, 
+- Bitbucket.
+
+Databases: 
+- PostgreSQL, 
+- MySQL, 
+- MongoDB, 
+- InfluxDB.
 
 ## Other Interests
 
