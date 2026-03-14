@@ -37,6 +37,7 @@ Technologies I came in contact with:
 - Java: Spring Boot, Vaadin, Maven;
 - Python: Django, FastAPI;
 - JavaScript: TypeScript, NodeJS, Angular, React;
+- Rust: I'm interested in the language and I'm learning it by coding stuff @ [CodeCrafters](https://codecrafters.io/);
 - Jupyter Notebooks, Jupyter Lab, notebooks (Kaggle, Colab);
 - Scripting: PowerShell and Bash;
 - Containerization: Docker, Docker Compose, Docker Swarm;
@@ -52,13 +53,14 @@ What I'd like to learn / I am currently experimenting:
   - [Andrej Karpathy](https://github.com/karpathy)'s [nanoGPT](https://github.com/elman23/nanoGPT) and [Neural networks from zero to hero](https://github.com/elman23/nn-zero-to-hero);
 - Rust programming languange:
   - [Rustlings](https://github.com/elman23/rustlings),
-  - [100 exercises to learn Rust](https://github.com/elman23/100-exercises-to-learn-rust);
-- Go programming language;
-- Python for API development;
-- Kubernetes;
-- React for frontend development;
-- Android app development;
-- Kernel stuff.
+  - [100 exercises to learn Rust](https://github.com/elman23/100-exercises-to-learn-rust),
+  - I'm improving my Rust knowledge by working on projects @ [CodeCrafters](https://codecrafters.io/).
+<!-- - Go programming language; -->
+<!-- - Python for API development; -->
+<!-- - Kubernetes; -->
+<!-- - React for frontend development; -->
+<!-- - Android app development; -->
+<!-- - Kernel stuff. -->
 
 ## Portfolio
 
