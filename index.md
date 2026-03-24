@@ -112,6 +112,10 @@ Some applications I have developed as a _base_ for additional freatures:
 - [Post App](https://github.com/elman23/postapp): [FastAPI](https://fastapi.tiangolo.com/) (Python) project implementing basic "social media like post" functionality with authentication, users, database support.
 - [Article API](https://github.com/elman23/articleapi): [Gorilla](https://gorilla.github.io/) (Go) REST API for articles with authentication and database support.
 
+CodeCrafters' challenges:
+- [Build your own shell](https://github.com/elman23/codecrafters-shell-rust) in Rust,
+- [Build your own HTTP server](https://github.com/elman23/codecrafters-http-server-rust) in Rust.
+
 <!--
 ## Notes
 
