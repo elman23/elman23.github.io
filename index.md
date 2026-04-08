@@ -113,7 +113,7 @@ Some applications I have developed as a _base_ for additional freatures:
 - [Article API](https://github.com/elman23/articleapi): [Gorilla](https://gorilla.github.io/) (Go) REST API for articles with authentication and database support.
 
 CodeCrafters' challenges:
-- [Build your own shell](https://github.com/elman23/codecrafters-shell-rust) in Rust,
+- [Build your own shell](https://github.com/elman23/codecrafters-shell-rust) in Rust.
 - [Build your own HTTP server](https://github.com/elman23/codecrafters-http-server-rust) in Rust.
 - [Build your own DNS server](https://github.com/elman23/codecrafters-dns-server-rust) in Rust.
 
