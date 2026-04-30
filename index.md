@@ -57,7 +57,7 @@ Databases: PostgreSQL, [TimescaleDB](https://github.com/timescale/timescaledb), 
 
 ## Other Interests
 
-What I'd like to learn / I am currently experimenting:
+What I'd like to learn / I am currently experimenting with:
 
 - Machine Learning:
   - [Seth Weidman](https://github.com/SethHWeidman)'s [Deep learning from scratch](https://github.com/elman23/DeepLearningFromScratch),
