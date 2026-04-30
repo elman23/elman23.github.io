@@ -37,49 +37,23 @@ I love to thinker with machines and try to learn how they actually work.
 Here I list some technologies I came in contact with.
 
 Programming languages:
-- Java: 
-  - Spring Boot, 
-  - Vaadin;
-- Python: 
-  - Flask, 
-  - Django, 
-  - FastAPI;
+- Java: Spring Boot, Vaadin;
+- Python: Flask, Django, FastAPI;
 - Rust: I'm interested in the language and I'm learning it by coding stuff @ [CodeCrafters](https://codecrafters.io/);
 
-I know very few about frontend development: I happened to meet with:
-- TypeScript, 
-- Angular, 
-- React.
+I know very few about frontend development: I happened to meet with: TypeScript, Angular, React.
 
-Machine learning:
-- Jupyter Notebooks, 
-- Jupyter Lab, 
-- Kaggle, 
-- Colab.
+Machine learning: Jupyter Notebooks, Jupyter Lab, Kaggle, Colab.
 
-Scripting:
-- PowerShell,
-- Bash. 
+Scripting: PowerShell, Bash. 
 
-Containerization: 
-- Docker, 
-- Docker Compose, 
-- Docker Swarm.
+Containerization: Docker, Docker Compose, Docker Swarm.
 
-Infrastructure provisioning:
-- Terraform,
-- Ansible.
+Infrastructure provisioning: Terraform, Ansible.
  
-VCS: 
-- GitHub, 
-- GitLab, 
-- Bitbucket.
+VCS: GitHub, GitLab, Bitbucket.
 
-Databases: 
-- PostgreSQL, 
-- MySQL, 
-- MongoDB, 
-- InfluxDB.
+Databases: PostgreSQL, [TimescaleDB](https://github.com/timescale/timescaledb), MySQL & MariaDB, MongoDB, InfluxDB.
 
 ## Other Interests
 
