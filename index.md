@@ -41,7 +41,7 @@ Programming languages:
 - Python: Flask, Django, FastAPI;
 - Rust: I'm interested in the language and I'm learning it by coding stuff @ [CodeCrafters](https://codecrafters.io/);
 
-I know very few about frontend development: I happened to meet with: TypeScript, Angular, React.
+I know very few about frontend development: I happened to meet with TypeScript, Angular, React.
 
 Machine learning: Jupyter Notebooks, Jupyter Lab, Kaggle, Colab.
 
