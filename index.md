@@ -37,6 +37,7 @@ I love to thinker with machines and try to learn how they actually work.
 Here I list some technologies I came in contact with.
 
 Programming languages:
+
 - Java: Spring Boot, Vaadin;
 - Python: Flask, Django, FastAPI;
 - Rust: I'm interested in the language and I'm learning it by coding stuff @ [CodeCrafters](https://codecrafters.io/);
@@ -45,12 +46,12 @@ I know very few about frontend development: I happened to meet with TypeScript, 
 
 Machine learning: Jupyter Notebooks, Jupyter Lab, Kaggle, Colab.
 
-Scripting: PowerShell, Bash. 
+Scripting: PowerShell, Bash.
 
 Containerization: Docker, Docker Compose, Docker Swarm.
 
 Infrastructure provisioning: Terraform, Ansible.
- 
+
 VCS: GitHub, GitLab, Bitbucket.
 
 Databases: PostgreSQL, [TimescaleDB](https://github.com/timescale/timescaledb), MySQL & MariaDB, MongoDB, InfluxDB.
@@ -66,12 +67,12 @@ What I'd like to learn / I am currently experimenting with:
   - [Rustlings](https://github.com/elman23/rustlings),
   - [100 exercises to learn Rust](https://github.com/elman23/100-exercises-to-learn-rust),
   - I'm improving my Rust knowledge by working on projects @ [CodeCrafters](https://codecrafters.io/).
-<!-- - Go programming language; -->
-<!-- - Python for API development; -->
-<!-- - Kubernetes; -->
-<!-- - React for frontend development; -->
-<!-- - Android app development; -->
-<!-- - Kernel stuff. -->
+    <!-- - Go programming language; -->
+    <!-- - Python for API development; -->
+    <!-- - Kubernetes; -->
+    <!-- - React for frontend development; -->
+    <!-- - Android app development; -->
+    <!-- - Kernel stuff. -->
 
 ## Portfolio
 
@@ -87,9 +88,11 @@ Some applications I have developed as a _base_ for additional freatures:
 - [Article API](https://github.com/elman23/articleapi): [Gorilla](https://gorilla.github.io/) (Go) REST API for articles with authentication and database support.
 
 CodeCrafters' challenges:
+
 - [Build your own shell](https://github.com/elman23/codecrafters-shell-rust) in Rust.
 - [Build your own HTTP server](https://github.com/elman23/codecrafters-http-server-rust) in Rust.
 - [Build your own DNS server](https://github.com/elman23/codecrafters-dns-server-rust) in Rust.
+- Build your own Claude Code in Python: in progress.
 
 <!--
 ## Notes
