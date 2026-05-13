@@ -92,7 +92,7 @@ CodeCrafters' challenges:
 - [Build your own shell](https://github.com/elman23/codecrafters-shell-rust) in Rust.
 - [Build your own HTTP server](https://github.com/elman23/codecrafters-http-server-rust) in Rust.
 - [Build your own DNS server](https://github.com/elman23/codecrafters-dns-server-rust) in Rust.
-- Build your own Claude Code in Python: in progress.
+- [Build your own Claude Code](https://github.com/elman23/codecrafters-claude-code-python) in Python.
 
 <!--
 ## Notes
