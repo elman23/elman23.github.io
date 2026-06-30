@@ -93,6 +93,7 @@ CodeCrafters' challenges:
 - [Build your own HTTP server](https://github.com/elman23/codecrafters-http-server-rust) in Rust.
 - [Build your own DNS server](https://github.com/elman23/codecrafters-dns-server-rust) in Rust.
 - [Build your own Claude Code](https://github.com/elman23/codecrafters-claude-code-python) in Python.
+- [Build your own BitTorrent](https://github.com/elman23/codecrafters-bittorrent-rust) in Rust.
 
 <!--
 ## Notes
