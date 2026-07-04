@@ -86,6 +86,7 @@ Some applications I have developed as a _base_ for additional freatures:
 - [Rust Book App](https://github.com/elman23/rust-book-app): written in Rust, REST API with PostgreSQL database.
 - [Post App](https://github.com/elman23/postapp): [FastAPI](https://fastapi.tiangolo.com/) (Python) project implementing basic "social media like post" functionality with authentication, users, database support.
 - [Article API](https://github.com/elman23/articleapi): [Gorilla](https://gorilla.github.io/) (Go) REST API for articles with authentication and database support.
+- [Simple database](https://github.com/elman23/simpledb): A Rust port of the simple database implementation presented in a [Baeldung tutorial](https://www.baeldung.com/linux/c-language-implement-db).
 
 CodeCrafters' challenges:
 
